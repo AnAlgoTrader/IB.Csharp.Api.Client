@@ -10,5 +10,9 @@ namespace IB.Api.Client.Examples
         {
             Console.WriteLine($"Type:{notification.NotificationType} Code:{notification.Code} Id:{notification.Id} Message:{notification.Message}");
         }
+        public static void KeepConsoleAlive()
+        {
+            Console.ReadLine();
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using IB.Api.Client.Client;
 using IB.Api.Client.Client.Model;
@@ -21,6 +22,10 @@ namespace IB.Api.Client.Helper
                 }
             })
             { IsBackground = true }.Start();
+
+            //Force the thread to sleep in order to get all notifications from the gateway before going ahead
+            Thread.Sleep(TimeSpan.FromSeconds(5));
+            
             return ibClient;
         }
     }

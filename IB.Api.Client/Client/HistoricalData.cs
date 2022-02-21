@@ -19,6 +19,16 @@ namespace IB.Api.Client.Client
                 end = DateHelper.ConvertToApiDate(endTime);
             ClientSocket.reqHistoricalData(reqId, contract, end, duration.GetDuration(), BarSize.OneMinute, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
         }
+        public void GetTimeAndSales(int reqId, Contract contract, DateTime start, WhatToShow whatToShow)
+        {
+            var allowedTicks = new List<WhatToShow> { WhatToShow.TRADES, WhatToShow.BID_ASK, WhatToShow.MIDPOINT };
+            if (allowedTicks.Contains(whatToShow))
+            {
+                var startTime = DateHelper.ConvertToApiDate(start);
+                ClientSocket.reqHistoricalTicks(reqId, contract, startTime, null, 10, whatToShow.ToString(), 1, true, null);
+            }
+            else Console.WriteLine($"{DateTime.Now} whatToShow tick not allowed");
+        }
         public void historicalData(int reqId, Bar bar)
         {
             _historicalData[reqId].Add(bar);

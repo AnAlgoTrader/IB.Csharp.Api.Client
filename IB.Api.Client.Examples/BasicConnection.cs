@@ -12,9 +12,6 @@ namespace IB.Api.Client.Examples
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(NotificationReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-
-            //keep the console alive
-            Console.ReadLine();
         }
         private static void NotificationReceived(object sender, Notification notification)
         {

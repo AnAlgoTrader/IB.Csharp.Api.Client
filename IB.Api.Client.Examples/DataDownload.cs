@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
 using IB.Api.Client.Client;
 using IB.Api.Client.Client.Model;
 using IB.Api.Client.Helper;
@@ -24,30 +21,28 @@ namespace IB.Api.Client.Examples
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient.HistoricalDataUpdateEndReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
-            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-            Thread.Sleep(TimeSpan.FromSeconds(5));
+            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);            
 
             var duration = new Duration { Unit = 1, DurationType = DurationType.D };
             ibClient.GetHistoricalData(1005, _contract, DateTime.Now, duration, BarSize.FiveMinutes, WhatToShow.MIDPOINT, Rth.No, false);
-
-            //keep the console alive
-            Console.ReadLine();
         }
         public static void RunDownloadWithUpdates(ConnectionDetails connectionDetails)
         {
-
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient.HistoricalDataUpdateEndReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
             ibClient.BarUpdateReceived += new EventHandler<BarUpdate>(BarUpdateReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-            Thread.Sleep(TimeSpan.FromSeconds(5));
 
             var duration = new Duration { Unit = 1, DurationType = DurationType.D };
             ibClient.GetHistoricalData(1005, _contract, DateTime.Now, duration, BarSize.FiveMinutes, WhatToShow.MIDPOINT, Rth.No, true);
-
-            //keep the console alive
-            Console.ReadLine();
+        }
+        public static void RunGetTimeAndSales(ConnectionDetails connectionDetails)
+        {
+            var ibClient = new IBClient();
+            ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
+            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
+            ibClient.GetTimeAndSales(1005, _contract, DateTime.Now, WhatToShow.ADJUSTED_LAST);
         }
         private static void BarUpdateReceived(object sender, BarUpdate barUpdate)
         {
@@ -55,12 +50,11 @@ namespace IB.Api.Client.Examples
         }
         private static void HistoricalDataUpdateEndReceived(object sender, Tuple<int, List<Bar>> data)
         {
-            var fileName = $"./{data.Item1}.csv";
-            Console.WriteLine($"{DateTime.Now}: Save historical data to file: {fileName}");
-            var csvData = data.Item2.Select(x =>
-                $"{x.Open},{x.Close},{x.High},{x.Low},{x.Volume}"
-            ).ToList();
-            File.WriteAllLines(fileName, csvData);
+            Console.WriteLine($"{DateTime.Now}: Historical data received");
+            data.Item2.ForEach(x =>
+            {
+                Console.WriteLine($"{x.Open},{x.Close},{x.High},{x.Low},{x.Volume}");
+            });
         }
     }
 }

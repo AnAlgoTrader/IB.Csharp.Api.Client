@@ -13,7 +13,8 @@ namespace IB.Api.Client.Examples
                 Port = 4002,
                 ClientId = 0
             };
-            DataDownload.RunDownloadWithUpdates(connectionDetails);
+            DataDownload.RunGetTimeAndSales(connectionDetails);
+            Common.KeepConsoleAlive();
         }        
     }
 }

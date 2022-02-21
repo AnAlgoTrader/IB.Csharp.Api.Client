@@ -1,7 +1,4 @@
-﻿using System;
-using IB.Api.Client.Client;
-using IB.Api.Client.Client.Model;
-using IB.Api.Client.Helper;
+﻿using IB.Api.Client.Client.Model;
 
 namespace IB.Api.Client.Examples
 {
@@ -16,7 +13,7 @@ namespace IB.Api.Client.Examples
                 Port = 4002,
                 ClientId = 0
             };
-            BasicConnection.Run(connectionDetails);
+            DataDownload.RunBasicDownload(connectionDetails);
         }        
     }
 }

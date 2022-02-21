@@ -38,7 +38,7 @@ namespace IB.Api.Client.Client
                 Id = id,
                 Code = code,
                 Message = errorMsg,
-                NotificationType = NotificationType.Information
+                NotificationType = errorMsg.ToUpper().Contains("ERROR")? NotificationType.Error : NotificationType.Information
             };
             NotificationReceived?.Invoke(this, notification);
         }

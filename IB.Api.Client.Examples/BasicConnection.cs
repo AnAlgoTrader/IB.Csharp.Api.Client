@@ -16,7 +16,6 @@ namespace IB.Api.Client.Examples
             //keep the console alive
             Console.ReadLine();
         }
-
         private static void NotificationReceived(object sender, Notification notification)
         {
             Console.WriteLine($"Type:{notification.NotificationType} Code:{notification.Code} Id:{notification.Id} Message:{notification.Message}");

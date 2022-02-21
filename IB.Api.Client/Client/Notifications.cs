@@ -55,11 +55,11 @@ namespace IB.Api.Client.Client
         }
         public void connectAck()
         {
-            throw new NotImplementedException();
+            Notify("Connection Acknowledged");
         }
         public void connectionClosed()
         {
-            throw new NotImplementedException();
+            Notify("Connection Closed");
         }
     }
 }

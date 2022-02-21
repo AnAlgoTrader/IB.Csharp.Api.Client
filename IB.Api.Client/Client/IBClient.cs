@@ -28,7 +28,7 @@ namespace IB.Api.Client.Client
         public void nextValidId(int orderId)
         {
             NextOrderId = orderId;
-            Notify($"Next valid id available ({orderId})");
+            Notify($"Next valid Order Id ({orderId})");
         }
 
         public void bondContractDetails(int reqId, ContractDetails contract)

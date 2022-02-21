@@ -9,12 +9,15 @@ namespace IB.Api.Client.Client
     public partial class IBClient
     {
         private Dictionary<int, List<Bar>> _historicalData = new Dictionary<int, List<Bar>>();
-        public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataUpdateReceived;
-        public void GetHistoricalData(int reqId, Contract contract, DateTime endTime,  Duration duration, string barSize, WhatToShow whatToShow, Rth rth)
+        public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataUpdateEndReceived;
+        public event EventHandler<BarUpdate> BarUpdateReceived;
+        public void GetHistoricalData(int reqId, Contract contract, DateTime endTime, Duration duration, string barSize, WhatToShow whatToShow, Rth rth, bool keepUpToDate)
         {
             _historicalData.Add(reqId, new List<Bar>());
-            var end = DateHelper.ConvertToApiDate(endTime);
-            ClientSocket.reqHistoricalData(reqId, contract, end, duration.GetDuration(), BarSize.OneMinute, whatToShow.ToString(), (int)rth, 1, false, null);
+            string end = string.Empty;
+            if (!keepUpToDate)
+                end = DateHelper.ConvertToApiDate(endTime);
+            ClientSocket.reqHistoricalData(reqId, contract, end, duration.GetDuration(), BarSize.OneMinute, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
         }
         public void historicalData(int reqId, Bar bar)
         {
@@ -23,11 +26,16 @@ namespace IB.Api.Client.Client
         public void historicalDataEnd(int reqId, string startDate, string endDate)
         {
             var data = _historicalData[reqId];
-            HistoricalDataUpdateReceived?.Invoke(this, new Tuple<int, List<Bar>>(reqId, data));
+            HistoricalDataUpdateEndReceived?.Invoke(this, new Tuple<int, List<Bar>>(reqId, data));
         }
         public void historicalDataUpdate(int reqId, Bar bar)
         {
-            throw new NotImplementedException();
+            var barUpdate = new BarUpdate
+            {
+                RequestId = reqId,
+                Bar = bar
+            };
+            BarUpdateReceived?.Invoke(this, barUpdate);
         }
         public void historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
         {

@@ -9,24 +9,14 @@ namespace IB.Api.Client.Examples
     {
         static void Main(string[] args)
         {
+            //double check your connection details within your TWS/Gateway settings
             var connectionDetails = new ConnectionDetails
             {
                 Host = "127.0.0.1",
                 Port = 4002,
                 ClientId = 0
             };
-
-            var ibClient = new IBClient();
-            ibClient.NotificationReceived += new EventHandler<Notification>(NotificationReceived);
-            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-
-            //keep the console alive
-            Console.ReadLine();
-        }
-
-        private static void NotificationReceived(object sender, Notification notification)
-        {
-            Console.WriteLine($"Type:{notification.NotificationType} Code:{notification.Code} Id:{notification.Id} Message:{notification.Message}");
-        }
+            BasicConnection.Run(connectionDetails);
+        }        
     }
 }

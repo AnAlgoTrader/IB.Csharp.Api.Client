@@ -13,17 +13,12 @@ namespace IB.Api.Client
             get { return _nextOrderId; }
             set { _nextOrderId = value; }
         }
-        private EClientSocket _clientSocket;
-        public EClientSocket ClientSocket
-        {
-            get { return _clientSocket; }
-            set { _clientSocket = value; }
-        }
+        public readonly EClientSocket ClientSocket;
         public readonly EReaderSignal Signal;
         public IBClient()
         {
             Signal = new EReaderMonitorSignal();
-            _clientSocket = new EClientSocket(this, Signal);
+            ClientSocket = new EClientSocket(this, Signal);
         }
         public void nextValidId(int orderId)
         {

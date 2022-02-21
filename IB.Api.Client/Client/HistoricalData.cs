@@ -36,7 +36,6 @@ namespace IB.Api.Client
             }
             else NotifyError($"WhatToShow tick type: {whatToShow} not allowed");
         }
-
         private void InitializeHistoricalTickDictionary(int reqId, WhatToShow whatToShow)
         {
             switch(whatToShow){
@@ -53,7 +52,6 @@ namespace IB.Api.Client
                     }
             }
         }
-
         public void historicalData(int reqId, Bar bar)
         {
             _historicalData[reqId].Add(bar);
@@ -71,24 +69,7 @@ namespace IB.Api.Client
                 Bar = bar
             };
             BarUpdateReceived?.Invoke(this, barUpdate);
-        }
-        public void historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
-        {
-            throw new NotImplementedException();
-        }
-        public void historicalNewsEnd(int requestId, bool hasMore)
-        {
-            throw new NotImplementedException();
-        }
-        public void newsArticle(int requestId, int articleType, string articleText)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void newsProviders(NewsProvider[] newsProviders)
-        {
-            throw new NotImplementedException();
-        }
+        }       
         public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
         {
             _historicalTicks[reqId].AddRange(ticks);

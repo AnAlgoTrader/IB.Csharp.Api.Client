@@ -1,6 +1,6 @@
 using System;
 
-namespace IB.Api.Client.Client.Model
+namespace IB.Api.Client.Model
 {
     /// <summary>
     /// Ref: https://interactivebrokers.github.io/tws-api/historical_bars.html#hd_duration

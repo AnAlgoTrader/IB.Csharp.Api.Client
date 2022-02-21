@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IB.Api.Client.Client
+namespace IB.Api.Client
 {
     //Acounts
     public partial class IBClient

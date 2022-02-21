@@ -1,6 +1,6 @@
-using IB.Api.Client.Client.Model;
+using IB.Api.Client.Model;
 
-namespace IB.Api.Client.Client
+namespace IB.Api.Client
 {
     public class Notification
     {

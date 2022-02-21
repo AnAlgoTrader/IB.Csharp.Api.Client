@@ -1,6 +1,6 @@
 using IB.Api.Client.Proprietary;
 
-namespace IB.Api.Client.Client.Model
+namespace IB.Api.Client.Model
 {
     public class BarUpdate
     {

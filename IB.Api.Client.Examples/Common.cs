@@ -1,6 +1,4 @@
 using System;
-using IB.Api.Client.Client;
-using IB.Api.Client.Client.Model;
 
 namespace IB.Api.Client.Examples
 {

@@ -1,4 +1,4 @@
-namespace IB.Api.Client.Client.Model
+namespace IB.Api.Client.Model
 {
 
     /// <summary>

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using IB.Api.Client.Client.Model;
+using IB.Api.Client.Model;
 using IB.Api.Client.Helper;
 using IB.Api.Client.Proprietary;
 
-namespace IB.Api.Client.Client
+namespace IB.Api.Client
 {
     public partial class IBClient
     {
@@ -23,6 +23,7 @@ namespace IB.Api.Client.Client
             if (!keepUpToDate)
                 end = DateHelper.ConvertToApiDate(endTime);
             ClientSocket.reqHistoricalData(reqId, contract, end, duration.GetDuration(), BarSize.OneMinute, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
+            Notify($"Historical data for symbol {contract.Symbol} requested");
         }
         public void GetHistoricalTimeAndSales(int reqId, Contract contract, DateTime start, WhatToShow whatToShow)
         {
@@ -76,6 +77,15 @@ namespace IB.Api.Client.Client
             throw new NotImplementedException();
         }
         public void historicalNewsEnd(int requestId, bool hasMore)
+        {
+            throw new NotImplementedException();
+        }
+        public void newsArticle(int requestId, int articleType, string articleText)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void newsProviders(NewsProvider[] newsProviders)
         {
             throw new NotImplementedException();
         }

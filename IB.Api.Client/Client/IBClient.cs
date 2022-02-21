@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using IB.Api.Client.Proprietary;
 
-namespace IB.Api.Client.Client
+namespace IB.Api.Client
 {
     //Main
     public partial class IBClient : EWrapper
@@ -124,17 +124,7 @@ namespace IB.Api.Client.Client
         public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions)
         {
             throw new NotImplementedException();
-        }
-
-        public void newsArticle(int requestId, int articleType, string articleText)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void newsProviders(NewsProvider[] newsProviders)
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         public void openOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using IB.Api.Client.Client;
-using IB.Api.Client.Client.Model;
+using IB.Api.Client;
+using IB.Api.Client.Model;
 using IB.Api.Client.Helper;
 using IB.Api.Client.Proprietary;
 
@@ -47,6 +47,13 @@ namespace IB.Api.Client.Examples
                 new EventHandler<Tuple<int, List<HistoricalTickBidAsk>>>(TimeAndSalesHistoricalTickBidAskUpdateReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
             ibClient.GetHistoricalTimeAndSales(1005, _contract, DateTime.Now.AddDays(-1), WhatToShow.TRADES);
+        }
+        public static void RunGetNews(ConnectionDetails connectionDetails)
+        {
+             var ibClient = new IBClient();
+            ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
+            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
+
         }
         private static void TimeAndSalesHistoricalTickLastUpdateReceived(object sender, Tuple<int, List<HistoricalTickLast>> ticks)
         {

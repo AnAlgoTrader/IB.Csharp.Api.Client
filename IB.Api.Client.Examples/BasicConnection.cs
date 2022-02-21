@@ -1,6 +1,6 @@
 using System;
-using IB.Api.Client.Client;
-using IB.Api.Client.Client.Model;
+using IB.Api.Client;
+using IB.Api.Client.Model;
 using IB.Api.Client.Helper;
 
 namespace IB.Api.Client.Examples

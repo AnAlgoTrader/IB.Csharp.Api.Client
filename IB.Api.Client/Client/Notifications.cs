@@ -1,7 +1,7 @@
 using System;
-using IB.Api.Client.Client.Model;
+using IB.Api.Client.Model;
 
-namespace IB.Api.Client.Client
+namespace IB.Api.Client
 {
     /// <summary>
     /// IB API sends notifications through error methods, not all are errors, some of them are just user messages for information

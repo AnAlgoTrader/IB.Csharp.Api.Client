@@ -21,7 +21,7 @@ namespace IB.Api.Client.Examples
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient.HistoricalDataUpdateEndReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
-            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);            
+            ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
 
             var duration = new Duration { Unit = 1, DurationType = DurationType.D };
             ibClient.GetHistoricalData(1005, _contract, DateTime.Now, duration, BarSize.FiveMinutes, WhatToShow.MIDPOINT, Rth.No, false);
@@ -41,12 +41,42 @@ namespace IB.Api.Client.Examples
         {
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
+            ibClient.TimeAndSalesHistoricalTickUpdateReceived += new EventHandler<Tuple<int, List<HistoricalTick>>>(TimeAndSalesHistoricalTickUpdateReceived);
+            ibClient.TimeAndSalesHistoricalTickBidAskUpdateReceived += new EventHandler<Tuple<int, List<HistoricalTickBidAsk>>>(TimeAndSalesHistoricalTickBidAskUpdateReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-            ibClient.GetTimeAndSales(1005, _contract, DateTime.Now, WhatToShow.ADJUSTED_LAST);
+            ibClient.GetHistoricalTimeAndSales(1005, _contract, DateTime.Now.AddDays(-1), WhatToShow.TRADES);
         }
+
+        private static void TimeAndSalesHistoricalTickLastUpdateReceived(object sender, Tuple<int, List<HistoricalTickLast>> ticks)
+        {
+            Console.WriteLine("-TimeAndSalesHistoricalTickLastUpdateReceived-");
+            foreach (var tick in ticks.Item2)
+            {
+                Console.WriteLine($"Time:{tick.Time} PriceBid:{tick.Price} PriceAsk:{tick.Size}");
+            }
+        }
+
+        private static void TimeAndSalesHistoricalTickBidAskUpdateReceived(object sender, Tuple<int, List<HistoricalTickBidAsk>> ticks)
+        {
+            Console.WriteLine("-TimeAndSalesHistoricalTickBidAskUpdateReceived-");
+            foreach (var tick in ticks.Item2)
+            {
+                Console.WriteLine($"Time:{tick.Time} PriceBid:{tick.PriceBid} PriceAsk:{tick.PriceAsk}");
+            }
+        }
+
+        private static void TimeAndSalesHistoricalTickUpdateReceived(object sender, Tuple<int, List<HistoricalTick>> ticks)
+        {
+            Console.WriteLine("-TimeAndSalesHistoricalTickUpdateReceived-");
+            foreach (var tick in ticks.Item2)
+            {
+                Console.WriteLine($"Time:{tick.Time} Price:{tick.Price} Size:{tick.Size}");
+            }
+        }
+
         private static void BarUpdateReceived(object sender, BarUpdate barUpdate)
         {
-             Console.WriteLine($"{DateTime.Now}: Open:{barUpdate.Bar.Open} High:{barUpdate.Bar.High} Close:{barUpdate.Bar.Close} Low:{barUpdate.Bar.Low}");
+            Console.WriteLine($"{DateTime.Now}: Open:{barUpdate.Bar.Open} High:{barUpdate.Bar.High} Close:{barUpdate.Bar.Close} Low:{barUpdate.Bar.Low}");
         }
         private static void HistoricalDataUpdateEndReceived(object sender, Tuple<int, List<Bar>> data)
         {

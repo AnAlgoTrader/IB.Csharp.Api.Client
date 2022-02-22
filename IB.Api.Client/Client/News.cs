@@ -28,5 +28,9 @@ namespace IB.Api.Client{
         {
             NewsProvidersUpdateReceived?.Invoke(this, newsProviders);
         }
+        public void updateNewsBulletin(int msgId, int msgType, string message, string origExchange)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

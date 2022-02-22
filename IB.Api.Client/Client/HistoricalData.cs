@@ -91,5 +91,9 @@ namespace IB.Api.Client
         public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
         {
         }
+        public void realtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double WAP, int count)
+        {
+            
+        }
     }
 }

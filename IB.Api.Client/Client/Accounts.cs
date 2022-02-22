@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IB.Api.Client.Model;
 
 namespace IB.Api.Client
 {
@@ -8,9 +9,17 @@ namespace IB.Api.Client
     public partial class IBClient
     {
         public List<string> AccountIds = new List<string>();
+        private AccountUpdate _accountUpdate;
+        public event EventHandler<AccountUpdate> AccountUpdateReceived;
+        public void SubscribeToAccountUpdates(string accountId)
+        {
+            _accountUpdate = new AccountUpdate();
+            ClientSocket.reqAccountUpdates(true, accountId);
+        }
         public void accountDownloadEnd(string account)
         {
-            throw new NotImplementedException();
+            _accountUpdate.UpdatedOn = DateTime.Now;
+            AccountUpdateReceived?.Invoke(this, _accountUpdate);
         }
         public void accountSummary(int reqId, string account, string tag, string value, string currency)
         {
@@ -38,12 +47,11 @@ namespace IB.Api.Client
         }
         public void updateAccountTime(string timestamp)
         {
-            throw new NotImplementedException();
         }
 
         public void updateAccountValue(string key, string value, string currency, string accountName)
         {
-            throw new NotImplementedException();
+            _accountUpdate.SetValue(key, value, currency);
         }
     }
 }

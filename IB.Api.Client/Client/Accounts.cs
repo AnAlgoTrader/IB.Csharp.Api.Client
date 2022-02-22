@@ -25,17 +25,14 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-
         public void accountSummaryEnd(int reqId)
         {
             throw new NotImplementedException();
         }
-
         public void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
         {
             throw new NotImplementedException();
         }
-
         public void accountUpdateMultiEnd(int requestId)
         {
             throw new NotImplementedException();
@@ -48,7 +45,6 @@ namespace IB.Api.Client
         public void updateAccountTime(string timestamp)
         {
         }
-
         public void updateAccountValue(string key, string value, string currency, string accountName)
         {
             _accountUpdate.SetValue(key, value, currency);

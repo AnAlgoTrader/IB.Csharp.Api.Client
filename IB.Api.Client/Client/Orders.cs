@@ -1,4 +1,5 @@
 using System;
+using IB.Api.Client.Model;
 using IB.Api.Client.Proprietary;
 
 namespace IB.Api.Client
@@ -6,6 +7,9 @@ namespace IB.Api.Client
     //Orders
     public partial class IBClient
     {
+        public event EventHandler<CommissionUpdate> CommissionUpdateReceived;
+        public event EventHandler<ExecutionUpdate> ExecutionUpdateReceived;
+        public event EventHandler<OrderUpdate> OrderUpdateReceived;
         private int _nextOrderId;
         public int NextOrderId
         {
@@ -17,27 +21,46 @@ namespace IB.Api.Client
             NextOrderId = orderId;
             Notify($"Next valid Order Id ({orderId})");
         }
+        public void RequestOrders()
+        {
+            ClientSocket.reqAllOpenOrders();
+        }
+        public void PlaceOrder(int orderId, Contract contract, Order order)
+        {
+            ClientSocket.placeOrder(orderId, contract, order);
+        }
+        public void CancelOrder(int orderId)
+        {
+            ClientSocket.cancelOrder(orderId);
+        }
+        public void RequestExecutions(int reqId)
+        {
+            ClientSocket.reqExecutions(reqId, new ExecutionFilter());
+        }
         public void completedOrder(Contract contract, Order order, OrderState orderState)
         {
             throw new NotImplementedException();
         }
-
         public void completedOrdersEnd()
         {
             throw new NotImplementedException();
         }
         public void execDetails(int reqId, Contract contract, Execution execution)
         {
-            throw new NotImplementedException();
+            ExecutionUpdateReceived?.Invoke(this, new ExecutionUpdate
+            {
+                Symbol = contract.Symbol,
+                SecType = contract.SecType,
+                ExecutionId = execution.ExecId,
+                OrderRef = execution.OrderRef,
+                Side = execution.Side
+            });
         }
-
         public void execDetailsEnd(int reqId)
         {
-            throw new NotImplementedException();
         }
         public void openOrderEnd()
         {
-            throw new NotImplementedException();
         }
         public void orderBound(long orderId, int apiClientId, int apiOrderId)
         {
@@ -45,7 +68,33 @@ namespace IB.Api.Client
         }
         public void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice)
         {
-            throw new NotImplementedException();
+            var orderUpdate = new OrderUpdate
+            {
+                OrderId = orderId,
+                Status = status,
+                FilledAmount = filled,
+                RemainingAmount = remaining,
+                AvgFillPrice = avgFillPrice,
+                PermId = permId,
+                ParentId = parentId,
+                LastFillPrice = lastFillPrice,
+                ClientId = clientId,
+                WhyHeld = whyHeld,
+                MktCapPrice = mktCapPrice
+            };
+            OrderUpdateReceived?.Invoke(this, orderUpdate);
         }
+        public void commissionReport(CommissionReport commissionReport)
+        {
+            CommissionUpdateReceived?.Invoke(this, new CommissionUpdate
+            {
+                ExecutionId = commissionReport.ExecId,
+                Commission = commissionReport.Commission
+            });
+        }
+        public void openOrder(int orderId, Contract contract, Order order, OrderState orderState)
+        {
+            throw new NotImplementedException();
+        } 
     }
 }

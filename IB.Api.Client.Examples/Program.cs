@@ -15,6 +15,6 @@ namespace IB.Api.Client.Examples
             };
             RequestNews.RunGetNewsProviders(connectionDetails);
             Common.KeepConsoleAlive();
-        }        
+        }
     }
 }

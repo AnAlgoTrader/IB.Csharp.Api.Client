@@ -10,6 +10,7 @@ namespace IB.Api.Client
         public event EventHandler<CommissionUpdate> CommissionUpdateReceived;
         public event EventHandler<ExecutionUpdate> ExecutionUpdateReceived;
         public event EventHandler<OrderUpdate> OrderUpdateReceived;
+        public event EventHandler<OpenOrderUpdate> OpenOrderUpdateReceived;
         private int _nextOrderId;
         public int NextOrderId
         {
@@ -94,7 +95,13 @@ namespace IB.Api.Client
         }
         public void openOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {
-            throw new NotImplementedException();
+            OpenOrderUpdateReceived?.Invoke(this, new OpenOrderUpdate
+            {
+                OrderId = orderId,
+                Contract = contract,
+                Order = order,
+                OrderState = orderState
+            });
         } 
     }
 }

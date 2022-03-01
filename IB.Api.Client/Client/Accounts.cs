@@ -16,11 +16,13 @@ namespace IB.Api.Client
             _accountUpdate = new AccountUpdate();
             ClientSocket.reqAccountUpdates(true, accountId);
         }
-        public void accountDownloadEnd(string account)
+        public void SubscribeToDefaultAccountUpdates()
         {
-            _accountUpdate.UpdatedOn = DateTime.Now;
-            AccountUpdateReceived?.Invoke(this, _accountUpdate);
-            Notify($"Account ({account}) updated");
+            _accountUpdate = new AccountUpdate();
+            ClientSocket.reqAccountUpdates(true, null);
+        }
+        public void accountDownloadEnd(string account)
+        {            
         }        
         public void managedAccounts(string accountsList)
         {
@@ -29,6 +31,9 @@ namespace IB.Api.Client
         }
         public void updateAccountTime(string timestamp)
         {
+            _accountUpdate.UpdatedOn = DateTime.Now;
+            AccountUpdateReceived?.Invoke(this, _accountUpdate);
+            Notify($"Account updated");
         }
         public void updateAccountValue(string key, string value, string currency, string accountName)
         {

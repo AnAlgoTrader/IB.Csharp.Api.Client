@@ -20,6 +20,7 @@ namespace IB.Api.Client
         {
             _accountUpdate.UpdatedOn = DateTime.Now;
             AccountUpdateReceived?.Invoke(this, _accountUpdate);
+            Notify($"{DateTime.Now} Account ({account}) updated");
         }
         public void accountSummary(int reqId, string account, string tag, string value, string currency)
         {

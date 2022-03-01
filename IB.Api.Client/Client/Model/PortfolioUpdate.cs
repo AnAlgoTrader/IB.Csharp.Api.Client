@@ -21,5 +21,8 @@ namespace IB.Api.Client.Model
         
         [JsonProperty("contactId")]
         public int ContractId { get; set; }
+
+        [JsonProperty("realizedPnl")]
+        public double RealizedPnl { get; internal set; }
     }
 }

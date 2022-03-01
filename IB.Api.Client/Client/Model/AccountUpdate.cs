@@ -8,6 +8,14 @@ namespace IB.Api.Client.Model
         [JsonProperty("updatedOn")]
         public DateTime UpdatedOn { get; set; }
 
+        [JsonProperty("updated")]
+        public string Updated {
+            get
+            {
+                return $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()} ";
+            }
+        }            
+
         [JsonProperty("accountCode")]
         public string AccountCode { get; set; }
 

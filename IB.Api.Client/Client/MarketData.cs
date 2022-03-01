@@ -75,51 +75,6 @@ namespace IB.Api.Client
                         break;
                     }
             }
-        }
-        public virtual void tickSize(int tickerId, int field, int size)
-        {
-            //Console.WriteLine("Tick Size. Ticker Id:" + tickerId + ", Field: " + field + ", Size: " + size);
-        }
-        public virtual void tickString(int tickerId, int tickType, string value)
-        {
-            //Console.WriteLine("Tick string. Ticker Id:" + tickerId + ", Type: " + tickType + ", Value: " + value);
-        }
-        public virtual void tickGeneric(int tickerId, int field, double value)
-        {
-            //Console.WriteLine("Tick Generic. Ticker Id:" + tickerId + ", Field: " + field + ", Value: " + value);
-        }
-        public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions)
-        {
-            throw new NotImplementedException();
-        }
-        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
-        {
-            throw new NotImplementedException();
-        }
-        public void tickByTickMidPoint(int reqId, long time, double midPoint)
-        {
-            throw new NotImplementedException();
-        }
-        public void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
-        {
-            throw new NotImplementedException();
-        }
-        public void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
-        {
-            //Console.WriteLine("TickOptionComputation. TickerId: " + tickerId + ", field: " + field + ", ImpliedVolatility: " + impliedVolatility + ", Delta: " + delta
-            //    + ", OptionPrice: " + optPrice + ", pvDividend: " + pvDividend + ", Gamma: " + gamma + ", Vega: " + vega + ", Theta: " + theta + ", UnderlyingPrice: " + undPrice);
-        }
-        public void tickSnapshotEnd(int tickerId)
-        {
-            //Console.WriteLine("TickSnapshotEnd: " + tickerId);
-        }
-        public void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth)
-        {
-            //Console.WriteLine("UpdateMarketDepthL2. " + tickerId + " - Position: " + position + ", Operation: " + operation + ", Side: " + side + ", Price: " + price + ", Size: " + size + ", isSmartDepth: " + isSmartDepth);
-        }
-        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
-        {
-            //Console.WriteLine("id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, minTick, bboExchange, snapshotPermissions);
-        }
+        }        
     }
 }

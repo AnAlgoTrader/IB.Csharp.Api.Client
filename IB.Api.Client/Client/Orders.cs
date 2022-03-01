@@ -63,10 +63,6 @@ namespace IB.Api.Client
         public void openOrderEnd()
         {
         }
-        public void orderBound(long orderId, int apiClientId, int apiOrderId)
-        {
-            throw new NotImplementedException();
-        }
         public void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice)
         {
             var orderUpdate = new OrderUpdate

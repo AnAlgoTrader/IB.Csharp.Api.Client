@@ -20,24 +20,8 @@ namespace IB.Api.Client
         {
             _accountUpdate.UpdatedOn = DateTime.Now;
             AccountUpdateReceived?.Invoke(this, _accountUpdate);
-            Notify($"{DateTime.Now} Account ({account}) updated");
-        }
-        public void accountSummary(int reqId, string account, string tag, string value, string currency)
-        {
-            throw new NotImplementedException();
-        }
-        public void accountSummaryEnd(int reqId)
-        {
-            throw new NotImplementedException();
-        }
-        public void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
-        {
-            throw new NotImplementedException();
-        }
-        public void accountUpdateMultiEnd(int requestId)
-        {
-            throw new NotImplementedException();
-        }
+            Notify($"Account ({account}) updated");
+        }        
         public void managedAccounts(string accountsList)
         {
             AccountIds = accountsList.Split(",").ToList();

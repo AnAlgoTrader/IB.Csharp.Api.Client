@@ -13,6 +13,7 @@ namespace IB.Api.Client
         {
             var notification = new Notification
             {
+                At = DateTime.Now,
                 Id = 0,
                 Code = 0,
                 Message = e.Message,
@@ -24,6 +25,7 @@ namespace IB.Api.Client
         {
             var notification = new Notification
             {
+                At = DateTime.Now,
                 Id = 0,
                 Code = 0,
                 Message = error,
@@ -35,6 +37,7 @@ namespace IB.Api.Client
         {
             var notification = new Notification
             {
+                At = DateTime.Now,
                 Id = id,
                 Code = code,
                 Message = errorMsg,
@@ -46,6 +49,7 @@ namespace IB.Api.Client
         {
             var notification = new Notification
             {
+                At = DateTime.Now,
                 Id = 0,
                 Code = 0,
                 Message = message,
@@ -57,6 +61,7 @@ namespace IB.Api.Client
         {
             var notification = new Notification
             {
+                At = DateTime.Now,
                 Id = 0,
                 Code = 0,
                 Message = message,

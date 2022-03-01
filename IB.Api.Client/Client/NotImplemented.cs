@@ -131,5 +131,85 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
+        public void accountSummaryEnd(int reqId)
+        {
+            throw new NotImplementedException();
+        }
+        public void accountUpdateMulti(int requestId, string account, string modelCode, string key, string value, string currency)
+        {
+            throw new NotImplementedException();
+        }
+        public void accountSummary(int reqId, string account, string tag, string value, string currency)
+        {
+            throw new NotImplementedException();
+        }
+        public void accountUpdateMultiEnd(int requestId)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void tickSize(int tickerId, int field, int size)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void tickString(int tickerId, int tickType, string value)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void tickGeneric(int tickerId, int field, double value)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickByTickMidPoint(int reqId, long time, double midPoint)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickSnapshotEnd(int tickerId)
+        {
+            throw new NotImplementedException();
+        }
+        public void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth)
+        {
+            throw new NotImplementedException();
+        }
+        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            throw new NotImplementedException();
+        }  
+        public void position(string account, Contract contract, double pos, double avgCost)
+        {
+            throw new NotImplementedException();
+        }
+        public void positionEnd()
+        {
+            throw new NotImplementedException();
+        }
+        public void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        {
+            throw new NotImplementedException();
+        }
+        public void positionMultiEnd(int requestId)
+        {
+            throw new NotImplementedException();
+        }
+        public void orderBound(long orderId, int apiClientId, int apiOrderId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

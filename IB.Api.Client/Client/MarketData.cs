@@ -15,7 +15,7 @@ namespace IB.Api.Client
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
 
         public void ReqMarketDepth(int reqId, Contract contract, double ratio)
-        {   
+        {
             var orderBookUpdate = new OrderBookUpdate
             {
                 Ratio = ratio,
@@ -44,13 +44,16 @@ namespace IB.Api.Client
             _orderBookUpdates[tickerId].TickerId = tickerId;
             var max = _orderBookUpdates[tickerId].OrderBookLines.Max(x => x.Size);
             var sumBySide = _orderBookUpdates[tickerId].OrderBookLines.Where(x => x.Side == side).Sum(x => x.Size);
+            
             if (side == 1)
                 _orderBookUpdates[tickerId].SumBid = sumBySide;
             else
                 _orderBookUpdates[tickerId].SumOffer = sumBySide;
             _orderBookUpdates[tickerId].OrderBookLines[position].PercentageOfBook = Math.Round((100 * _orderBookUpdates[tickerId].OrderBookLines[position].Size) / max);
             _orderBookUpdates[tickerId].CurrentPrice = _orderBookUpdates[tickerId].OrderBookLines[0].Price;
-            OrderBookUpdateReceived?.Invoke(this, _orderBookUpdates[tickerId]);
+
+            if (position == 19)
+                OrderBookUpdateReceived?.Invoke(this, _orderBookUpdates[tickerId]);
         }
         public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
@@ -75,6 +78,6 @@ namespace IB.Api.Client
                         break;
                     }
             }
-        }        
+        }
     }
 }

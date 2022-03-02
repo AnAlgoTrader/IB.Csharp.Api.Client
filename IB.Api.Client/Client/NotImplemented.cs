@@ -10,15 +10,7 @@ namespace IB.Api.Client
         public void bondContractDetails(int reqId, ContractDetails contract)
         {
             throw new NotImplementedException();
-        }
-        public void contractDetails(int reqId, ContractDetails contractDetails)
-        {
-            throw new NotImplementedException();
-        }
-        public void contractDetailsEnd(int reqId)
-        {
-            throw new NotImplementedException();
-        }
+        }        
         public void currentTime(long time)
         {
             throw new NotImplementedException();
@@ -208,6 +200,18 @@ namespace IB.Api.Client
             throw new NotImplementedException();
         }
         public void orderBound(long orderId, int apiClientId, int apiOrderId)
+        {
+            throw new NotImplementedException();
+        }
+        public void historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
+        {
+            throw new NotImplementedException();
+        }
+        public void historicalNewsEnd(int requestId, bool hasMore)
+        {
+            throw new NotImplementedException();
+        }
+        public void newsArticle(int requestId, int articleType, string articleText)
         {
             throw new NotImplementedException();
         }

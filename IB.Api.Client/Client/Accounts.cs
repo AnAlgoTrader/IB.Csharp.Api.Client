@@ -33,7 +33,6 @@ namespace IB.Api.Client
         {
             _accountUpdate.UpdatedOn = DateTime.Now;
             AccountUpdateReceived?.Invoke(this, _accountUpdate);
-            Notify($"Account updated");
         }
         public void updateAccountValue(string key, string value, string currency, string accountName)
         {

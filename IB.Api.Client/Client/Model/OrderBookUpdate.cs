@@ -23,7 +23,6 @@ namespace IB.Api.Client.Model
         }
         public OrderBookLine[] OrderBookLines { get; set; }
         public double CurrentPrice { get; set; }
-        public List<Trade> Trades { get; set; }
         public int TickerId { get; internal set; }
         public double Ratio { get; internal set; }
         public void ValidateOrderBook()

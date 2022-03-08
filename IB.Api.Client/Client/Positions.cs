@@ -12,6 +12,7 @@ namespace IB.Api.Client
         {
             var portfolioUpdate = new PortfolioUpdate
             {
+                AccountName = accountName,
                 UpdatedOn = DateTime.Now,
                 Symbol = contract.Symbol,
                 Position = position,

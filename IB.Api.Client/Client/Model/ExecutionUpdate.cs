@@ -14,5 +14,7 @@ namespace IB.Api.Client.Model
                 return Side == "BOT" ? "BUY" : "SELL";
             }
         }
+
+        public string Account { get; internal set; }
     }
 }

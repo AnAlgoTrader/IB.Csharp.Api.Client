@@ -9,12 +9,13 @@ namespace IB.Api.Client.Model
         public DateTime UpdatedOn { get; set; }
 
         [JsonProperty("updated")]
-        public string Updated {
+        public string Updated
+        {
             get
             {
-                return $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()} ";
+                return $"{UpdatedOn.ToShortDateString()} {UpdatedOn.ToShortTimeString()} ";
             }
-        }            
+        }
 
         [JsonProperty("accountCode")]
         public string AccountCode { get; set; }
@@ -36,9 +37,12 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("excessLiquidity")]
         public double ExcessLiquidity { get; set; }
-        
+
         [JsonProperty("side")]
         public string Side { get; set; }
+        
+        [JsonProperty("pnl")]
+        public string Pnl { get; set; }
 
         public void SetValue(string key, string value, string currency)
         {

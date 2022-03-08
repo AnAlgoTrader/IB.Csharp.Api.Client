@@ -5,7 +5,15 @@ namespace IB.Api.Client.Model
 {    public class PortfolioUpdate
     {
         [JsonProperty("updatedOn")]
-        public DateTime? UpdatedOn;
+        public DateTime UpdatedOn;
+
+        [JsonProperty("updated")]
+        public string Updated {
+            get
+            {
+                return $"{UpdatedOn.ToShortDateString()} {UpdatedOn.ToShortTimeString()} ";
+            }
+        }
 
         [JsonProperty("action")]
         public string Action { get; set; }
@@ -19,10 +27,13 @@ namespace IB.Api.Client.Model
         [JsonProperty("unrealizedPnl")]
         public double UnrealizedPnl { get; set; }
         
-        [JsonProperty("contactId")]
+        [JsonProperty("contractId")]
         public int ContractId { get; set; }
 
         [JsonProperty("realizedPnl")]
         public double RealizedPnl { get; internal set; }
+
+        [JsonProperty("accountName")]
+        public string AccountName { get; internal set; }
     }
 }

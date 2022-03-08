@@ -50,6 +50,7 @@ namespace IB.Api.Client
         {
             ExecutionUpdateReceived?.Invoke(this, new ExecutionUpdate
             {
+                Account = execution.AcctNumber,
                 Symbol = contract.Symbol,
                 SecType = contract.SecType,
                 ExecutionId = execution.ExecId,

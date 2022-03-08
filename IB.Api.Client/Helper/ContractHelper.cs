@@ -18,16 +18,24 @@ namespace IB.Api.Client.Helper
                 var tradingHoursItem = item.Trim();
                 if (tradingHoursItem.Length > 0)
                 {
-                    var hours = tradingHoursItem.Split("-");
-                    var tradingHour = new TradingHours
+                    if (ValidTradingHoursItem(tradingHoursItem))
                     {
-                        Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture),
-                        End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture)
-                    };
-                    output.Add(tradingHour);
+                        var hours = tradingHoursItem.Split("-");
+                        var tradingHour = new TradingHours
+                        {
+                            Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture),
+                            End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture)
+                        };
+                        output.Add(tradingHour);
+                    }
                 }
             }
             return output;
+        }
+
+        private static bool ValidTradingHoursItem(string tradingHoursItem)
+        {
+            return !tradingHoursItem.Contains("CLOSED");
         }
     }
 }

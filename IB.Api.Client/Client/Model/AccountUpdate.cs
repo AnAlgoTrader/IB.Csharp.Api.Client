@@ -40,9 +40,15 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("side")]
         public string Side { get; set; }
-        
+
         [JsonProperty("pnl")]
         public string Pnl { get; set; }
+
+        [JsonProperty("cashUsdControl")]
+        public double CashUsdControl { get; set; }
+
+        [JsonProperty("cashUsdNet")]
+        public double CashUsdNet { get; set; }
 
         public void SetValue(string key, string value, string currency)
         {

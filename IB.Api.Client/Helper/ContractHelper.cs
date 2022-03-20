@@ -37,5 +37,38 @@ namespace IB.Api.Client.Helper
         {
             return !tradingHoursItem.Contains("CLOSED");
         }
+
+        /// <summary>
+        /// An example of EUR/USD would be symbol=EUR and currency=USD
+        /// </summary>
+        /// <param name="ibClient"></param>
+        /// <param name="symbol"></param>
+        /// <param name="currency"></param>
+        public static void RequestForexContract(IBClient ibClient, string symbol, string currency)
+        {
+            ibClient.GetContractDetails(new Contract
+            {
+                Symbol = symbol,
+                SecType = SecurityType.CASH.ToString(),
+                Exchange = "IDEALPRO",
+                Currency = currency
+            });
+        }
+
+        public static void RequestFutureContract(IBClient ibClient, string symbol)
+        {
+            ibClient.GetContractDetails(symbol, SecurityType.FUT);
+        }
+
+        public static void RequestComodityContract(IBClient ibClient, string symbol, string currency)
+        {
+            ibClient.GetContractDetails(new Contract
+            {
+                Symbol = symbol,
+                SecType = SecurityType.CMDTY.ToString(),
+                Exchange = "SMART",
+                Currency = currency
+            });
+        }
     }
 }

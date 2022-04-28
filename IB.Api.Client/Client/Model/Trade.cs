@@ -66,7 +66,7 @@ namespace IB.Api.Client.Model
         public decimal? TargetFillPrice { get; set; }
 
         [JsonProperty("pnl")]
-        public decimal Pnl { get; set; }
+        public decimal? Pnl { get; set; }
 
         [JsonProperty("orderId")]
         public int? OrderId { get; set; }

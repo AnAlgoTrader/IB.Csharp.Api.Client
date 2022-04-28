@@ -14,6 +14,9 @@ namespace IB.Api.Client.Model
         [JsonProperty("at")]
         public DateTime? At { get; set; }
 
+        [JsonProperty("targetFilledAt")]
+        public DateTime? TargetFilledAt { get; set; }
+
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
 
@@ -27,22 +30,22 @@ namespace IB.Api.Client.Model
         public string Status { get; set; }
 
         [JsonProperty("avgPrice")]
-        public double? AvgPrice { get; set; }
+        public decimal AvgPrice { get; set; }
 
         [JsonProperty("fillPrice")]
-        public double? FillPrice { get; set; }
+        public decimal? FillPrice { get; set; }
 
         [JsonProperty("orderType")]
         public string OrderType { get; set; }
 
         [JsonProperty("quantity")]
-        public double? Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [JsonProperty("multiplier")]
-        public double? Multiplier { get; set; }
+        public decimal Multiplier { get; set; }
 
         [JsonProperty("commission")]
-        public double? Commission { get; set; }
+        public decimal Commission { get; set; }
 
         [JsonProperty("targetOrderRef")]
         public string TargetOrderRef { get; set; }
@@ -57,13 +60,13 @@ namespace IB.Api.Client.Model
         public string TargetOrderType { get; set; }
 
         [JsonProperty("targetLimitPrice")]
-        public double? TargetLimitPrice { get; set; }
+        public decimal TargetLimitPrice { get; set; }
 
         [JsonProperty("targetFillPrice")]
-        public double? TargetFillPrice { get; set; }
+        public decimal? TargetFillPrice { get; set; }
 
         [JsonProperty("pnl")]
-        public double? Pnl { get; set; }
+        public decimal Pnl { get; set; }
 
         [JsonProperty("orderId")]
         public int? OrderId { get; set; }
@@ -72,13 +75,13 @@ namespace IB.Api.Client.Model
         public int? TargetId { get; set; }
 
         [JsonProperty("attemptedPrice")]
-        public double? AttemptedPrice { get; set; }
+        public decimal AttemptedPrice { get; set; }
         
         [JsonProperty("attemptedLimitPrice")]
-        public double? AttemptedLimitPrice { get; set; }
+        public decimal AttemptedLimitPrice { get; set; }
 
         [JsonProperty("targetCommission")]
-        public double? TargetCommission { get; set; }
+        public decimal? TargetCommission { get; set; }
 
         [JsonProperty("targetExecutionId")]
         public string TargetExecutionId { get; set; }

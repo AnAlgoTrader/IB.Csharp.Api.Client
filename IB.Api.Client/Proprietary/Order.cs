@@ -35,10 +35,10 @@ namespace IB.Api.Client.Proprietary
         private int clientId;
         private int permId;
         private string action;
-        private double totalQuantity;
+        private decimal totalQuantity;
         private string orderType;
-        private double lmtPrice;
-        private double auxPrice;
+        private decimal lmtPrice;
+        private decimal auxPrice;
         // extended order fields
         // "Time in Force" - DAY, GTC, etc.
         private string tif;
@@ -71,10 +71,10 @@ namespace IB.Api.Client.Proprietary
         private bool allOrNone;
         private int minQty;
         // REL orders only
-        private double percentOffset;
+        private decimal percentOffset;
         // for TRAILLIMIT orders only
-        private double trailStopPrice;
-        private double trailingPercent;
+        private decimal trailStopPrice;
+        private decimal trailingPercent;
         // Financial advisors only 
         private string faGroup;
         private string faProfile;
@@ -91,30 +91,30 @@ namespace IB.Api.Client.Proprietary
         private string designatedLocation;
         private int exemptCode;
         // SMART routing only
-        private double discretionaryAmt;
+        private decimal discretionaryAmt;
         private bool eTradeOnly;
         private bool firmQuoteOnly;
-        private double nbboPriceCap;
+        private decimal nbboPriceCap;
         private bool optOutSmartRouting;
         // BOX or VOL ORDERS ONLY
         // 1=AUCTION_MATCH, 2=AUCTION_IMPROVEMENT, 3=AUCTION_TRANSPARENT
         private int auctionStrategy;
         // BOX ORDERS ONLY
-        private double startingPrice;
-        private double stockRefPrice;
-        private double delta;
+        private decimal startingPrice;
+        private decimal stockRefPrice;
+        private decimal delta;
         // pegged to stock or VOL orders
-        private double stockRangeLower;
-        private double stockRangeUpper;
+        private decimal stockRangeLower;
+        private decimal stockRangeUpper;
         // VOLATILITY ORDERS ONLY
-        private double volatility;
+        private decimal volatility;
         // 1=daily, 2=annual
         private int volatilityType;
         private int continuousUpdate;
         // 1=Average, 2 = BidOrAsk
         private int referencePriceType;
         private string deltaNeutralOrderType;
-        private double deltaNeutralAuxPrice;
+        private decimal deltaNeutralAuxPrice;
         private int deltaNeutralConId;
         private string deltaNeutralSettlingFirm;
 
@@ -126,16 +126,16 @@ namespace IB.Api.Client.Proprietary
         private string deltaNeutralDesignatedLocation;
         // COMBO ORDERS ONLY
         // EFP orders only
-        private double basisPoints;
+        private decimal basisPoints;
         // EFP orders only
         private int basisPointsType;
         // SCALE ORDERS ONLY
         private int scaleInitLevelSize;
         private int scaleSubsLevelSize;
-        private double scalePriceIncrement;
-        private double scalePriceAdjustValue;
+        private decimal scalePriceIncrement;
+        private decimal scalePriceAdjustValue;
         private int scalePriceAdjustInterval;
-        private double scaleProfitOffset;
+        private decimal scaleProfitOffset;
         private bool scaleAutoReset;
         private int scaleInitPosition;
         private int scaleInitFillQty;
@@ -171,13 +171,13 @@ namespace IB.Api.Client.Proprietary
         private string modelCode;
         private string extOperator;
         // native cash quantity
-        private double cashQty;
+        private decimal cashQty;
 
         // don't use auto price for hedge
         private bool dontUseAutoPriceForHedge;
 
         private string autoCancelDate;
-        private double filledQuantity;
+        private decimal filledQuantity;
         private int refFuturesConId;
         private bool autoCancelParent;
         private string shareholder;
@@ -235,7 +235,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The number of positions being bought/sold.
          */
-        public double TotalQuantity
+        public decimal TotalQuantity
         {
             get { return totalQuantity; }
             set { totalQuantity = value; }
@@ -254,7 +254,7 @@ namespace IB.Api.Client.Proprietary
          * @brief The LIMIT price.
          * Used for limit, stop-limit and relative orders. In all other cases specify zero. For relative orders with no limit price, also specify zero.
          */
-        public double LmtPrice
+        public decimal LmtPrice
         {
             get { return lmtPrice; }
             set { lmtPrice = value; }
@@ -263,7 +263,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Generic field to contain the stop price for STP LMT orders, trailing amount, etc.
          */
-        public double AuxPrice
+        public decimal AuxPrice
         {
             get { return auxPrice; }
             set { auxPrice = value; }
@@ -373,10 +373,10 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Specifies how Simulated Stop, Stop-Limit and Trailing Stop orders are triggered.
          * Valid values are:\n
-         *  0 - The default value. The "double bid/ask" function will be used for orders for OTC stocks and US options. All other orders will used the "last" function.\n
-         *  1 - use "double bid/ask" function, where stop orders are triggered based on two consecutive bid or ask prices.\n
+         *  0 - The default value. The "decimal bid/ask" function will be used for orders for OTC stocks and US options. All other orders will used the "last" function.\n
+         *  1 - use "decimal bid/ask" function, where stop orders are triggered based on two consecutive bid or ask prices.\n
          *  2 - "last" function, where stop orders are triggered based on the last price.\n
-         *  3 double last function.\n
+         *  3 decimal last function.\n
          *  4 bid/ask function.\n
          *  7 last or bid/ask function.\n
          *  8 mid-point function.\n
@@ -476,7 +476,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The percent offset amount for relative orders.
          */
-        public double PercentOffset
+        public decimal PercentOffset
         {
             get { return percentOffset; }
             set { percentOffset = value; }
@@ -485,7 +485,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Trail stop price for TRAILIMIT orders.
          */
-        public double TrailStopPrice
+        public decimal TrailStopPrice
         {
             get { return trailStopPrice; }
             set { trailStopPrice = value; }
@@ -498,7 +498,7 @@ namespace IB.Api.Client.Proprietary
          *    - This field is read AFTER the stop price (barrier price) as follows: deltaNeutralAuxPrice stopPrice, trailingPercent, scale order attributes\n
          *    - The field will also be sent to the API in the openOrder message if the API client version is >= 56. It is sent after the stopPrice field as follows: stopPrice, trailingPct, basisPoint\n
          */
-        public double TrailingPercent
+        public decimal TrailingPercent
         {
             get { return trailingPercent; }
             set { trailingPercent = value; }
@@ -602,7 +602,7 @@ namespace IB.Api.Client.Proprietary
         /**
           * @brief The amount off the limit price allowed for discretionary orders.
           */
-        public double DiscretionaryAmt
+        public decimal DiscretionaryAmt
         {
             get { return discretionaryAmt; }
             set { discretionaryAmt = value; }
@@ -629,7 +629,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Maximum smart order distance from the NBBO.
          */
-        public double NbboPriceCap
+        public decimal NbboPriceCap
         {
             get { return nbboPriceCap; }
             set { nbboPriceCap = value; }
@@ -662,7 +662,7 @@ namespace IB.Api.Client.Proprietary
          * @brief The auction's starting price.
          * For BOX orders only.
          */
-        public double StartingPrice
+        public decimal StartingPrice
         {
             get { return startingPrice; }
             set { startingPrice = value; }
@@ -672,7 +672,7 @@ namespace IB.Api.Client.Proprietary
          * @brief The stock's reference price.
          * The reference price is used for VOL orders to compute the limit price sent to an exchange (whether or not Continuous Update is selected), and for price range monitoring.
          */
-        public double StockRefPrice
+        public decimal StockRefPrice
         {
             get { return stockRefPrice; }
             set { stockRefPrice = value; }
@@ -682,7 +682,7 @@ namespace IB.Api.Client.Proprietary
          * @brief The stock's Delta.
          * For orders on BOX only.
          */
-        public double Delta
+        public decimal Delta
         {
             get { return delta; }
             set { delta = value; }
@@ -692,7 +692,7 @@ namespace IB.Api.Client.Proprietary
           * @brief The lower value for the acceptable underlying stock price range.
           * For price improvement option orders on BOX and VOL orders with dynamic management.
           */
-        public double StockRangeLower
+        public decimal StockRangeLower
         {
             get { return stockRangeLower; }
             set { stockRangeLower = value; }
@@ -702,7 +702,7 @@ namespace IB.Api.Client.Proprietary
          * @brief The upper value for the acceptable underlying stock price range.
          * For price improvement option orders on BOX and VOL orders with dynamic management.
          */
-        public double StockRangeUpper
+        public decimal StockRangeUpper
         {
             get { return stockRangeUpper; }
             set { stockRangeUpper = value; }
@@ -713,7 +713,7 @@ namespace IB.Api.Client.Proprietary
          * @brief The option price in volatility, as calculated by TWS' Option Analytics.
          * This value is expressed as a percent and is used to calculate the limit price sent to the exchange.
          */
-        public double Volatility
+        public decimal Volatility
         {
             get { return volatility; }
             set { volatility = value; }
@@ -767,7 +767,7 @@ namespace IB.Api.Client.Proprietary
          * @brief Use this field to enter a value if the value in the deltaNeutralOrderType field is an order type that requires an Aux price, such as a REL order. 
          * VOL orders only.
          */
-        public double DeltaNeutralAuxPrice
+        public decimal DeltaNeutralAuxPrice
         {
             get { return deltaNeutralAuxPrice; }
             set { deltaNeutralAuxPrice = value; }
@@ -851,7 +851,7 @@ namespace IB.Api.Client.Proprietary
          * @brief - DOC_TODO
          * For EFP orders only.
          */
-        public double BasisPoints
+        public decimal BasisPoints
         {
             get { return basisPoints; }
             set { basisPoints = value; }
@@ -891,7 +891,7 @@ namespace IB.Api.Client.Proprietary
          * @brief Defines the price increment between scale components.
          * For Scale orders only. This value is compulsory.
          */
-        public double ScalePriceIncrement
+        public decimal ScalePriceIncrement
         {
             get { return scalePriceIncrement; }
             set { scalePriceIncrement = value; }
@@ -901,7 +901,7 @@ namespace IB.Api.Client.Proprietary
          * @brief - DOC_TODO
          * For extended Scale orders.
          */
-        public double ScalePriceAdjustValue
+        public decimal ScalePriceAdjustValue
         {
             get { return scalePriceAdjustValue; }
             set { scalePriceAdjustValue = value; }
@@ -921,7 +921,7 @@ namespace IB.Api.Client.Proprietary
          * @brief - DOC_TODO
          * For extended scale orders.
          */
-        public double ScaleProfitOffset
+        public decimal ScaleProfitOffset
         {
             get { return scaleProfitOffset; }
             set { scaleProfitOffset = value; }
@@ -1188,7 +1188,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The native cash quantity
          */
-        public double CashQty
+        public decimal CashQty
         {
             get { return cashQty; }
             set { cashQty = value; }
@@ -1229,7 +1229,7 @@ namespace IB.Api.Client.Proprietary
             set { autoCancelDate = value; }
         }
 
-        public double FilledQuantity
+        public decimal FilledQuantity
         {
             get { return filledQuantity; }
             set { filledQuantity = value; }
@@ -1274,8 +1274,8 @@ namespace IB.Api.Client.Proprietary
 
         public Order()
         {
-            lmtPrice = Double.MaxValue;
-            auxPrice = Double.MaxValue;
+            lmtPrice = Decimal.MaxValue;
+            auxPrice = Decimal.MaxValue;
             activeStartTime = EMPTY_STR;
             activeStopTime = EMPTY_STR;
             outsideRth = false;
@@ -1285,18 +1285,18 @@ namespace IB.Api.Client.Proprietary
             designatedLocation = EMPTY_STR;
             exemptCode = -1;
             minQty = Int32.MaxValue;
-            percentOffset = Double.MaxValue;
-            nbboPriceCap = Double.MaxValue;
+            percentOffset = Decimal.MaxValue;
+            nbboPriceCap = Decimal.MaxValue;
             optOutSmartRouting = false;
-            startingPrice = Double.MaxValue;
-            stockRefPrice = Double.MaxValue;
-            delta = Double.MaxValue;
-            stockRangeLower = Double.MaxValue;
-            stockRangeUpper = Double.MaxValue;
-            volatility = Double.MaxValue;
+            startingPrice = Decimal.MaxValue;
+            stockRefPrice = Decimal.MaxValue;
+            delta = Decimal.MaxValue;
+            stockRangeLower = Decimal.MaxValue;
+            stockRangeUpper = Decimal.MaxValue;
+            volatility = Decimal.MaxValue;
             volatilityType = Int32.MaxValue;
             deltaNeutralOrderType = EMPTY_STR;
-            deltaNeutralAuxPrice = Double.MaxValue;
+            deltaNeutralAuxPrice = Decimal.MaxValue;
             deltaNeutralConId = 0;
             deltaNeutralSettlingFirm = EMPTY_STR;
             deltaNeutralClearingAccount = EMPTY_STR;
@@ -1306,16 +1306,16 @@ namespace IB.Api.Client.Proprietary
             deltaNeutralShortSaleSlot = 0;
             deltaNeutralDesignatedLocation = EMPTY_STR;
             referencePriceType = Int32.MaxValue;
-            trailStopPrice = Double.MaxValue;
-            trailingPercent = Double.MaxValue;
-            basisPoints = Double.MaxValue;
+            trailStopPrice = Decimal.MaxValue;
+            trailingPercent = Decimal.MaxValue;
+            basisPoints = Decimal.MaxValue;
             basisPointsType = Int32.MaxValue;
             scaleInitLevelSize = Int32.MaxValue;
             scaleSubsLevelSize = Int32.MaxValue;
-            scalePriceIncrement = Double.MaxValue;
-            scalePriceAdjustValue = Double.MaxValue;
+            scalePriceIncrement = Decimal.MaxValue;
+            scalePriceAdjustValue = Decimal.MaxValue;
             scalePriceAdjustInterval = Int32.MaxValue;
-            scaleProfitOffset = Double.MaxValue;
+            scaleProfitOffset = Decimal.MaxValue;
             scaleAutoReset = false;
             scaleInitPosition = Int32.MaxValue;
             scaleInitFillQty = Int32.MaxValue;
@@ -1324,21 +1324,21 @@ namespace IB.Api.Client.Proprietary
             whatIf = false;
             notHeld = false;
             Conditions = new List<OrderCondition>();
-            TriggerPrice = double.MaxValue;
-            LmtPriceOffset = double.MaxValue;
-            AdjustedStopPrice = double.MaxValue;
-            AdjustedStopLimitPrice = double.MaxValue;
-            AdjustedTrailingAmount = double.MaxValue;
+            TriggerPrice = decimal.MaxValue;
+            LmtPriceOffset = decimal.MaxValue;
+            AdjustedStopPrice = decimal.MaxValue;
+            AdjustedStopLimitPrice = decimal.MaxValue;
+            AdjustedTrailingAmount = decimal.MaxValue;
             ExtOperator = EMPTY_STR;
             Tier = new SoftDollarTier(EMPTY_STR, EMPTY_STR, EMPTY_STR);
-            cashQty = Double.MaxValue;
+            cashQty = Decimal.MaxValue;
             Mifid2DecisionMaker = EMPTY_STR;
             Mifid2DecisionAlgo = EMPTY_STR;
             Mifid2ExecutionTrader = EMPTY_STR;
             Mifid2ExecutionAlgo = EMPTY_STR;
             dontUseAutoPriceForHedge = false;
             autoCancelDate = EMPTY_STR;
-            filledQuantity = Double.MaxValue;
+            filledQuantity = Decimal.MaxValue;
             refFuturesConId = Int32.MaxValue;
             autoCancelParent = false;
             shareholder = EMPTY_STR;
@@ -1761,11 +1761,11 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief Pegged-to-benchmark orders: amount by which the order's pegged price should move.
         */
-        public double PeggedChangeAmount { get; set; }
+        public decimal PeggedChangeAmount { get; set; }
         /**
         * @brief Pegged-to-benchmark orders: the amount the reference contract needs to move to adjust the pegged order.
         */
-        public double ReferenceChangeAmount { get; set; }
+        public decimal ReferenceChangeAmount { get; set; }
         /**
         * @brief Pegged-to-benchmark orders: the exchange against which we want to observe the reference contract.
         */
@@ -1779,27 +1779,27 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief - DOC_TODO
          */
-        public double TriggerPrice { get; set; }
+        public decimal TriggerPrice { get; set; }
 
         /**
          * @brief - DOC_TODO
          */
-        public double LmtPriceOffset { get; set; }
+        public decimal LmtPriceOffset { get; set; }
 
         /**
         * @brief Adjusted Stop orders: specifies the stop price of the adjusted (STP) parent
         */
-        public double AdjustedStopPrice { get; set; }
+        public decimal AdjustedStopPrice { get; set; }
 
         /**
         * @brief Adjusted Stop orders: specifies the stop limit price of the adjusted (STPL LMT) parent
         */
-        public double AdjustedStopLimitPrice { get; set; }
+        public decimal AdjustedStopLimitPrice { get; set; }
 
         /**
         * @brief Adjusted Stop orders: specifies the trailing amount of the adjusted (TRAIL) parent 
         */
-        public double AdjustedTrailingAmount { get; set; }
+        public decimal AdjustedTrailingAmount { get; set; }
 
         /**
          * @brief Adjusted Stop orders: specifies where the trailing unit is an amount (set to 0) or a percentage (set to 1)

@@ -17,12 +17,12 @@ namespace IB.Api.Client.Proprietary
     public class OrderComboLeg
     {
 
-        double price;
+        decimal price;
 
         /**
          * @brief The order's leg's price
          */
-        public double Price
+        public decimal Price
         {
             get { return price; }
             set { price = value; }
@@ -30,10 +30,10 @@ namespace IB.Api.Client.Proprietary
 
         public OrderComboLeg()
         {
-            price = Double.MaxValue;
+            price = Decimal.MaxValue;
         }
 
-        public OrderComboLeg(double p_price)
+        public OrderComboLeg(decimal p_price)
         {
             price = p_price;
         }

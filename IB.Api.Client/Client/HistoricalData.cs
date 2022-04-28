@@ -38,7 +38,8 @@ namespace IB.Api.Client
         }
         private void InitializeHistoricalTickDictionary(int reqId, WhatToShow whatToShow)
         {
-            switch(whatToShow){
+            switch (whatToShow)
+            {
                 case WhatToShow.MIDPOINT:
                 case WhatToShow.TRADES:
                     {
@@ -69,7 +70,7 @@ namespace IB.Api.Client
                 Bar = bar
             };
             BarUpdateReceived?.Invoke(this, barUpdate);
-        }       
+        }
         public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
         {
             _historicalTicks[reqId].AddRange(ticks);
@@ -91,9 +92,9 @@ namespace IB.Api.Client
         public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
         {
         }
-        public void realtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double WAP, int count)
+        public void realtimeBar(int reqId, long date, decimal open, decimal high, decimal low, decimal close, long volume, decimal WAP, int count)
         {
-            
+
         }
     }
 }

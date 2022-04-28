@@ -16,13 +16,13 @@ namespace IB.Api.Client.Proprietary
      */
     public class PriceIncrement
     {
-        private double lowEdge;
-        private double increment;
+        private decimal lowEdge;
+        private decimal increment;
 
         /**
          * @brief The low edge
          */
-        public double LowEdge
+        public decimal LowEdge
         {
             get { return lowEdge; }
             set { lowEdge = value; }
@@ -31,7 +31,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The increment
          */
-        public double Increment
+        public decimal Increment
         {
             get { return increment; }
             set { increment = value; }
@@ -41,7 +41,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public PriceIncrement(double lowEdge, double increment)
+        public PriceIncrement(decimal lowEdge, decimal increment)
         {
             LowEdge = lowEdge;
             Increment = increment;

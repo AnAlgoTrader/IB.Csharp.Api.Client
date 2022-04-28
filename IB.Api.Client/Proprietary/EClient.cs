@@ -333,7 +333,7 @@ namespace IB.Api.Client.Proprietary
          * @param underPrice hypothetical option's underlying price.\n
          * @sa EWrapper::tickOptionComputation, cancelCalculateImpliedVolatility, Contract
          */
-        public void calculateImpliedVolatility(int reqId, Contract contract, double optionPrice, double underPrice,
+        public void calculateImpliedVolatility(int reqId, Contract contract, decimal optionPrice, decimal underPrice,
             //reserved for future use, must be blank
             List<TagValue> impliedVolatilityOptions)
         {
@@ -388,7 +388,7 @@ namespace IB.Api.Client.Proprietary
          * @param underPrice hypothetical underlying's price.\n
          * @sa EWrapper::tickOptionComputation, cancelCalculateOptionPrice, Contract
          */
-        public void calculateOptionPrice(int reqId, Contract contract, double volatility, double underPrice,
+        public void calculateOptionPrice(int reqId, Contract contract, decimal volatility, decimal underPrice,
             //reserved for future use, must be blank
             List<TagValue> optionPriceOptions)
         {
@@ -742,7 +742,7 @@ namespace IB.Api.Client.Proprietary
             paramsList.AddParameter(order.OrderType);
             if (serverVersion < MinServerVer.ORDER_COMBO_LEGS_PRICE)
             {
-                paramsList.AddParameter(order.LmtPrice == Double.MaxValue ? 0 : order.LmtPrice);
+                paramsList.AddParameter(order.LmtPrice == Decimal.MaxValue ? 0 : order.LmtPrice);
             }
             else
             {
@@ -750,7 +750,7 @@ namespace IB.Api.Client.Proprietary
             }
             if (serverVersion < MinServerVer.TRAILING_PERCENT)
             {
-                paramsList.AddParameter(order.AuxPrice == Double.MaxValue ? 0 : order.AuxPrice);
+                paramsList.AddParameter(order.AuxPrice == Decimal.MaxValue ? 0 : order.AuxPrice);
             }
             else
             {
@@ -926,11 +926,11 @@ namespace IB.Api.Client.Proprietary
                 paramsList.AddParameterMax(order.StockRefPrice);
                 paramsList.AddParameterMax(order.Delta);
                 // Volatility orders had specific watermark price attribs in server version 26
-                double lower = (serverVersion == 26 && order.OrderType.Equals("VOL"))
-                     ? Double.MaxValue
+                decimal lower = (serverVersion == 26 && order.OrderType.Equals("VOL"))
+                     ? Decimal.MaxValue
                      : order.StockRangeLower;
-                double upper = (serverVersion == 26 && order.OrderType.Equals("VOL"))
-                     ? Double.MaxValue
+                decimal upper = (serverVersion == 26 && order.OrderType.Equals("VOL"))
+                     ? Decimal.MaxValue
                      : order.StockRangeUpper;
                 paramsList.AddParameterMax(lower);
                 paramsList.AddParameterMax(upper);
@@ -975,8 +975,8 @@ namespace IB.Api.Client.Proprietary
                 if (serverVersion == 26)
                 {
                     // Volatility orders had specific watermark price attribs in server version 26
-                    double lower = order.OrderType.Equals("VOL") ? order.StockRangeLower : Double.MaxValue;
-                    double upper = order.OrderType.Equals("VOL") ? order.StockRangeUpper : Double.MaxValue;
+                    decimal lower = order.OrderType.Equals("VOL") ? order.StockRangeLower : Decimal.MaxValue;
+                    decimal upper = order.OrderType.Equals("VOL") ? order.StockRangeUpper : Decimal.MaxValue;
                     paramsList.AddParameterMax(lower);
                     paramsList.AddParameterMax(upper);
                 }
@@ -1009,7 +1009,7 @@ namespace IB.Api.Client.Proprietary
                 paramsList.AddParameterMax(order.ScalePriceIncrement);
             }
 
-            if (serverVersion >= MinServerVer.SCALE_ORDERS3 && order.ScalePriceIncrement > 0.0 && order.ScalePriceIncrement != Double.MaxValue)
+            if (serverVersion >= MinServerVer.SCALE_ORDERS3 && order.ScalePriceIncrement > 0.0M && order.ScalePriceIncrement != Decimal.MaxValue)
             {
                 paramsList.AddParameterMax(order.ScalePriceAdjustValue);
                 paramsList.AddParameterMax(order.ScalePriceAdjustInterval);
@@ -3273,7 +3273,7 @@ namespace IB.Api.Client.Proprietary
             if (serverVersion < MinServerVer.SCALE_ORDERS)
             {
                 if (order.ScaleInitLevelSize != Int32.MaxValue ||
-                    order.ScalePriceIncrement != Double.MaxValue)
+                    order.ScalePriceIncrement != Decimal.MaxValue)
                 {
                     ReportError(id, EClientErrors.UPDATE_TWS,
                         "  It does not support Scale orders.");
@@ -3381,11 +3381,11 @@ namespace IB.Api.Client.Proprietary
 
             if (serverVersion < MinServerVer.SCALE_ORDERS3)
             {
-                if (order.ScalePriceIncrement > 0 && order.ScalePriceIncrement != Double.MaxValue)
+                if (order.ScalePriceIncrement > 0 && order.ScalePriceIncrement != Decimal.MaxValue)
                 {
-                    if (order.ScalePriceAdjustValue != Double.MaxValue ||
+                    if (order.ScalePriceAdjustValue != Decimal.MaxValue ||
                         order.ScalePriceAdjustInterval != Int32.MaxValue ||
-                        order.ScaleProfitOffset != Double.MaxValue ||
+                        order.ScaleProfitOffset != Decimal.MaxValue ||
                         order.ScaleAutoReset ||
                         order.ScaleInitPosition != Int32.MaxValue ||
                         order.ScaleInitFillQty != Int32.MaxValue ||
@@ -3407,7 +3407,7 @@ namespace IB.Api.Client.Proprietary
                     for (int i = 0; i < order.OrderComboLegs.Count; ++i)
                     {
                         orderComboLeg = (OrderComboLeg)order.OrderComboLegs[i];
-                        if (orderComboLeg.Price != Double.MaxValue)
+                        if (orderComboLeg.Price != Decimal.MaxValue)
                         {
                             ReportError(id, EClientErrors.UPDATE_TWS,
                                 "  It does not support per-leg prices for order combo legs.");
@@ -3419,7 +3419,7 @@ namespace IB.Api.Client.Proprietary
 
             if (serverVersion < MinServerVer.TRAILING_PERCENT)
             {
-                if (order.TrailingPercent != Double.MaxValue)
+                if (order.TrailingPercent != Decimal.MaxValue)
                 {
                     ReportError(id, EClientErrors.UPDATE_TWS,
                         "  It does not support trailing percent parameter.");
@@ -3451,7 +3451,7 @@ namespace IB.Api.Client.Proprietary
                 return false;
             }
 
-            if (serverVersion < MinServerVer.CASH_QTY && order.CashQty != Double.MaxValue)
+            if (serverVersion < MinServerVer.CASH_QTY && order.CashQty != Decimal.MaxValue)
             {
                 ReportError(id, EClientErrors.UPDATE_TWS, " It does not support cashQty parameter");
 

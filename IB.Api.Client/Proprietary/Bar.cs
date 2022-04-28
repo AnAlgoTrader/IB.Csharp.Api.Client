@@ -15,7 +15,7 @@ namespace IB.Api.Client.Proprietary
      */
     public class Bar
     {
-        public Bar(string time, double open, double high, double low, double close, long volume, int count, double wap)
+        public Bar(string time, decimal open, decimal high, decimal low, decimal close, long volume, int count, decimal wap)
         {
             Time = time;
             Open = open;
@@ -35,22 +35,22 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The bar's open price
          */
-        public double Open { get; private set; }
+        public decimal Open { get; private set; }
 
         /**
          * @brief The bar's high price
          */
-        public double High { get; private set; }
+        public decimal High { get; private set; }
 
         /**
          * @brief The bar's low price
          */
-        public double Low { get; private set; }
+        public decimal Low { get; private set; }
 
         /**
          * @brief The bar's close price
          */
-        public double Close { get; private set; }
+        public decimal Close { get; private set; }
 
         /**
          * @brief The bar's traded volume if available (only available for TRADES) 
@@ -60,7 +60,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The bar's Weighted Average Price (only available for TRADES) 
          */
-        public double WAP { get; private set; }
+        public decimal WAP { get; private set; }
 
         /**
          * @brief The number of trades during the bar's timespan (only available for TRADES) 

@@ -11,13 +11,13 @@ namespace IB.Api.Client.Model
         public string Status { get; internal set; }
 
         [JsonProperty("filledAmount")]
-        public double FilledAmount { get; internal set; }
+        public decimal FilledAmount { get; internal set; }
 
         [JsonProperty("remainingAmount")]
-        public double RemainingAmount { get; internal set; }
+        public decimal RemainingAmount { get; internal set; }
 
         [JsonProperty("avgFillPrice")]
-        public double AvgFillPrice { get; internal set; }
+        public decimal AvgFillPrice { get; internal set; }
 
         [JsonProperty("permId")]
         public int PermId { get; internal set; }
@@ -26,7 +26,7 @@ namespace IB.Api.Client.Model
         public int ParentId { get; internal set; }
 
         [JsonProperty("lastFillPrice")]
-        public double LastFillPrice { get; internal set; }
+        public decimal LastFillPrice { get; internal set; }
 
         [JsonProperty("clientId")]
         public int ClientId { get; internal set; }
@@ -35,7 +35,7 @@ namespace IB.Api.Client.Model
         public string WhyHeld { get; internal set; }
 
         [JsonProperty("mktCapPrice")]
-        public double MktCapPrice { get; internal set; }
+        public decimal MktCapPrice { get; internal set; }
         
         [JsonProperty("action")]
         public string Action { get; set; }

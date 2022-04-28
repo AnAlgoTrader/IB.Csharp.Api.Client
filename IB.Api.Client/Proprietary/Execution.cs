@@ -95,12 +95,12 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The number of shares filled.
          */
-        public double Shares { get; set; }
+        public decimal Shares { get; set; }
 
         /**
          * @brief The order's execution price excluding commissions.
          */
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /**
          * @brief The TWS order identifier. The PermId can be 0 for trades originating outside IB. 
@@ -116,13 +116,13 @@ namespace IB.Api.Client.Proprietary
          * @brief Cumulative quantity. 
          * Used in regular trades, combo trades and legs of the combo.
          */
-        public double CumQty { get; set; }
+        public decimal CumQty { get; set; }
 
         /**
          * @brief Average price. 
          * Used in regular trades, combo trades and legs of the combo. Does not include commissions.
          */
-        public double AvgPrice { get; set; }
+        public decimal AvgPrice { get; set; }
 
         /**
          * @brief The OrderRef is a user-customizable string that can be set from the API or TWS and will be associated with an order for its lifetime.
@@ -139,7 +139,7 @@ namespace IB.Api.Client.Proprietary
          * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1.
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
          */
-        public double EvMultiplier { get; set; }
+        public decimal EvMultiplier { get; set; }
 
         /**
          * @brief model code
@@ -166,9 +166,9 @@ namespace IB.Api.Client.Proprietary
         }
 
         public Execution(int orderId, int clientId, String execId, String time,
-                          String acctNumber, String exchange, String side, double shares,
-                          double price, int permId, int liquidation, double cumQty,
-                          double avgPrice, String orderRef, String evRule, double evMultiplier,
+                          String acctNumber, String exchange, String side, decimal shares,
+                          decimal price, int permId, int liquidation, decimal cumQty,
+                          decimal avgPrice, String orderRef, String evRule, decimal evMultiplier,
                           String modelCode, Liquidity lastLiquidity)
         {
             OrderId = orderId;

@@ -10,7 +10,7 @@ namespace IB.Api.Client.Proprietary
 {
     public struct HistogramEntry
     {
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public long Size { get; set; }
     }
 }

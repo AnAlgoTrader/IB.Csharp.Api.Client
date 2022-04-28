@@ -10,7 +10,7 @@ namespace IB.Api.Client
         public void bondContractDetails(int reqId, ContractDetails contract)
         {
             throw new NotImplementedException();
-        }        
+        }
         public void currentTime(long time)
         {
             throw new NotImplementedException();
@@ -55,11 +55,11 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
+        public void pnl(int reqId, decimal dailyPnL, decimal unrealizedPnL, decimal realizedPnL)
         {
             throw new NotImplementedException();
         }
-        public void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)
+        public void pnlSingle(int reqId, int pos, decimal dailyPnL, decimal unrealizedPnL, decimal realizedPnL, decimal value)
         {
             throw new NotImplementedException();
         }
@@ -87,7 +87,7 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        public void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<decimal> strikes)
         {
             throw new NotImplementedException();
         }
@@ -147,27 +147,27 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public virtual void tickGeneric(int tickerId, int field, double value)
+        public virtual void tickGeneric(int tickerId, int field, decimal value)
         {
             throw new NotImplementedException();
         }
-        public void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions)
+        public void tickByTickAllLast(int reqId, int tickType, long time, decimal price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions)
         {
             throw new NotImplementedException();
         }
-        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        public void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
         {
             throw new NotImplementedException();
         }
-        public void tickByTickMidPoint(int reqId, long time, double midPoint)
+        public void tickByTickMidPoint(int reqId, long time, decimal midPoint)
         {
             throw new NotImplementedException();
         }
-        public void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
+        public void tickEFP(int tickerId, int tickType, decimal basisPoints, string formattedBasisPoints, decimal impliedFuture, int holdDays, string futureLastTradeDate, decimal dividendImpact, decimal dividendsToLastTradeDate)
         {
             throw new NotImplementedException();
         }
-        public void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
+        public void tickOptionComputation(int tickerId, int field, decimal impliedVolatility, decimal delta, decimal optPrice, decimal pvDividend, decimal gamma, decimal vega, decimal theta, decimal undPrice)
         {
             throw new NotImplementedException();
         }
@@ -175,15 +175,15 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth)
+        public void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, decimal price, int size, bool isSmartDepth)
         {
             throw new NotImplementedException();
         }
-        public void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        public void tickReqParams(int tickerId, decimal minTick, string bboExchange, int snapshotPermissions)
         {
             throw new NotImplementedException();
-        }  
-        public void position(string account, Contract contract, double pos, double avgCost)
+        }
+        public void position(string account, Contract contract, decimal pos, decimal avgCost)
         {
             throw new NotImplementedException();
         }
@@ -191,7 +191,7 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
+        public void positionMulti(int requestId, string account, string modelCode, Contract contract, decimal pos, decimal avgCost)
         {
             throw new NotImplementedException();
         }

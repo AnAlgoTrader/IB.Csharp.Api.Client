@@ -7,8 +7,8 @@ namespace IB.Api.Client
     //Positions
     public partial class IBClient
     {
-        public event EventHandler<PortfolioUpdate> PortfolioUpdateReceived;        
-        public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName)
+        public event EventHandler<PortfolioUpdate> PortfolioUpdateReceived;
+        public void updatePortfolio(Contract contract, decimal position, decimal marketPrice, decimal marketValue, decimal averageCost, decimal unrealizedPNL, decimal realizedPNL, string accountName)
         {
             var portfolioUpdate = new PortfolioUpdate
             {

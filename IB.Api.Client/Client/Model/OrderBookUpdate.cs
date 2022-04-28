@@ -4,8 +4,8 @@ namespace IB.Api.Client.Model
 {
     public class OrderBookUpdate
     {
-        public double SumOffer { get; set; }
-        public double SumBid { get; set; }
+        public decimal SumOffer { get; set; }
+        public decimal SumBid { get; set; }
         public bool IsValid { get; set; }
         public int Direction
         {
@@ -14,7 +14,7 @@ namespace IB.Api.Client.Model
                 return SumOffer > SumBid ? 1 : 0;
             }
         }
-        public double SumDifference
+        public decimal SumDifference
         {
             get
             {
@@ -22,9 +22,9 @@ namespace IB.Api.Client.Model
             }
         }
         public OrderBookLine[] OrderBookLines { get; set; }
-        public double CurrentPrice { get; set; }
+        public decimal CurrentPrice { get; set; }
         public int TickerId { get; internal set; }
-        public double Ratio { get; internal set; }
+        public decimal Ratio { get; internal set; }
         public void ValidateOrderBook()
         {
             var valid = true;

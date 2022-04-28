@@ -14,7 +14,7 @@ namespace IB.Api.Client
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
 
-        public void ReqMarketDepth(int reqId, Contract contract, double ratio)
+        public void ReqMarketDepth(int reqId, Contract contract, decimal ratio)
         {
             var orderBookUpdate = new OrderBookUpdate
             {
@@ -28,7 +28,7 @@ namespace IB.Api.Client
             ClientSocket.reqMarketDepth(reqId, contract, 10, false, null);
             Notify($"Subscribed to {contract.Symbol} marketDepth");
         }
-        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
+        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, decimal price, int size)
         {
             if (side == 0)
                 position += 10;
@@ -44,7 +44,7 @@ namespace IB.Api.Client
             _orderBookUpdates[tickerId].TickerId = tickerId;
             var max = _orderBookUpdates[tickerId].OrderBookLines.Max(x => x.Size);
             var sumBySide = _orderBookUpdates[tickerId].OrderBookLines.Where(x => x.Side == side).Sum(x => x.Size);
-            
+
             if (side == 1)
                 _orderBookUpdates[tickerId].SumBid = sumBySide;
             else
@@ -55,7 +55,7 @@ namespace IB.Api.Client
             if (position == 19)
                 OrderBookUpdateReceived?.Invoke(this, _orderBookUpdates[tickerId]);
         }
-        public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs)
+        public virtual void tickPrice(int tickerId, int field, decimal price, TickAttrib attribs)
         {
             switch (field)
             {

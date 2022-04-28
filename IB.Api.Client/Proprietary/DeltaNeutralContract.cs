@@ -15,8 +15,8 @@ namespace IB.Api.Client.Proprietary
     public class DeltaNeutralContract
     {
         private int conId;
-        private double delta;
-        private double price;
+        private decimal delta;
+        private decimal price;
 
         /**
          * @brief The unique contract identifier specifying the security. Used for Delta-Neutral Combo contracts.
@@ -30,7 +30,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief The underlying stock or future delta. Used for Delta-Neutral Combo contracts.
         */
-        public double Delta
+        public decimal Delta
         {
             get { return delta; }
             set { delta = value; }
@@ -39,7 +39,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief The price of the underlying. Used for Delta-Neutral Combo contracts.
         */
-        public double Price
+        public decimal Price
         {
             get { return price; }
             set { price = value; }

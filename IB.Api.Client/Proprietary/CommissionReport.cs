@@ -17,10 +17,10 @@ namespace IB.Api.Client.Proprietary
     public class CommissionReport
     {
         private string execId;
-        private double commission;
+        private decimal commission;
         private string currency;
-        private double realizedPNL;
-        private double yield;
+        private decimal realizedPNL;
+        private decimal yield;
         private int yieldRedemptionDate;
 
         /**
@@ -35,7 +35,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief the commissions cost.
          */
-        public double Commission
+        public decimal Commission
         {
             get { return commission; }
             set { commission = value; }
@@ -53,7 +53,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief the realized profit and loss
         */
-        public double RealizedPNL
+        public decimal RealizedPNL
         {
             get { return realizedPNL; }
             set { realizedPNL = value; }
@@ -62,7 +62,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The income return.
          */
-        public double Yield
+        public decimal Yield
         {
             get { return yield; }
             set { yield = value; }

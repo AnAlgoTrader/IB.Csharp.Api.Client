@@ -26,9 +26,9 @@ namespace IB.Api.Client.Proprietary
         private string initMarginAfter;
         private string maintMarginAfter;
         private string equityWithLoanAfter;
-        private double commission;
-        private double minCommission;
-        private double maxCommission;
+        private decimal commission;
+        private decimal minCommission;
+        private decimal maxCommission;
         private string commissionCurrency;
         private string warningText;
         private string completedTime;
@@ -127,7 +127,7 @@ namespace IB.Api.Client.Proprietary
         /**
           * @brief The order's generated commission.
           */
-        public double Commission
+        public decimal Commission
         {
             get { return commission; }
             set { commission = value; }
@@ -136,7 +136,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief The execution's minimum commission.
         */
-        public double MinCommission
+        public decimal MinCommission
         {
             get { return minCommission; }
             set { minCommission = value; }
@@ -145,7 +145,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief The executions maximum commission.
         */
-        public double MaxCommission
+        public decimal MaxCommission
         {
             get { return maxCommission; }
             set { maxCommission = value; }
@@ -194,9 +194,9 @@ namespace IB.Api.Client.Proprietary
             InitMarginAfter = null;
             MaintMarginAfter = null;
             EquityWithLoanAfter = null;
-            Commission = 0.0;
-            MinCommission = 0.0;
-            MaxCommission = 0.0;
+            Commission = 0.0M;
+            MinCommission = 0.0M;
+            MaxCommission = 0.0M;
             CommissionCurrency = null;
             WarningText = null;
             CompletedTime = null;
@@ -207,8 +207,8 @@ namespace IB.Api.Client.Proprietary
                 string initMarginBefore, string maintMarginBefore, string equityWithLoanBefore,
                 string initMarginChange, string maintMarginChange, string equityWithLoanChange,
                 string initMarginAfter, string maintMarginAfter, string equityWithLoanAfter,
-                double commission, double minCommission,
-                double maxCommission, string commissionCurrency, string warningText,
+                decimal commission, decimal minCommission,
+                decimal maxCommission, string commissionCurrency, string warningText,
                 string completedTime, string completedStatus)
         {
             InitMarginBefore = initMarginBefore;

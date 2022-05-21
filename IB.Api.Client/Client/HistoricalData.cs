@@ -10,9 +10,9 @@ namespace IB.Api.Client
     {
         private List<WhatToShow> _allowedTimeAndSalesTickTypes = new List<WhatToShow> { WhatToShow.TRADES, WhatToShow.BID_ASK, WhatToShow.MIDPOINT };
         private Dictionary<int, List<Bar>> _historicalData = new Dictionary<int, List<Bar>>();
-        private Dictionary<int, List<HistoricalTick>> _historicalTicks = new Dictionary<int, List<HistoricalTick>>();
-        private Dictionary<int, List<HistoricalTickBidAsk>> _historicalTickBidAsk = new Dictionary<int, List<HistoricalTickBidAsk>>();
-        private Dictionary<int, List<HistoricalTickLast>> _historicalTickLast = new Dictionary<int, List<HistoricalTickLast>>();
+        private Dictionary<int, List<HistoricalTick>> _historicalTicks;
+        private Dictionary<int, List<HistoricalTickBidAsk>> _historicalTickBidAsk;
+        private Dictionary<int, List<HistoricalTickLast>> _historicalTickLast;
         public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataUpdateEndReceived;
         public event EventHandler<BarUpdate> BarUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTick>>> TimeAndSalesHistoricalTickUpdateReceived;
@@ -36,14 +36,17 @@ namespace IB.Api.Client
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="whatToShow"></param>
-        public void GetHistoricalTimeAndSales(int reqId, Contract contract, DateTime start, DateTime end, WhatToShow whatToShow)
+        public void GetLatestTimeAndSales(int reqId, Contract contract, WhatToShow whatToShow)
         {
+            _historicalTicks = new Dictionary<int, List<HistoricalTick>>();
+            _historicalTickBidAsk = new Dictionary<int, List<HistoricalTickBidAsk>>();
+            _historicalTickLast = new Dictionary<int, List<HistoricalTickLast>>();
+
             if (_allowedTimeAndSalesTickTypes.Contains(whatToShow))
             {
-                string startTime = start != DateTime.MinValue ? DateHelper.ConvertToApiDate(start) : null;
-                string endTime = end != DateTime.MinValue ? DateHelper.ConvertToApiDate(end) : null;
+                string endTime = DateHelper.ConvertToApiDate(DateTime.Now);
                 InitializeHistoricalTickDictionary(reqId, whatToShow);
-                ClientSocket.reqHistoricalTicks(reqId, contract, startTime, endTime, 1000, whatToShow.ToString(), 1, true, null);
+                ClientSocket.reqHistoricalTicks(reqId, contract, null, endTime, 1000, whatToShow.ToString(), 0, true, null);
                 Notify($"Time and Sales for symbol {contract.Symbol} requested");
             }
             else NotifyError($"WhatToShow tick type: {whatToShow} not allowed");

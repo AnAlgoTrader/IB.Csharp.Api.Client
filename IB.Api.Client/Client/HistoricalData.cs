@@ -27,13 +27,23 @@ namespace IB.Api.Client
             ClientSocket.reqHistoricalData(reqId, contract, end, duration.GetDuration(), BarSize.OneMinute, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
             Notify($"Historical data for symbol {contract.Symbol} requested");
         }
-        public void GetHistoricalTimeAndSales(int reqId, Contract contract, DateTime start, WhatToShow whatToShow)
+
+        /// <summary>
+        /// Specify either start or end date. It doesn't accept both
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <param name="contract"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="whatToShow"></param>
+        public void GetHistoricalTimeAndSales(int reqId, Contract contract, DateTime start, DateTime end, WhatToShow whatToShow)
         {
             if (_allowedTimeAndSalesTickTypes.Contains(whatToShow))
             {
-                var startTime = DateHelper.ConvertToApiDate(start);
+                string startTime = start != DateTime.MinValue ? DateHelper.ConvertToApiDate(start) : null;
+                string endTime = end != DateTime.MinValue ? DateHelper.ConvertToApiDate(end) : null;
                 InitializeHistoricalTickDictionary(reqId, whatToShow);
-                ClientSocket.reqHistoricalTicks(reqId, contract, startTime, null, 1000, whatToShow.ToString(), 1, true, null);
+                ClientSocket.reqHistoricalTicks(reqId, contract, startTime, endTime, 1000, whatToShow.ToString(), 1, true, null);
                 Notify($"Time and Sales for symbol {contract.Symbol} requested");
             }
             else NotifyError($"WhatToShow tick type: {whatToShow} not allowed");
@@ -42,8 +52,9 @@ namespace IB.Api.Client
         {
             switch (whatToShow)
             {
-                case WhatToShow.TRADES:{
-                    _historicalTickLast[reqId] = new List<HistoricalTickLast>();
+                case WhatToShow.TRADES:
+                    {
+                        _historicalTickLast[reqId] = new List<HistoricalTickLast>();
                         break;
                     }
                 case WhatToShow.MIDPOINT:

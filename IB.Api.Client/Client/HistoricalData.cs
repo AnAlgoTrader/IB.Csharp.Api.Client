@@ -12,10 +12,12 @@ namespace IB.Api.Client
         private Dictionary<int, List<Bar>> _historicalData = new Dictionary<int, List<Bar>>();
         private Dictionary<int, List<HistoricalTick>> _historicalTicks = new Dictionary<int, List<HistoricalTick>>();
         private Dictionary<int, List<HistoricalTickBidAsk>> _historicalTickBidAsk = new Dictionary<int, List<HistoricalTickBidAsk>>();
+        private Dictionary<int, List<HistoricalTickLast>> _historicalTickLast = new Dictionary<int, List<HistoricalTickLast>>();
         public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataUpdateEndReceived;
         public event EventHandler<BarUpdate> BarUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTick>>> TimeAndSalesHistoricalTickUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTickBidAsk>>> TimeAndSalesHistoricalTickBidAskUpdateReceived;
+        public event EventHandler<Tuple<int, List<HistoricalTickLast>>> TimeAndSalesHistoricalTickLastUpdateReceived;
         public void GetHistoricalData(int reqId, Contract contract, DateTime endTime, Duration duration, string barSize, WhatToShow whatToShow, Rth rth, bool keepUpToDate)
         {
             _historicalData.Add(reqId, new List<Bar>());
@@ -40,8 +42,11 @@ namespace IB.Api.Client
         {
             switch (whatToShow)
             {
+                case WhatToShow.TRADES:{
+                    _historicalTickLast[reqId] = new List<HistoricalTickLast>();
+                        break;
+                    }
                 case WhatToShow.MIDPOINT:
-                case WhatToShow.TRADES:
                     {
                         _historicalTicks[reqId] = new List<HistoricalTick>();
                         break;
@@ -91,6 +96,12 @@ namespace IB.Api.Client
         }
         public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
         {
+            _historicalTickLast[reqId].AddRange(ticks);
+            if (done)
+            {
+                TimeAndSalesHistoricalTickLastUpdateReceived?.Invoke(this, new Tuple<int, List<HistoricalTickLast>>(reqId, _historicalTickLast[reqId]));
+                _historicalTickLast[reqId] = new List<HistoricalTickLast>();
+            }
         }
         public void realtimeBar(int reqId, long date, decimal open, decimal high, decimal low, decimal close, long volume, decimal WAP, int count)
         {

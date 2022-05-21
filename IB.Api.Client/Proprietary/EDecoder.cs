@@ -1999,7 +1999,7 @@ namespace IB.Api.Client.Proprietary
             {
                 return 0;
             }
-            else return Decimal.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
+            else return Decimal.Parse(doubleAsstring, System.Globalization.NumberStyles.Float);
         }
 
         public decimal ReadDoubleMax()

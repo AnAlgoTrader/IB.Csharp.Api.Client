@@ -31,7 +31,7 @@ namespace IB.Api.Client
             {
                 var startTime = DateHelper.ConvertToApiDate(start);
                 InitializeHistoricalTickDictionary(reqId, whatToShow);
-                ClientSocket.reqHistoricalTicks(reqId, contract, startTime, null, 10, whatToShow.ToString(), 1, true, null);
+                ClientSocket.reqHistoricalTicks(reqId, contract, startTime, null, 1000, whatToShow.ToString(), 1, true, null);
                 Notify($"Time and Sales for symbol {contract.Symbol} requested");
             }
             else NotifyError($"WhatToShow tick type: {whatToShow} not allowed");

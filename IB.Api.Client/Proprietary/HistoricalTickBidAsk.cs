@@ -25,23 +25,23 @@ namespace IB.Api.Client.Proprietary
             [return: MarshalAs(UnmanagedType.I8)]
             get;
             [param: MarshalAs(UnmanagedType.I8)]
-            private set;
+            set;
         }
 
         /**
          * @brief Tick attribs of historical bid/ask tick
          */
-        public TickAttribBidAsk TickAttribBidAsk { get; private set; }
+        public TickAttribBidAsk TickAttribBidAsk { get; set; }
 
         /**
          * @brief The bid price of the historical tick
          */
-        public decimal PriceBid { get; private set; }
+        public decimal PriceBid { get; set; }
 
         /**
          * @brief The ask price of the historical tick 
          */
-        public decimal PriceAsk { get; private set; }
+        public decimal PriceAsk { get; set; }
 
         /**
          * @brief The bid size of the historical tick 
@@ -51,7 +51,7 @@ namespace IB.Api.Client.Proprietary
             [return: MarshalAs(UnmanagedType.I8)]
             get;
             [param: MarshalAs(UnmanagedType.I8)]
-            private set;
+            set;
         }
 
         /**
@@ -62,7 +62,7 @@ namespace IB.Api.Client.Proprietary
             [return: MarshalAs(UnmanagedType.I8)]
             get;
             [param: MarshalAs(UnmanagedType.I8)]
-            private set;
+            set;
         }
 
         public HistoricalTickBidAsk()

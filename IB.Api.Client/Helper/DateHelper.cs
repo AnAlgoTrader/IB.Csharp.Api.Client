@@ -4,6 +4,7 @@ namespace IB.Api.Client.Helper
 {
     public class DateHelper
     {
+        public const string EuropeanDateFormat = "dd/MM/yyyy HH:mm:ss";
         public static string ConvertToApiDate(DateTime dateTime)
         {
             return dateTime.ToString("yyyyMMdd HH:mm:ss");

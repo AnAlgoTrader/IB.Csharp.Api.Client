@@ -154,11 +154,7 @@ namespace IB.Api.Client
         public void tickByTickAllLast(int reqId, int tickType, long time, decimal price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions)
         {
             throw new NotImplementedException();
-        }
-        public void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
-        {
-            throw new NotImplementedException();
-        }
+        }        
         public void tickByTickMidPoint(int reqId, long time, decimal midPoint)
         {
             throw new NotImplementedException();
@@ -212,6 +208,10 @@ namespace IB.Api.Client
             throw new NotImplementedException();
         }
         public void newsArticle(int requestId, int articleType, string articleText)
+        {
+            throw new NotImplementedException();
+        }
+        public void realtimeBar(int reqId, long date, decimal open, decimal high, decimal low, decimal close, long volume, decimal WAP, int count)
         {
             throw new NotImplementedException();
         }

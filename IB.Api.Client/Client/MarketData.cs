@@ -13,6 +13,12 @@ namespace IB.Api.Client
         private Dictionary<int, OrderBookUpdate> _orderBookUpdates = new Dictionary<int, OrderBookUpdate>();
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
+        public event EventHandler<HistoricalTickBidAsk> TimeAndSalesUpdateReceived;
+
+        public void SubscribeToTimeAndSales(int reqId, Contract contract)
+        {
+            ClientSocket.reqTickByTickData(reqId, contract, "BidAsk", 0, true);
+        }
 
         public void ReqMarketDepth(int reqId, Contract contract, decimal ratio)
         {
@@ -78,6 +84,19 @@ namespace IB.Api.Client
                         break;
                     }
             }
+        }
+        public void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        {
+            var message = new HistoricalTickBidAsk
+            {
+                Time = time,
+                PriceAsk = askPrice,
+                PriceBid = bidPrice,
+                SizeAsk = askSize,
+                SizeBid = bidSize,
+                TickAttribBidAsk = tickAttribBidAsk
+            };
+            TimeAndSalesUpdateReceived?.Invoke(this, message);
         }
     }
 }

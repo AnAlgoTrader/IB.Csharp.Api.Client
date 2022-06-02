@@ -14,12 +14,10 @@ namespace IB.Api.Client
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
         public event EventHandler<HistoricalTickBidAsk> TimeAndSalesUpdateReceived;
-
         public void SubscribeToTimeAndSales(int reqId, Contract contract)
         {
             ClientSocket.reqTickByTickData(reqId, contract, "BidAsk", 0, true);
         }
-
         public void ReqMarketDepth(int reqId, Contract contract, decimal ratio)
         {
             var orderBookUpdate = new OrderBookUpdate
@@ -87,7 +85,7 @@ namespace IB.Api.Client
         }
         public void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
         {
-            var message = new HistoricalTickBidAsk
+            var tick = new HistoricalTickBidAsk
             {
                 Time = time,
                 PriceAsk = askPrice,
@@ -96,7 +94,7 @@ namespace IB.Api.Client
                 SizeBid = bidSize,
                 TickAttribBidAsk = tickAttribBidAsk
             };
-            TimeAndSalesUpdateReceived?.Invoke(this, message);
+            TimeAndSalesUpdateReceived?.Invoke(this, tick);
         }
     }
 }

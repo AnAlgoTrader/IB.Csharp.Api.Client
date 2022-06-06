@@ -23,10 +23,10 @@ namespace IB.Api.Client.Proprietary
             }
             set
             {
-                ChangePercent = decimal.Parse(value, NumberFormatInfo.InvariantInfo);
+                ChangePercent = double.Parse(value, NumberFormatInfo.InvariantInfo);
             }
         }
 
-        public decimal ChangePercent { get; set; }
+        public double ChangePercent { get; set; }
     }
 }

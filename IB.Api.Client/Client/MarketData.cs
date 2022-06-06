@@ -18,7 +18,7 @@ namespace IB.Api.Client
         {
             ClientSocket.reqTickByTickData(reqId, contract, "BidAsk", 0, true);
         }
-        public void ReqMarketDepth(int reqId, Contract contract, decimal ratio)
+        public void ReqMarketDepth(int reqId, Contract contract, double ratio)
         {
             var orderBookUpdate = new OrderBookUpdate
             {
@@ -32,7 +32,7 @@ namespace IB.Api.Client
             ClientSocket.reqMarketDepth(reqId, contract, 10, false, null);
             Notify($"Subscribed to {contract.Symbol} marketDepth");
         }
-        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, decimal price, int size)
+        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
         {
             if (side == 0)
                 position += 10;
@@ -59,7 +59,7 @@ namespace IB.Api.Client
             if (position == 19)
                 OrderBookUpdateReceived?.Invoke(this, _orderBookUpdates[tickerId]);
         }
-        public virtual void tickPrice(int tickerId, int field, decimal price, TickAttrib attribs)
+        public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
             switch (field)
             {
@@ -83,7 +83,7 @@ namespace IB.Api.Client
                     }
             }
         }
-        public void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
         {
             var tick = new HistoricalTickBidAsk
             {

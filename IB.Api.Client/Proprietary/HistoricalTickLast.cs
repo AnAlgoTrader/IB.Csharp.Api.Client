@@ -21,7 +21,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public HistoricalTickLast(long time, TickAttribLast tickAttribLast, decimal price, long size, string exchange, string specialConditions)
+        public HistoricalTickLast(long time, TickAttribLast tickAttribLast, double price, long size, string exchange, string specialConditions)
         {
             Time = time;
             TickAttribLast = tickAttribLast;
@@ -50,7 +50,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The last price of the historical tick 
          */
-        public decimal Price { get; private set; }
+        public double Price { get; private set; }
 
         /**
          * @brief The last size of the historical tick 

@@ -21,7 +21,7 @@ namespace IB.Api.Client.Proprietary
             AddParameter(source, value.ToString(CultureInfo.InvariantCulture));
         }
 
-        public static void AddParameter(this BinaryWriter source, decimal value)
+        public static void AddParameter(this BinaryWriter source, double value)
         {
             AddParameter(source, value.ToString(CultureInfo.InvariantCulture));
         }
@@ -68,9 +68,9 @@ namespace IB.Api.Client.Proprietary
             source.AddParameter(Util.TagValueListToString(options));
         }
 
-        public static void AddParameterMax(this BinaryWriter source, decimal value)
+        public static void AddParameterMax(this BinaryWriter source, double value)
         {
-            if (value == Decimal.MaxValue)
+            if (value == double.MaxValue)
                 source.Write(Constants.EOL);
             else
                 source.AddParameter(value);

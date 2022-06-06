@@ -36,12 +36,12 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The bid price of the historical tick
          */
-        public decimal PriceBid { get; set; }
+        public double PriceBid { get; set; }
 
         /**
          * @brief The ask price of the historical tick 
          */
-        public decimal PriceAsk { get; set; }
+        public double PriceAsk { get; set; }
 
         /**
          * @brief The bid size of the historical tick 
@@ -69,7 +69,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public HistoricalTickBidAsk(long time, TickAttribBidAsk tickAttribBidAsk, decimal priceBid, decimal priceAsk, long sizeBid, long sizeAsk)
+        public HistoricalTickBidAsk(long time, TickAttribBidAsk tickAttribBidAsk, double priceBid, double priceAsk, long sizeBid, long sizeAsk)
         {
             Time = time;
             TickAttribBidAsk = tickAttribBidAsk;

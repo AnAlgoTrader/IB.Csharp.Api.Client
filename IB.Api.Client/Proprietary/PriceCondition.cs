@@ -17,7 +17,7 @@ namespace IB.Api.Client.Proprietary
 
     public static class CTriggerMethod
     {
-        public static readonly string[] friendlyNames = new string[] { "default", "decimal bid/ask", "last", "decimal last", "bid/ask", "", "", "last of bid/ask", "mid-point" };
+        public static readonly string[] friendlyNames = new string[] { "default", "double bid/ask", "last", "double last", "bid/ask", "", "", "last of bid/ask", "mid-point" };
 
 
         public static string ToFriendlyString(this TriggerMethod th)
@@ -45,7 +45,7 @@ namespace IB.Api.Client.Proprietary
             }
             set
             {
-                Price = decimal.Parse(value, NumberFormatInfo.InvariantInfo);
+                Price = double.Parse(value, NumberFormatInfo.InvariantInfo);
             }
         }
 
@@ -70,7 +70,7 @@ namespace IB.Api.Client.Proprietary
             return base.GetHashCode() + TriggerMethod.GetHashCode();
         }
 
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public TriggerMethod TriggerMethod { get; set; }
 
         public override void Deserialize(IDecoder inStream)

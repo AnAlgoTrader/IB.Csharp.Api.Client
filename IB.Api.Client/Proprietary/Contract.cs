@@ -20,7 +20,7 @@ namespace IB.Api.Client.Proprietary
         private string symbol;
         private string secType;
         private string lastTradeDateOrContractMonth;
-        private decimal strike;
+        private double strike;
         private string right;
         private string multiplier;
         private string exchange;
@@ -88,7 +88,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The option's strike price
          */
-        public decimal Strike
+        public double Strike
         {
             get { return strike; }
             set { strike = value; }

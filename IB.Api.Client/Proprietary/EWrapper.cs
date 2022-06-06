@@ -52,7 +52,7 @@ namespace IB.Api.Client.Proprietary
          * @param attribs an TickAttrib object that contains price attributes such as TickAttrib::CanAutoExecute, TickAttrib::PastLimit and TickAttrib::PreOpen.
          * @sa TickType, tickSize, tickString, tickEFP, tickGeneric, tickOptionComputation, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
-        void tickPrice(int tickerId, int field, decimal price, TickAttrib attribs);
+        void tickPrice(int tickerId, int field, double price, TickAttrib attribs);
 
         /**
          * @brief Market data tick size callback.
@@ -79,7 +79,7 @@ namespace IB.Api.Client.Proprietary
          * @param field the type of tick being received.
          * @param value
          */
-        void tickGeneric(int tickerId, int field, decimal value);
+        void tickGeneric(int tickerId, int field, double value);
 
         /**
          * @brief Exchange for Physicals.
@@ -93,7 +93,7 @@ namespace IB.Api.Client.Proprietary
          * @param dividendImpact The dividend impact upon the annualized basis points interest rate.
          * @param dividendsToLastTradeDate The dividends expected until the expiration of the single stock future.
          */
-        void tickEFP(int tickerId, int tickType, decimal basisPoints, string formattedBasisPoints, decimal impliedFuture, int holdDays, string futureLastTradeDate, decimal dividendImpact, decimal dividendsToLastTradeDate);
+        void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
 
         /**
          * @brief -
@@ -123,7 +123,7 @@ namespace IB.Api.Client.Proprietary
          * @param undPrice the price of the underlying.
          * @sa TickType, tickSize, tickPrice, tickEFP, tickGeneric, tickString, tickSnapshotEnd, marketDataType, EClientSocket::reqMktData
          */
-        void tickOptionComputation(int tickerId, int field, decimal impliedVolatility, decimal delta, decimal optPrice, decimal pvDividend, decimal gamma, decimal vega, decimal theta, decimal undPrice);
+        void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
 
         /**
          * @brief When requesting market data snapshots, this market will indicate the snapshot reception is finished. Expected to occur 11 seconds after beginning of request. 
@@ -343,8 +343,8 @@ namespace IB.Api.Client.Proprietary
          * @param marketValue total market value of the instrument.
          * @sa updateAccountTime, accountDownloadEnd, updateAccountValue, EClientSocket::reqAccountUpdates
          */
-        void updatePortfolio(Contract contract, decimal position, decimal marketPrice, decimal marketValue,
-            decimal averageCost, decimal unrealizedPNL, decimal realizedPNL, string accountName);
+        void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue,
+            double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
 
         /**
          * @brief Receives the last time on which the account was updated.
@@ -383,8 +383,8 @@ namespace IB.Api.Client.Proprietary
 		 * @param mktCapPrice If an order has been capped, this indicates the current capped price. Requires TWS 967+ and API v973.04+. Python API specifically requires API v973.06+.
          * @sa openOrder, openOrderEnd, EClientSocket::placeOrder, EClientSocket::reqAllOpenOrders, EClientSocket::reqAutoOpenOrders
          */
-        void orderStatus(int orderId, string status, decimal filled, decimal remaining, decimal avgFillPrice,
-            int permId, int parentId, decimal lastFillPrice, int clientId, string whyHeld, decimal mktCapPrice);
+        void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice,
+            int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice);
 
         /**
          * @brief Feeds in currently open orders.
@@ -490,7 +490,7 @@ namespace IB.Api.Client.Proprietary
          * @param size the order's size
          * @sa updateMktDepthL2, EClientSocket::reqMarketDepth
          */
-        void updateMktDepth(int tickerId, int position, int operation, int side, decimal price, int size);
+        void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size);
 
         /**
          * @brief Returns the order book
@@ -507,7 +507,7 @@ namespace IB.Api.Client.Proprietary
          * @param isSmartDepth flag indicating if this is smart depth response (aggregate data from multiple exchanges, v974+)
          * @sa updateMktDepth, EClientSocket::reqMarketDepth
          */
-        void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, decimal price, int size, bool isSmartDepth);
+        void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth);
 
         /**
          * @brief provides IB's bulletins
@@ -529,7 +529,7 @@ namespace IB.Api.Client.Proprietary
          * @Param avgCost the average cost of the position.
          * @sa positionEnd, EClientSocket::reqPositions
          */
-        void position(string account, Contract contract, decimal pos, decimal avgCost);
+        void position(string account, Contract contract, double pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.
@@ -550,7 +550,7 @@ namespace IB.Api.Client.Proprietary
          * @param count the number of trades during the bar's timespan (only available for TRADES).
          * @sa EClientSocket::reqRealTimeBars
          */
-        void realtimeBar(int reqId, long date, decimal open, decimal high, decimal low, decimal close, long volume, decimal WAP, int count);
+        void realtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double WAP, int count);
 
         /**
          * @brief provides the xml-formatted parameters available from TWS market scanners (not all available in API).
@@ -642,7 +642,7 @@ namespace IB.Api.Client.Proprietary
          * @param avgCost the average cost of the position.
          * @sa positionMultiEnd, EClientSocket::reqPositionsMulti
          */
-        void positionMulti(int requestId, string account, string modelCode, Contract contract, decimal pos, decimal avgCost);
+        void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost);
 
         /**
          * @brief Indicates all the positions have been transmitted.
@@ -679,7 +679,7 @@ namespace IB.Api.Client.Proprietary
 		* @param strikes a list of the possible strikes for options of this underlying on this exchange
 		* @sa EClient::reqSecDefOptParams
 		*/
-        void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<decimal> strikes);
+        void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes);
 
         /**
 		* @brief called when all callbacks to securityDefinitionOptionParameter are complete
@@ -745,7 +745,7 @@ namespace IB.Api.Client.Proprietary
         * @param snapshotPermissions
         * sa EClient::reqMktData
         */
-        void tickReqParams(int tickerId, decimal minTick, string bboExchange, int snapshotPermissions);
+        void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
 
         /**
         * @brief returns array of subscribed API news providers for this user
@@ -830,7 +830,7 @@ namespace IB.Api.Client.Proprietary
 		* @param unrealizedPnL total unRealized PnL updates for the account in real time
         * @sa EClient::reqPnL
 		*/
-        void pnl(int reqId, decimal dailyPnL, decimal unrealizedPnL, decimal realizedPnL);
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
 
         /** 
 		* @brief receives real time updates for single position daily PnL values
@@ -841,7 +841,7 @@ namespace IB.Api.Client.Proprietary
 		* @param value current market value of the position
 		* @sa EClient::reqSinglePnL
 		*/
-        void pnlSingle(int reqId, int pos, decimal dailyPnL, decimal unrealizedPnL, decimal realizedPnL, decimal value);
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
 
         /**
 		* @brief
@@ -879,7 +879,7 @@ namespace IB.Api.Client.Proprietary
         * @param specialConditions - tick-by-tick real-time tick special conditions
         * @sa EClient::reqTickByTickData
         */
-        void tickByTickAllLast(int reqId, int tickType, long time, decimal price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions);
+        void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions);
 
         /**
         * @brief returns "BidAsk" tick-by-tick real-time tick
@@ -892,7 +892,7 @@ namespace IB.Api.Client.Proprietary
         * @param tickAttribBidAsk - tick-by-tick real-time bid/ask tick attribs (bit 0 - bid past low, bit 1 - ask past high)
         * @sa EClient::reqTickByTickData
         */
-        void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk);
+        void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk);
 
         /**
         * @brief returns "MidPoint" tick-by-tick real-time tick
@@ -901,7 +901,7 @@ namespace IB.Api.Client.Proprietary
         * @param midPoint - tick-by-tick real-time tick mid point
         * @sa EClient::reqTickByTickData
         */
-        void tickByTickMidPoint(int reqId, long time, decimal midPoint);
+        void tickByTickMidPoint(int reqId, long time, double midPoint);
 
         /**
         * @brief response to API bind order control message

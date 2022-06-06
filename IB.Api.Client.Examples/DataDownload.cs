@@ -39,13 +39,9 @@ namespace IB.Api.Client.Examples
         public static void RunGetTimeAndSales(ConnectionDetails connectionDetails)
         {
             var ibClient = new IBClient();
-            ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
-            ibClient.TimeAndSalesHistoricalTickUpdateReceived +=
-                new EventHandler<Tuple<int, List<HistoricalTick>>>(TimeAndSalesHistoricalTickUpdateReceived);
-            ibClient.TimeAndSalesHistoricalTickBidAskUpdateReceived +=
-                new EventHandler<Tuple<int, List<HistoricalTickBidAsk>>>(TimeAndSalesHistoricalTickBidAskUpdateReceived);
+            ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);           
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-            ibClient.GetHistoricalTimeAndSales(1005, _contract, DateTime.Now.AddDays(-1), WhatToShow.TRADES);
+            ibClient.GetLatestHistoricalTimeAndSales(1005, _contract, WhatToShow.TRADES);
         }
         public static void RunGetNews(ConnectionDetails connectionDetails)
         {
@@ -53,14 +49,6 @@ namespace IB.Api.Client.Examples
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
 
-        }
-        private static void TimeAndSalesHistoricalTickLastUpdateReceived(object sender, Tuple<int, List<HistoricalTickLast>> ticks)
-        {
-            Console.WriteLine("-TimeAndSalesHistoricalTickLastUpdateReceived-");
-            foreach (var tick in ticks.Item2)
-            {
-                Console.WriteLine($"Time:{tick.Time} PriceBid:{tick.Price} PriceAsk:{tick.Size}");
-            }
         }
         private static void TimeAndSalesHistoricalTickBidAskUpdateReceived(object sender, Tuple<int, List<HistoricalTickBidAsk>> ticks)
         {

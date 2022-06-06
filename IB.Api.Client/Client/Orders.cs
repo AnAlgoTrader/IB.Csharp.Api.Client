@@ -64,7 +64,7 @@ namespace IB.Api.Client
         public void openOrderEnd()
         {
         }
-        public void orderStatus(int orderId, string status, decimal filled, decimal remaining, decimal avgFillPrice, int permId, int parentId, decimal lastFillPrice, int clientId, string whyHeld, decimal mktCapPrice)
+        public void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice)
         {
             var orderUpdate = new OrderUpdate
             {

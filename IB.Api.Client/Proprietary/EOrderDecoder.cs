@@ -67,7 +67,7 @@ namespace IB.Api.Client.Proprietary
 
         public void readTotalQuantity()
         {
-            order.TotalQuantity = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? eDecoder.ReadDouble() : (decimal)eDecoder.ReadInt();
+            order.TotalQuantity = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? eDecoder.ReadDouble() : (double)eDecoder.ReadInt();
         }
 
         public void readOrderType()
@@ -497,7 +497,7 @@ namespace IB.Api.Client.Proprietary
                     order.OrderComboLegs = new List<OrderComboLeg>(orderComboLegsCount);
                     for (int i = 0; i < orderComboLegsCount; ++i)
                     {
-                        decimal price = eDecoder.ReadDoubleMax();
+                        double price = eDecoder.ReadDoubleMax();
 
                         OrderComboLeg orderComboLeg = new OrderComboLeg(price);
                         order.OrderComboLegs.Add(orderComboLeg);
@@ -543,7 +543,7 @@ namespace IB.Api.Client.Proprietary
                 order.ScalePriceIncrement = eDecoder.ReadDoubleMax();
             }
 
-            if (msgVersion >= 28 && order.ScalePriceIncrement > 0.0M && order.ScalePriceIncrement != Decimal.MaxValue)
+            if (msgVersion >= 28 && order.ScalePriceIncrement > 0.0 && order.ScalePriceIncrement != double.MaxValue)
             {
                 order.ScalePriceAdjustValue = eDecoder.ReadDoubleMax();
                 order.ScalePriceAdjustInterval = eDecoder.ReadIntMax();

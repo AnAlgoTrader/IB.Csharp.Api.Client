@@ -10,8 +10,8 @@ namespace IB.Api.Client.Proprietary
 {
     public interface IDecoder
     {
-        decimal ReadDouble();
-        decimal ReadDoubleMax();
+        double ReadDouble();
+        double ReadDoubleMax();
         long ReadLong();
         int ReadInt();
         int ReadIntMax();

@@ -5,8 +5,8 @@ namespace IB.Api.Client.Model
     public class PriceUpdate
     {
         [JsonProperty("bid")]
-        public decimal Bid { get; set; }
+        public double Bid { get; set; }
         [JsonProperty("ask")]
-        public decimal Ask { get; set; }
+        public double Ask { get; set; }
     }
 }

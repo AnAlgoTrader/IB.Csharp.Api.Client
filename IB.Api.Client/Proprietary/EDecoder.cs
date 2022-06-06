@@ -501,7 +501,7 @@ namespace IB.Api.Client.Proprietary
                     break;
                 case 1: // Last
                 case 2: // AllLast
-                    decimal price = ReadDouble();
+                    double price = ReadDouble();
                     int size = ReadInt();
                     mask = new BitMask(ReadInt());
                     TickAttribLast tickAttribLast = new TickAttribLast();
@@ -512,8 +512,8 @@ namespace IB.Api.Client.Proprietary
                     eWrapper.tickByTickAllLast(reqId, tickType, time, price, size, tickAttribLast, exchange, specialConditions);
                     break;
                 case 3: // BidAsk
-                    decimal bidPrice = ReadDouble();
-                    decimal askPrice = ReadDouble();
+                    double bidPrice = ReadDouble();
+                    double askPrice = ReadDouble();
                     int bidSize = ReadInt();
                     int askSize = ReadInt();
                     mask = new BitMask(ReadInt());
@@ -523,7 +523,7 @@ namespace IB.Api.Client.Proprietary
                     eWrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, tickAttribBidAsk);
                     break;
                 case 4: // MidPoint
-                    decimal midPoint = ReadDouble();
+                    double midPoint = ReadDouble();
                     eWrapper.tickByTickMidPoint(reqId, time, midPoint);
                     break;
             }
@@ -644,11 +644,11 @@ namespace IB.Api.Client.Proprietary
             int requestId = ReadInt();
             int barCount = ReadInt();
             string date = ReadString();
-            decimal open = ReadDouble();
-            decimal close = ReadDouble();
-            decimal high = ReadDouble();
-            decimal low = ReadDouble();
-            decimal WAP = ReadDouble();
+            double open = ReadDouble();
+            double close = ReadDouble();
+            double high = ReadDouble();
+            double low = ReadDouble();
+            double WAP = ReadDouble();
             long volume = ReadLong();
 
             eWrapper.historicalDataUpdate(requestId, new Bar(date, open, high, low,
@@ -660,9 +660,9 @@ namespace IB.Api.Client.Proprietary
         {
             int reqId = ReadInt();
             int pos = ReadInt();
-            decimal dailyPnL = ReadDouble();
-            decimal unrealizedPnL = decimal.MaxValue;
-            decimal realizedPnL = decimal.MaxValue;
+            double dailyPnL = ReadDouble();
+            double unrealizedPnL = double.MaxValue;
+            double realizedPnL = double.MaxValue;
 
             if (serverVersion >= MinServerVer.UNREALIZED_PNL)
             {
@@ -674,7 +674,7 @@ namespace IB.Api.Client.Proprietary
                 realizedPnL = ReadDouble();
             }
 
-            decimal value = ReadDouble();
+            double value = ReadDouble();
 
             eWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         }
@@ -682,9 +682,9 @@ namespace IB.Api.Client.Proprietary
         private void PnLEvent()
         {
             int reqId = ReadInt();
-            decimal dailyPnL = ReadDouble();
-            decimal unrealizedPnL = decimal.MaxValue;
-            decimal realizedPnL = decimal.MaxValue;
+            double dailyPnL = ReadDouble();
+            double unrealizedPnL = double.MaxValue;
+            double realizedPnL = double.MaxValue;
 
             if (serverVersion >= MinServerVer.UNREALIZED_PNL)
             {
@@ -789,7 +789,7 @@ namespace IB.Api.Client.Proprietary
         private void TickReqParamsEvent()
         {
             int tickerId = ReadInt();
-            decimal minTick = ReadDouble();
+            double minTick = ReadDouble();
             String bboExchange = ReadString();
             int snapshotPermissions = ReadInt();
 
@@ -921,7 +921,7 @@ namespace IB.Api.Client.Proprietary
             string multiplier = ReadString();
             int expirationsSize = ReadInt();
             HashSet<string> expirations = new HashSet<string>();
-            HashSet<decimal> strikes = new HashSet<decimal>();
+            HashSet<double> strikes = new HashSet<double>();
 
             for (int i = 0; i < expirationsSize; i++)
             {
@@ -996,7 +996,7 @@ namespace IB.Api.Client.Proprietary
             int msgVersion = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
-            decimal price = ReadDouble();
+            double price = ReadDouble();
             int size = 0;
 
             if (msgVersion >= 2)
@@ -1081,7 +1081,7 @@ namespace IB.Api.Client.Proprietary
             int msgVersion = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
-            decimal value = ReadDouble();
+            double value = ReadDouble();
             eWrapper.tickGeneric(requestId, tickType, value);
         }
 
@@ -1090,13 +1090,13 @@ namespace IB.Api.Client.Proprietary
             int msgVersion = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
-            decimal basisPoints = ReadDouble();
+            double basisPoints = ReadDouble();
             string formattedBasisPoints = ReadString();
-            decimal impliedFuturesPrice = ReadDouble();
+            double impliedFuturesPrice = ReadDouble();
             int holdDays = ReadInt();
             string futureLastTradeDate = ReadString();
-            decimal dividendImpact = ReadDouble();
-            decimal dividendsToLastTradeDate = ReadDouble();
+            double dividendImpact = ReadDouble();
+            double dividendsToLastTradeDate = ReadDouble();
             eWrapper.tickEFP(requestId, tickType, basisPoints, formattedBasisPoints, impliedFuturesPrice, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         }
 
@@ -1161,33 +1161,33 @@ namespace IB.Api.Client.Proprietary
             int msgVersion = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
-            decimal impliedVolatility = ReadDouble();
+            double impliedVolatility = ReadDouble();
             if (impliedVolatility.Equals(-1))
             { // -1 is the "not yet computed" indicator
-                impliedVolatility = Decimal.MaxValue;
+                impliedVolatility = double.MaxValue;
             }
-            decimal delta = ReadDouble();
+            double delta = ReadDouble();
             if (delta.Equals(-2))
             { // -2 is the "not yet computed" indicator
-                delta = Decimal.MaxValue;
+                delta = double.MaxValue;
             }
-            decimal optPrice = Decimal.MaxValue;
-            decimal pvDividend = Decimal.MaxValue;
-            decimal gamma = Decimal.MaxValue;
-            decimal vega = Decimal.MaxValue;
-            decimal theta = Decimal.MaxValue;
-            decimal undPrice = Decimal.MaxValue;
+            double optPrice = double.MaxValue;
+            double pvDividend = double.MaxValue;
+            double gamma = double.MaxValue;
+            double vega = double.MaxValue;
+            double theta = double.MaxValue;
+            double undPrice = double.MaxValue;
             if (msgVersion >= 6 || tickType == TickType.MODEL_OPTION || tickType == TickType.DELAYED_MODEL_OPTION)
             {
                 optPrice = ReadDouble();
                 if (optPrice.Equals(-1))
                 { // -1 is the "not yet computed" indicator
-                    optPrice = Decimal.MaxValue;
+                    optPrice = double.MaxValue;
                 }
                 pvDividend = ReadDouble();
                 if (pvDividend.Equals(-1))
                 { // -1 is the "not yet computed" indicator
-                    pvDividend = Decimal.MaxValue;
+                    pvDividend = double.MaxValue;
                 }
             }
             if (msgVersion >= 6)
@@ -1195,22 +1195,22 @@ namespace IB.Api.Client.Proprietary
                 gamma = ReadDouble();
                 if (gamma.Equals(-2))
                 { // -2 is the "not yet computed" indicator
-                    gamma = Decimal.MaxValue;
+                    gamma = double.MaxValue;
                 }
                 vega = ReadDouble();
                 if (vega.Equals(-2))
                 { // -2 is the "not yet computed" indicator
-                    vega = Decimal.MaxValue;
+                    vega = double.MaxValue;
                 }
                 theta = ReadDouble();
                 if (theta.Equals(-2))
                 { // -2 is the "not yet computed" indicator
-                    theta = Decimal.MaxValue;
+                    theta = double.MaxValue;
                 }
                 undPrice = ReadDouble();
                 if (undPrice.Equals(-1))
                 { // -1 is the "not yet computed" indicator
-                    undPrice = Decimal.MaxValue;
+                    undPrice = double.MaxValue;
                 }
             }
 
@@ -1352,12 +1352,12 @@ namespace IB.Api.Client.Proprietary
                 contract.TradingClass = ReadString();
             }
 
-            var position = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (decimal)ReadInt();
-            decimal marketPrice = ReadDouble();
-            decimal marketValue = ReadDouble();
-            decimal averageCost = 0.0M;
-            decimal unrealizedPNL = 0.0M;
-            decimal realizedPNL = 0.0M;
+            var position = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
+            double marketPrice = ReadDouble();
+            double marketValue = ReadDouble();
+            double averageCost = 0.0;
+            double unrealizedPNL = 0.0;
+            double realizedPNL = 0.0;
             if (msgVersion >= 3)
             {
                 averageCost = ReadDouble();
@@ -1399,9 +1399,9 @@ namespace IB.Api.Client.Proprietary
             int msgVersion = serverVersion >= MinServerVer.MARKET_CAP_PRICE ? int.MaxValue : ReadInt();
             int id = ReadInt();
             string status = ReadString();
-            decimal filled = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (decimal)ReadInt();
-            decimal remaining = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (decimal)ReadInt();
-            decimal avgFillPrice = ReadDouble();
+            double filled = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
+            double remaining = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
+            double avgFillPrice = ReadDouble();
 
             int permId = 0;
             if (msgVersion >= 2)
@@ -1415,7 +1415,7 @@ namespace IB.Api.Client.Proprietary
                 parentId = ReadInt();
             }
 
-            decimal lastFillPrice = 0;
+            double lastFillPrice = 0;
             if (msgVersion >= 4)
             {
                 lastFillPrice = ReadDouble();
@@ -1433,7 +1433,7 @@ namespace IB.Api.Client.Proprietary
                 whyHeld = ReadString();
             }
 
-            decimal mktCapPrice = decimal.MaxValue;
+            double mktCapPrice = double.MaxValue;
 
             if (serverVersion >= MinServerVer.MARKET_CAP_PRICE)
             {
@@ -1673,7 +1673,7 @@ namespace IB.Api.Client.Proprietary
             exec.AcctNumber = ReadString();
             exec.Exchange = ReadString();
             exec.Side = ReadString();
-            exec.Shares = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (decimal)ReadInt();
+            exec.Shares = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
             exec.Price = ReadDouble();
             if (msgVersion >= 2)
             {
@@ -1766,12 +1766,12 @@ namespace IB.Api.Client.Proprietary
             for (int ctr = 0; ctr < itemCount; ctr++)
             {
                 string date = ReadString();
-                decimal open = ReadDouble();
-                decimal high = ReadDouble();
-                decimal low = ReadDouble();
-                decimal close = ReadDouble();
+                double open = ReadDouble();
+                double high = ReadDouble();
+                double low = ReadDouble();
+                double close = ReadDouble();
                 long volume = serverVersion < MinServerVer.SYNT_REALTIME_BARS ? ReadInt() : ReadLong();
-                decimal WAP = ReadDouble();
+                double WAP = ReadDouble();
 
                 if (serverVersion < MinServerVer.SYNT_REALTIME_BARS)
                 {
@@ -1809,7 +1809,7 @@ namespace IB.Api.Client.Proprietary
             int position = ReadInt();
             int operation = ReadInt();
             int side = ReadInt();
-            decimal price = ReadDouble();
+            double price = ReadDouble();
             int size = ReadInt();
             eWrapper.updateMktDepth(requestId, position, operation, side, price, size);
         }
@@ -1822,7 +1822,7 @@ namespace IB.Api.Client.Proprietary
             string marketMaker = ReadString();
             int operation = ReadInt();
             int side = ReadInt();
-            decimal price = ReadDouble();
+            double price = ReadDouble();
             int size = ReadInt();
 
             bool isSmartDepth = false;
@@ -1864,8 +1864,8 @@ namespace IB.Api.Client.Proprietary
                 contract.TradingClass = ReadString();
             }
 
-            var pos = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (decimal)ReadInt();
-            decimal avgCost = 0;
+            var pos = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? ReadDouble() : (double)ReadInt();
+            double avgCost = 0;
             if (msgVersion >= 3)
                 avgCost = ReadDouble();
             eWrapper.position(account, contract, pos, avgCost);
@@ -1882,12 +1882,12 @@ namespace IB.Api.Client.Proprietary
             int msgVersion = ReadInt();
             int requestId = ReadInt();
             long time = ReadLong();
-            decimal open = ReadDouble();
-            decimal high = ReadDouble();
-            decimal low = ReadDouble();
-            decimal close = ReadDouble();
+            double open = ReadDouble();
+            double high = ReadDouble();
+            double low = ReadDouble();
+            double close = ReadDouble();
             long volume = ReadLong();
-            decimal wap = ReadDouble();
+            double wap = ReadDouble();
             int count = ReadInt();
             eWrapper.realtimeBar(requestId, time, open, high, low, close, volume, wap, count);
         }
@@ -1960,7 +1960,7 @@ namespace IB.Api.Client.Proprietary
             contract.LocalSymbol = ReadString();
             contract.TradingClass = ReadString();
             var pos = ReadDouble();
-            decimal avgCost = ReadDouble();
+            double avgCost = ReadDouble();
             string modelCode = ReadString();
             eWrapper.positionMulti(requestId, account, modelCode, contract, pos, avgCost);
         }
@@ -1991,7 +1991,7 @@ namespace IB.Api.Client.Proprietary
             eWrapper.accountUpdateMultiEnd(requestId);
         }
 
-        public decimal ReadDouble()
+        public double ReadDouble()
         {
             string doubleAsstring = ReadString();
             if (string.IsNullOrEmpty(doubleAsstring) ||
@@ -1999,13 +1999,13 @@ namespace IB.Api.Client.Proprietary
             {
                 return 0;
             }
-            else return Decimal.Parse(doubleAsstring, System.Globalization.NumberStyles.Float);
+            else return Double.Parse(doubleAsstring, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
-        public decimal ReadDoubleMax()
+        public double ReadDoubleMax()
         {
             string str = ReadString();
-            return (str == null || str.Length == 0) ? Decimal.MaxValue : Decimal.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
+            return (str == null || str.Length == 0) ? Double.MaxValue : Double.Parse(str, System.Globalization.NumberFormatInfo.InvariantInfo);
         }
 
         public long ReadLong()

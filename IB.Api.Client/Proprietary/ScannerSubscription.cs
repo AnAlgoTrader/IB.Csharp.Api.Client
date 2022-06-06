@@ -19,20 +19,20 @@ namespace IB.Api.Client.Proprietary
         private string instrument;
         private string locationCode;
         private string scanCode;
-        private decimal abovePrice = Decimal.MaxValue;
-        private decimal belowPrice = Decimal.MaxValue;
+        private double abovePrice = double.MaxValue;
+        private double belowPrice = double.MaxValue;
         private int aboveVolume = Int32.MaxValue;
         private int averageOptionVolumeAbove = Int32.MaxValue;
-        private decimal marketCapAbove = Decimal.MaxValue;
-        private decimal marketCapBelow = Decimal.MaxValue;
+        private double marketCapAbove = double.MaxValue;
+        private double marketCapBelow = double.MaxValue;
         private string moodyRatingAbove;
         private string moodyRatingBelow;
         private string spRatingAbove;
         private string spRatingBelow;
         private string maturityDateAbove;
         private string maturityDateBelow;
-        private decimal couponRateAbove = Decimal.MaxValue;
-        private decimal couponRateBelow = Decimal.MaxValue;
+        private double couponRateAbove = double.MaxValue;
+        private double couponRateBelow = double.MaxValue;
         private bool excludeConvertible;
         private string scannerSettingPairs;
         private string stockTypeFilter;
@@ -76,7 +76,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filters out Contracts which price is below this value
          */
-        public decimal AbovePrice
+        public double AbovePrice
         {
             get { return abovePrice; }
             set { abovePrice = value; }
@@ -85,7 +85,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filters out contracts which price is above this value.
          */
-        public decimal BelowPrice
+        public double BelowPrice
         {
             get { return belowPrice; }
             set { belowPrice = value; }
@@ -112,7 +112,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filters out Contracts which market cap is above this value.
          */
-        public decimal MarketCapAbove
+        public double MarketCapAbove
         {
             get { return marketCapAbove; }
             set { marketCapAbove = value; }
@@ -121,7 +121,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filters out Contracts which market cap is below this value.
          */
-        public decimal MarketCapBelow
+        public double MarketCapBelow
         {
             get { return marketCapBelow; }
             set { marketCapBelow = value; }
@@ -184,7 +184,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filter out Contracts with a coupon rate lower than this value.
          */
-        public decimal CouponRateAbove
+        public double CouponRateAbove
         {
             get { return couponRateAbove; }
             set { couponRateAbove = value; }
@@ -193,7 +193,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filter out Contracts with a coupon rate higher than this value.
          */
-        public decimal CouponRateBelow
+        public double CouponRateBelow
         {
             get { return couponRateBelow; }
             set { couponRateBelow = value; }

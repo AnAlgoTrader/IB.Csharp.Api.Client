@@ -86,9 +86,9 @@ namespace IB.Api.Client.Proprietary
             return (value == Int64.MaxValue) ? "" : "" + value;
         }
 
-        public static string DoubleMaxString(decimal value)
+        public static string DoubleMaxString(double value)
         {
-            return (value == Decimal.MaxValue) ? "" : "" + value;
+            return (value == double.MaxValue) ? "" : "" + value;
         }
 
         public static string UnixSecondsToString(long seconds, string format)

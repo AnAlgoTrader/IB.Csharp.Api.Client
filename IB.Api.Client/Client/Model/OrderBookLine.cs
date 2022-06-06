@@ -10,8 +10,8 @@ namespace IB.Api.Client.Model
         /// </summary>
         public int Operation { get; set; }
         public int Side { get; set; }
-        public decimal Price { get; set; }
-        public decimal Size { get; set; }
-        public decimal PercentageOfBook { get; set; }
+        public double Price { get; set; }
+        public double Size { get; set; }
+        public double PercentageOfBook { get; set; }
     }
 }

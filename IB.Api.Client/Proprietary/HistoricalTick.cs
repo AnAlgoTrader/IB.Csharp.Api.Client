@@ -21,7 +21,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public HistoricalTick(long time, decimal price, long size)
+        public HistoricalTick(long time, double price, long size)
         {
             Time = time;
             Price = price;
@@ -42,7 +42,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The historical tick price
          */
-        public decimal Price { get; private set; }
+        public double Price { get; private set; }
 
         /**
          * @brief The historical tick size

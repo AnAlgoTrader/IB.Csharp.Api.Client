@@ -24,16 +24,16 @@ namespace IB.Api.Client.Model
         public string Symbol { get; set; }
 
         [JsonProperty("position")]
-        public decimal Position { get; set; }
+        public double Position { get; set; }
 
         [JsonProperty("unrealizedPnl")]
-        public decimal UnrealizedPnl { get; set; }
+        public double UnrealizedPnl { get; set; }
 
         [JsonProperty("contractId")]
         public int ContractId { get; set; }
 
         [JsonProperty("realizedPnl")]
-        public decimal RealizedPnl { get; internal set; }
+        public double RealizedPnl { get; internal set; }
 
         [JsonProperty("accountName")]
         public string AccountName { get; internal set; }

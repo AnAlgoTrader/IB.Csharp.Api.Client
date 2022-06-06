@@ -30,22 +30,22 @@ namespace IB.Api.Client.Model
         public string Status { get; set; }
 
         [JsonProperty("avgPrice")]
-        public decimal AvgPrice { get; set; }
+        public double AvgPrice { get; set; }
 
         [JsonProperty("fillPrice")]
-        public decimal? FillPrice { get; set; }
+        public double? FillPrice { get; set; }
 
         [JsonProperty("orderType")]
         public string OrderType { get; set; }
 
         [JsonProperty("quantity")]
-        public decimal Quantity { get; set; }
+        public double Quantity { get; set; }
 
         [JsonProperty("multiplier")]
-        public decimal Multiplier { get; set; }
+        public double Multiplier { get; set; }
 
         [JsonProperty("commission")]
-        public decimal Commission { get; set; }
+        public double Commission { get; set; }
 
         [JsonProperty("targetOrderRef")]
         public string TargetOrderRef { get; set; }
@@ -60,13 +60,13 @@ namespace IB.Api.Client.Model
         public string TargetOrderType { get; set; }
 
         [JsonProperty("targetLimitPrice")]
-        public decimal TargetLimitPrice { get; set; }
+        public double TargetLimitPrice { get; set; }
 
         [JsonProperty("targetFillPrice")]
-        public decimal? TargetFillPrice { get; set; }
+        public double? TargetFillPrice { get; set; }
 
         [JsonProperty("pnl")]
-        public decimal? Pnl { get; set; }
+        public double? Pnl { get; set; }
 
         [JsonProperty("orderId")]
         public int? OrderId { get; set; }
@@ -75,13 +75,13 @@ namespace IB.Api.Client.Model
         public int? TargetId { get; set; }
 
         [JsonProperty("attemptedPrice")]
-        public decimal AttemptedPrice { get; set; }
+        public double AttemptedPrice { get; set; }
         
         [JsonProperty("attemptedLimitPrice")]
-        public decimal AttemptedLimitPrice { get; set; }
+        public double AttemptedLimitPrice { get; set; }
 
         [JsonProperty("targetCommission")]
-        public decimal? TargetCommission { get; set; }
+        public double? TargetCommission { get; set; }
 
         [JsonProperty("targetExecutionId")]
         public string TargetExecutionId { get; set; }

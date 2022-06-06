@@ -18,7 +18,7 @@ namespace IB.Api.Client.Proprietary
     {
         private Contract contract;
         private string marketName;
-        private decimal minTick;
+        private double minTick;
         private int priceMagnifier;
         private string orderTypes;
         private string validExchanges;
@@ -32,7 +32,7 @@ namespace IB.Api.Client.Proprietary
         private string tradingHours;
         private string liquidHours;
         private string evRule;
-        private decimal evMultiplier;
+        private double evMultiplier;
         private int mdSizeMultiplier;
         private int aggGroup;
         private List<TagValue> secIdList;
@@ -50,7 +50,7 @@ namespace IB.Api.Client.Proprietary
         private string couponType;
         private bool callable = false;
         private bool putable = false;
-        private decimal coupon = 0;
+        private double coupon = 0;
         private bool convertible = false;
         private string maturity;
         private string issueDate;
@@ -85,7 +85,7 @@ namespace IB.Api.Client.Proprietary
         * @brief The minimum allowed price variation.
          * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment price structure can be obtained with the reqMarketRule function or the IB Contract and Security Search site. 
         */
-        public decimal MinTick
+        public double MinTick
         {
             //! @cond
             get { return minTick; }
@@ -251,7 +251,7 @@ namespace IB.Api.Client.Proprietary
         * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1. 
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
         */
-        public decimal EvMultiplier
+        public double EvMultiplier
         {
             //! @cond
             get { return evMultiplier; }
@@ -444,7 +444,7 @@ namespace IB.Api.Client.Proprietary
         * This field is currently not available from the TWS API. 
 		* For Bonds only.
         */
-        public decimal Coupon
+        public double Coupon
         {
             //! @cond
             get { return coupon; }
@@ -551,10 +551,10 @@ namespace IB.Api.Client.Proprietary
         }
 
         public ContractDetails(Contract summary, String marketName,
-                decimal minTick, String orderTypes, String validExchanges, int underConId, String longName,
+                double minTick, String orderTypes, String validExchanges, int underConId, String longName,
                 String contractMonth, String industry, String category, String subcategory,
                 String timeZoneId, String tradingHours, String liquidHours,
-                String evRule, decimal evMultiplier, int aggGroup)
+                String evRule, double evMultiplier, int aggGroup)
         {
             Contract = summary;
             MarketName = marketName;

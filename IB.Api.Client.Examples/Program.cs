@@ -6,7 +6,7 @@ namespace IB.Api.Client.Examples
     {
         static void Main(string[] args)
         {
-            //decimal check your connection details within your TWS/Gateway settings
+            //double check your connection details within your TWS/Gateway settings
             var connectionDetails = new ConnectionDetails
             {
                 Host = "127.0.0.1",

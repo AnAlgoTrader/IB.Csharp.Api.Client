@@ -36,7 +36,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void tickPrice(int tickerId, int field, decimal price, TickAttrib attribs)
+        public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
         }
 
@@ -48,11 +48,11 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void tickGeneric(int tickerId, int field, decimal value)
+        public virtual void tickGeneric(int tickerId, int field, double value)
         {
         }
 
-        public virtual void tickEFP(int tickerId, int tickType, decimal basisPoints, string formattedBasisPoints, decimal impliedFuture, int holdDays, string futureLastTradeDate, decimal dividendImpact, decimal dividendsToLastTradeDate)
+        public virtual void tickEFP(int tickerId, int tickType, double basisPoints, string formattedBasisPoints, double impliedFuture, int holdDays, string futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate)
         {
         }
 
@@ -60,7 +60,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void tickOptionComputation(int tickerId, int field, decimal impliedVolatility, decimal delta, decimal optPrice, decimal pvDividend, decimal gamma, decimal vega, decimal theta, decimal undPrice)
+        public virtual void tickOptionComputation(int tickerId, int field, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
         }
 
@@ -96,7 +96,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void updatePortfolio(Contract contract, decimal position, decimal marketPrice, decimal marketValue, decimal averageCost, decimal unrealizedPNL, decimal realizedPNL, string accountName)
+        public virtual void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName)
         {
         }
 
@@ -108,7 +108,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void orderStatus(int orderId, string status, decimal filled, decimal remaining, decimal avgFillPrice, int permId, int parentId, decimal lastFillPrice, int clientId, string whyHeld, decimal mktCapPrice)
+        public virtual void orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice)
         {
         }
 
@@ -156,11 +156,11 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, decimal price, int size)
+        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
         {
         }
 
-        public virtual void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, decimal price, int size, bool isSmartDepth)
+        public virtual void updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth)
         {
         }
 
@@ -168,7 +168,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void position(string account, Contract contract, decimal pos, decimal avgCost)
+        public virtual void position(string account, Contract contract, double pos, double avgCost)
         {
         }
 
@@ -176,7 +176,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void realtimeBar(int reqId, long time, decimal open, decimal high, decimal low, decimal close, long volume, decimal WAP, int count)
+        public virtual void realtimeBar(int reqId, long time, double open, double high, double low, double close, long volume, double WAP, int count)
         {
         }
 
@@ -224,7 +224,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void positionMulti(int requestId, string account, string modelCode, Contract contract, decimal pos, decimal avgCost)
+        public virtual void positionMulti(int requestId, string account, string modelCode, Contract contract, double pos, double avgCost)
         {
         }
 
@@ -241,7 +241,7 @@ namespace IB.Api.Client.Proprietary
         }
 
 
-        public virtual void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<decimal> strikes)
+        public virtual void securityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
         }
 
@@ -273,7 +273,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void tickReqParams(int tickerId, decimal minTick, string bboExchange, int snapshotPermissions)
+        public virtual void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
         }
 
@@ -319,12 +319,12 @@ namespace IB.Api.Client.Proprietary
         }
 
 
-        public virtual void pnl(int reqId, decimal dailyPnL, decimal unrealizedPnL, decimal realizedPnL)
+        public virtual void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
         {
 
         }
 
-        public virtual void pnlSingle(int reqId, int pos, decimal dailyPnL, decimal realizedPnL, decimal value, decimal unrealizedPnL)
+        public virtual void pnlSingle(int reqId, int pos, double dailyPnL, double realizedPnL, double value, double unrealizedPnL)
         {
 
         }
@@ -341,15 +341,15 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public virtual void tickByTickAllLast(int reqId, int tickType, long time, decimal price, int size, TickAttribLast tickAttribLast, string exchange, string specialConditions)
+        public virtual void tickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttribLast, string exchange, string specialConditions)
         {
         }
 
-        public virtual void tickByTickBidAsk(int reqId, long time, decimal bidPrice, decimal askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        public virtual void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
         {
         }
 
-        public virtual void tickByTickMidPoint(int reqId, long time, decimal midPoint)
+        public virtual void tickByTickMidPoint(int reqId, long time, double midPoint)
         {
         }
 

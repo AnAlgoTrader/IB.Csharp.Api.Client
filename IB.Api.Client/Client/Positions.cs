@@ -8,7 +8,7 @@ namespace IB.Api.Client
     public partial class IBClient
     {
         public event EventHandler<PortfolioUpdate> PortfolioUpdateReceived;
-        public void updatePortfolio(Contract contract, decimal position, decimal marketPrice, decimal marketValue, decimal averageCost, decimal unrealizedPNL, decimal realizedPNL, string accountName)
+        public void updatePortfolio(Contract contract, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName)
         {
             var portfolioUpdate = new PortfolioUpdate
             {

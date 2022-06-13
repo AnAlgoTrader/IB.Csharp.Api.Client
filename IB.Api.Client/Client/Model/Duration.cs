@@ -14,13 +14,10 @@ namespace IB.Api.Client.Model
         Y
     }
 
-    public class Duration{
-        public int Unit { get; set; }
-        public DurationType DurationType { get; set; }
-
-        internal string GetDuration()
-        {
-            return $"{Unit} {DurationType}";
+    public class Duration
+    {
+        public static string GetDuration(int unit, DurationType durationType){
+            return $"{unit} {durationType.ToString()}";
         }
     }
 }

@@ -13,18 +13,20 @@ namespace IB.Api.Client
         private Dictionary<int, List<HistoricalTick>> _historicalTicks;
         private Dictionary<int, List<HistoricalTickBidAsk>> _historicalTickBidAsk;
         private Dictionary<int, List<HistoricalTickLast>> _historicalTickLast;
-        public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataUpdateEndReceived;
+        public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataUpdateReceived;
         public event EventHandler<BarUpdate> BarUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTick>>> HistoricalTimeAndSalesTickUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTickBidAsk>>> HistoricalTimeAndSalesTickBidAskUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTickLast>>> HistoricalTimeAndSalesTickLastUpdateReceived;
-        public void GetHistoricalData(int reqId, Contract contract, DateTime endTime, Duration duration, string barSize, WhatToShow whatToShow, Rth rth, bool keepUpToDate)
+
+        /// <summary>
+        /// For Bar Sizes check BarSize class
+        /// For durations check Duration class
+        /// </summary>
+        public void GetHistoricalData(int reqId, Contract contract, string duration, string barSize, WhatToShow whatToShow, Rth rth, bool keepUpToDate)
         {
             _historicalData.Add(reqId, new List<Bar>());
-            string end = string.Empty;
-            if (!keepUpToDate)
-                end = DateHelper.ConvertToApiDate(endTime);
-            ClientSocket.reqHistoricalData(reqId, contract, end, duration.GetDuration(), BarSize.OneMinute, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
+            ClientSocket.reqHistoricalData(reqId, contract, string.Empty, duration, barSize, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
             Notify($"Historical data for symbol {contract.Symbol} requested");
         }
 
@@ -79,7 +81,7 @@ namespace IB.Api.Client
         public void historicalDataEnd(int reqId, string startDate, string endDate)
         {
             var data = _historicalData[reqId];
-            HistoricalDataUpdateEndReceived?.Invoke(this, new Tuple<int, List<Bar>>(reqId, data));
+            HistoricalDataUpdateReceived?.Invoke(this, new Tuple<int, List<Bar>>(reqId, data));
         }
         public void historicalDataUpdate(int reqId, Bar bar)
         {

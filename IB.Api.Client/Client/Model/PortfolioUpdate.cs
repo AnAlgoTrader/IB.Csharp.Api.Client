@@ -27,7 +27,7 @@ namespace IB.Api.Client.Model
         public double Position { get; set; }
 
         [JsonProperty("unrealizedPnl")]
-        public double UnrealizedPnl { get; set; }
+        public double? UnrealizedPnl { get; set; }
 
         [JsonProperty("contractId")]
         public int ContractId { get; set; }

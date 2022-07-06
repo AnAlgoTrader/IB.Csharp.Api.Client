@@ -4,6 +4,9 @@ namespace IB.Api.Client.Model
     {
         BUY,
         SELL,
-        CANCEL
+        CANCEL,
+        OPEN,
+        CLOSE,
+        CLOSE_ALL
     }
 }

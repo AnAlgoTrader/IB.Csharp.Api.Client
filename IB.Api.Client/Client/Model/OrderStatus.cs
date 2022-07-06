@@ -6,5 +6,6 @@ namespace IB.Api.Client.Model
         public static string FILLED = "Filled";
         public static string CANCELLED = "Cancelled";
         public static string PENDING_CANCEL = "PendingCancel";
+        public static string Inactive = "Inactive";
     }
 }

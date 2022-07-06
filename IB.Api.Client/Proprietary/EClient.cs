@@ -3526,7 +3526,6 @@ namespace IB.Api.Client.Proprietary
         public byte[] ReadAtLeastNBytes(int msgSize)
         {
             var buf = new byte[msgSize];
-
             return buf.Take(tcpStream.Read(buf, 0, msgSize)).ToArray();
         }
 

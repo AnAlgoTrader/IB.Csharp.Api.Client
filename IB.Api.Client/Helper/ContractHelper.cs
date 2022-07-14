@@ -1,6 +1,8 @@
+using System.IO.Compression;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using IB.Api.Client.Model;
 using IB.Api.Client.Proprietary;
 
@@ -23,14 +25,27 @@ namespace IB.Api.Client.Helper
                         var hours = tradingHoursItem.Split("-");
                         var tradingHour = new TradingHours
                         {
-                            Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture),
-                            End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture)
+                            Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
+                            End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime()
                         };
                         output.Add(tradingHour);
                     }
                 }
             }
-            return output;
+            return output.OrderBy(x => x.Start).ToList(); ;
+        }
+
+        public static TradingHours GetNextSession(ContractDetails contractDetails)
+        {
+            var tradingHours = GetTradingHours(contractDetails);
+
+            var nextSession = tradingHours.Where(x =>
+                (DateTime.Now > x.Start && DateTime.Now < x.End) ||
+                (DateTime.Now < x.Start && DateTime.Now < x.End)
+                )
+                .FirstOrDefault();
+
+            return nextSession;
         }
 
         private static bool ValidTradingHoursItem(string tradingHoursItem)

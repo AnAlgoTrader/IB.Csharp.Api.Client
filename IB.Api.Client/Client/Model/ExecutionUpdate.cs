@@ -16,5 +16,6 @@ namespace IB.Api.Client.Model
         }
 
         public string Account { get; internal set; }
+        public double AvgPrice { get; internal set; }
     }
 }

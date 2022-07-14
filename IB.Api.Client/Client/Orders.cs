@@ -55,7 +55,8 @@ namespace IB.Api.Client
                 SecType = contract.SecType,
                 ExecutionId = execution.ExecId,
                 OrderRef = execution.OrderRef,
-                Side = execution.Side
+                Side = execution.Side,
+                AvgPrice = execution.AvgPrice
             });
         }
         public void execDetailsEnd(int reqId)

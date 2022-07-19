@@ -16,7 +16,7 @@ namespace IB.Api.Client.Model
                 return $"{Start.ToShortDateString()} {Start.ToShortTimeString()} ";
             }
         }
-        
+
         [JsonProperty("endToString")]
         public string EndToString
         {
@@ -25,5 +25,8 @@ namespace IB.Api.Client.Model
                 return $"{End.ToShortDateString()} {End.ToShortTimeString()} ";
             }
         }
+
+        [JsonProperty("lastTradeDate")]
+        public string LastTradeDate { get; internal set; }
     }
 }

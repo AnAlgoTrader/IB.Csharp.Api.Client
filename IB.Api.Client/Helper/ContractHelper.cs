@@ -14,6 +14,7 @@ namespace IB.Api.Client.Helper
         {
             var dateFormat = "yyyyMMdd:HHmm";
             var output = new List<TradingHours>();
+            var lastTradeDateOrContractMonth = contractDetails.Contract.LastTradeDateOrContractMonth;
             var tradingHours = contractDetails.TradingHours.Split(";");
             foreach (var item in tradingHours)
             {
@@ -26,7 +27,8 @@ namespace IB.Api.Client.Helper
                         var tradingHour = new TradingHours
                         {
                             Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
-                            End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime()
+                            End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
+                            LastTradeDate = DateTime.ParseExact(lastTradeDateOrContractMonth.Trim(), "yyyyMMdd", CultureInfo.InvariantCulture).ToShortDateString()
                         };
                         output.Add(tradingHour);
                     }

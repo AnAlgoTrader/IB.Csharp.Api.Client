@@ -19,22 +19,24 @@ namespace IB.Api.Client.Examples
         {
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
-            ibClient.HistoricalDataUpdateEndReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
+            ibClient.HistoricalDataUpdateReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
 
-            var duration = new Duration { Unit = 1, DurationType = DurationType.D };
-            ibClient.GetHistoricalData(1005, _contract, DateTime.Now, duration, BarSize.FiveMinutes, WhatToShow.MIDPOINT, Rth.No, false);
+            var duration = Duration.GetDuration(1, DurationType.D);
+            var barSize = BarSize.GetBarSize(5, BarSizeType.min);
+            ibClient.GetHistoricalData(1005, _contract, duration, barSize, WhatToShow.MIDPOINT, Rth.No, false);
         }
         public static void RunDownloadWithUpdates(ConnectionDetails connectionDetails)
         {
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
-            ibClient.HistoricalDataUpdateEndReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
+            ibClient.HistoricalDataUpdateReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
             ibClient.BarUpdateReceived += new EventHandler<BarUpdate>(BarUpdateReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
 
-            var duration = new Duration { Unit = 1, DurationType = DurationType.D };
-            ibClient.GetHistoricalData(1005, _contract, DateTime.Now, duration, BarSize.FiveMinutes, WhatToShow.MIDPOINT, Rth.No, true);
+            var duration = Duration.GetDuration(1, DurationType.D);
+            var barSize = BarSize.GetBarSize(5, BarSizeType.min);
+            ibClient.GetHistoricalData(1005, _contract, duration, barSize, WhatToShow.MIDPOINT, Rth.No, true);
         }
         public static void RunGetTimeAndSales(ConnectionDetails connectionDetails)
         {

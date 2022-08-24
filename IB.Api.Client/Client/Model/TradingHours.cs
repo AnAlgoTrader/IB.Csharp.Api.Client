@@ -28,5 +28,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("lastTradeDate")]
         public string LastTradeDate { get; internal set; }
+
+        [JsonProperty("symbol")]
+        public string Symbol { get; set; }
     }
 }

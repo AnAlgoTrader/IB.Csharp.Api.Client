@@ -25,6 +25,7 @@ namespace IB.Api.Client.Helper
                         var hours = tradingHoursItem.Split("-");
                         var tradingHour = new TradingHours
                         {
+                            Symbol = contractDetails.Contract.Symbol,
                             Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
                             End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
                             LastTradeDate = DateTime.ParseExact(lastTradeDateOrContractMonth.Trim(), "yyyyMMdd", CultureInfo.InvariantCulture).ToShortDateString()

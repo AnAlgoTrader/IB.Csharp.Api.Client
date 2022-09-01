@@ -59,6 +59,8 @@ namespace IB.Api.Client.Model
             CashGbp = key == "CashBalance" && currency == "GBP" ? double.Parse(value) : CashGbp;
             CashUsd = key == "CashBalance" && currency == "USD" ? double.Parse(value) : CashUsd;
             ExcessLiquidity = key == "ExcessLiquidity" ? double.Parse(value) : ExcessLiquidity;
+
+            Console.WriteLine($"{key}:{value} currency:{currency}");
         }
     }
 }

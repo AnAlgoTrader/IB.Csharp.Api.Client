@@ -26,7 +26,7 @@ namespace IB.Api.Client
         }        
         public void managedAccounts(string accountsList)
         {
-            AccountIds = accountsList.Split(",").ToList();
+            AccountIds = accountsList.Split(',').ToList();
             Notify($"Managed accounts ({accountsList})");
         }
         public void updateAccountTime(string timestamp)

@@ -14,7 +14,7 @@ namespace IB.Api.Client.Helper
             var dateFormat = "yyyyMMdd:HHmm";
             var output = new List<TradingHours>();
             var lastTradeDateOrContractMonth = contractDetails.Contract.LastTradeDateOrContractMonth;
-            var tradingHours = contractDetails.TradingHours.Split(";");
+            var tradingHours = contractDetails.TradingHours.Split(';');
             foreach (var item in tradingHours)
             {
                 var tradingHoursItem = item.Trim();
@@ -22,7 +22,7 @@ namespace IB.Api.Client.Helper
                 {
                     if (ValidTradingHoursItem(tradingHoursItem))
                     {
-                        var hours = tradingHoursItem.Split("-");
+                        var hours = tradingHoursItem.Split('-');
                         var tradingHour = new TradingHours
                         {
                             Symbol = contractDetails.Contract.Symbol,

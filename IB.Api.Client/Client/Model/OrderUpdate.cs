@@ -36,7 +36,7 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("mktCapPrice")]
         public double MktCapPrice { get; internal set; }
-        
+
         [JsonProperty("action")]
         public string Action { get; set; }
     }

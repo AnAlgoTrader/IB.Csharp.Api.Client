@@ -12,13 +12,12 @@ namespace IB.Api.Client.Proprietary
     {
         public static bool StringIsEmpty(string str)
         {
-            return str == null || str.Length == 0;
+            return string.IsNullOrEmpty(str);
         }
-
 
         public static string NormalizeString(string str)
         {
-            return str != null ? str : "";
+            return str ?? "";
         }
 
         public static int StringCompare(string lhs, string rhs)
@@ -35,12 +34,11 @@ namespace IB.Api.Client.Proprietary
 
         public static bool VectorEqualsUnordered<T>(List<T> lhs, List<T> rhs)
         {
-
             if (lhs == rhs)
                 return true;
 
-            int lhsCount = lhs == null ? 0 : lhs.Count;
-            int rhsCount = rhs == null ? 0 : rhs.Count;
+            int lhsCount = (lhs?.Count) ?? 0;
+            int rhsCount = (rhs?.Count) ?? 0;
 
             if (lhsCount != rhsCount)
                 return false;
@@ -96,7 +94,7 @@ namespace IB.Api.Client.Proprietary
             return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(seconds)).ToString(format);
         }
 
-        public static string formatDoubleString(String str)
+        public static string FormatDoubleString(String str)
         {
             return String.IsNullOrEmpty(str) ? "" : String.Format("{0,0:N2}", Double.Parse(str));
         }
@@ -104,7 +102,7 @@ namespace IB.Api.Client.Proprietary
         public static string TagValueListToString(List<TagValue> options)
         {
             StringBuilder tagValuesStr = new StringBuilder();
-            int tagValuesCount = options == null ? 0 : options.Count;
+            int tagValuesCount = (options?.Count) ?? 0;
 
             for (int i = 0; i < tagValuesCount; i++)
             {

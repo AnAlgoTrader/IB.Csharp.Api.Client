@@ -9,7 +9,7 @@ namespace IB.Api.Client
     public partial class IBClient
     {
         public event EventHandler<Notification> NotificationReceived;
-        public void error(Exception e)
+        public void Error(Exception e)
         {
             var notification = new Notification
             {
@@ -21,7 +21,7 @@ namespace IB.Api.Client
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void error(string error)
+        public void Error(string error)
         {
             var notification = new Notification
             {
@@ -33,7 +33,7 @@ namespace IB.Api.Client
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void error(int id, int code, string errorMsg)
+        public void Error(int id, int code, string errorMsg)
         {
             var notification = new Notification
             {
@@ -41,7 +41,7 @@ namespace IB.Api.Client
                 Id = id,
                 Code = code,
                 Message = errorMsg,
-                NotificationType = errorMsg.ToUpper().Contains("ERROR")? NotificationType.Error : NotificationType.Information
+                NotificationType = errorMsg.IndexOf("ERROR", StringComparison.OrdinalIgnoreCase) >= 0 ? NotificationType.Error : NotificationType.Information
             };
             NotificationReceived?.Invoke(this, notification);
         }
@@ -69,11 +69,11 @@ namespace IB.Api.Client
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void connectAck()
+        public void ConnectAck()
         {
             Notify("Connection Acknowledged");
         }
-        public void connectionClosed()
+        public void ConnectionClosed()
         {
             Notify("Connection Closed");
         }

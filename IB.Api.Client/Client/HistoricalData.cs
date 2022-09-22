@@ -8,8 +8,8 @@ namespace IB.Api.Client
 {
     public partial class IBClient
     {
-        private List<WhatToShow> _allowedTimeAndSalesTickTypes = new List<WhatToShow> { WhatToShow.TRADES, WhatToShow.BID_ASK, WhatToShow.MIDPOINT };
-        private Dictionary<int, List<Bar>> _historicalData = new Dictionary<int, List<Bar>>();
+        private readonly List<WhatToShow> _allowedTimeAndSalesTickTypes = new List<WhatToShow> { WhatToShow.TRADES, WhatToShow.BID_ASK, WhatToShow.MIDPOINT };
+        private readonly Dictionary<int, List<Bar>> _historicalData = new Dictionary<int, List<Bar>>();
         private Dictionary<int, List<HistoricalTick>> _historicalTicks;
         private Dictionary<int, List<HistoricalTickBidAsk>> _historicalTickBidAsk;
         private Dictionary<int, List<HistoricalTickLast>> _historicalTickLast;
@@ -26,7 +26,7 @@ namespace IB.Api.Client
         public void GetHistoricalData(int reqId, Contract contract, string duration, string barSize, WhatToShow whatToShow, Rth rth, bool keepUpToDate)
         {
             _historicalData.Add(reqId, new List<Bar>());
-            ClientSocket.reqHistoricalData(reqId, contract, string.Empty, duration, barSize, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
+            ClientSocket.ReqHistoricalData(reqId, contract, string.Empty, duration, barSize, whatToShow.ToString(), (int)rth, 1, keepUpToDate, null);
             Notify($"Historical data for symbol {contract.Symbol} requested");
         }
 
@@ -48,10 +48,13 @@ namespace IB.Api.Client
             {
                 string endTime = DateHelper.ConvertToApiDate(DateTime.Now);
                 InitializeHistoricalTickDictionary(reqId, whatToShow);
-                ClientSocket.reqHistoricalTicks(reqId, contract, null, endTime, 1000, whatToShow.ToString(), 0, true, null);
+                ClientSocket.ReqHistoricalTicks(reqId, contract, null, endTime, 1000, whatToShow.ToString(), 0, true, null);
                 Notify($"Time and Sales for symbol {contract.Symbol} requested");
             }
-            else NotifyError($"WhatToShow tick type: {whatToShow} not allowed");
+            else
+            {
+                NotifyError($"WhatToShow tick type: {whatToShow} not allowed");
+            }
         }
         private void InitializeHistoricalTickDictionary(int reqId, WhatToShow whatToShow)
         {
@@ -74,16 +77,16 @@ namespace IB.Api.Client
                     }
             }
         }
-        public void historicalData(int reqId, Bar bar)
+        public void HistoricalData(int reqId, Bar bar)
         {
             _historicalData[reqId].Add(bar);
         }
-        public void historicalDataEnd(int reqId, string startDate, string endDate)
+        public void HistoricalDataEnd(int reqId, string startDate, string endDate)
         {
             var data = _historicalData[reqId];
             HistoricalDataUpdateReceived?.Invoke(this, new Tuple<int, List<Bar>>(reqId, data));
         }
-        public void historicalDataUpdate(int reqId, Bar bar)
+        public void HistoricalDataUpdate(int reqId, Bar bar)
         {
             var barUpdate = new BarUpdate
             {
@@ -92,7 +95,7 @@ namespace IB.Api.Client
             };
             BarUpdateReceived?.Invoke(this, barUpdate);
         }
-        public void historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        public void HistoricalTicks(int reqId, HistoricalTick[] ticks, bool done)
         {
             _historicalTicks[reqId].AddRange(ticks);
             if (done)
@@ -101,7 +104,7 @@ namespace IB.Api.Client
                 _historicalTicks[reqId] = new List<HistoricalTick>();
             }
         }
-        public void historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        public void HistoricalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
         {
             _historicalTickBidAsk[reqId].AddRange(ticks);
             if (done)
@@ -110,7 +113,7 @@ namespace IB.Api.Client
                 _historicalTickBidAsk[reqId] = new List<HistoricalTickBidAsk>();
             }
         }
-        public void historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        public void HistoricalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
         {
             _historicalTickLast[reqId].AddRange(ticks);
             if (done)
@@ -118,6 +121,6 @@ namespace IB.Api.Client
                 HistoricalTimeAndSalesTickLastUpdateReceived?.Invoke(this, new Tuple<int, List<HistoricalTickLast>>(reqId, _historicalTickLast[reqId]));
                 _historicalTickLast[reqId] = new List<HistoricalTickLast>();
             }
-        }        
+        }
     }
 }

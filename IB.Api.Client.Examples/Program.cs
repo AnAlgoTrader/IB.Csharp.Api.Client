@@ -2,9 +2,9 @@
 
 namespace IB.Api.Client.Examples
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //double check your connection details within your TWS/Gateway settings
             var connectionDetails = new ConnectionDetails

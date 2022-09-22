@@ -6,9 +6,9 @@ using IB.Api.Client.Proprietary;
 
 namespace IB.Api.Client.Examples
 {
-    public class DataDownload
+    public static class DataDownload
     {
-        private static Contract _contract = new Contract
+        private static readonly Contract _contract = new Contract
         {
             Symbol = "EUR",
             SecType = "CASH",
@@ -41,32 +41,15 @@ namespace IB.Api.Client.Examples
         public static void RunGetTimeAndSales(ConnectionDetails connectionDetails)
         {
             var ibClient = new IBClient();
-            ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);           
+            ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
             ibClient.GetLatestHistoricalTimeAndSales(1005, _contract, WhatToShow.TRADES);
         }
         public static void RunGetNews(ConnectionDetails connectionDetails)
         {
-             var ibClient = new IBClient();
+            var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
-
-        }
-        private static void TimeAndSalesHistoricalTickBidAskUpdateReceived(object sender, Tuple<int, List<HistoricalTickBidAsk>> ticks)
-        {
-            Console.WriteLine("-TimeAndSalesHistoricalTickBidAskUpdateReceived-");
-            foreach (var tick in ticks.Item2)
-            {
-                Console.WriteLine($"Time:{tick.Time} PriceBid:{tick.PriceBid} PriceAsk:{tick.PriceAsk}");
-            }
-        }
-        private static void TimeAndSalesHistoricalTickUpdateReceived(object sender, Tuple<int, List<HistoricalTick>> ticks)
-        {
-            Console.WriteLine("-TimeAndSalesHistoricalTickUpdateReceived-");
-            foreach (var tick in ticks.Item2)
-            {
-                Console.WriteLine($"Time:{tick.Time} Price:{tick.Price} Size:{tick.Size}");
-            }
         }
         private static void BarUpdateReceived(object sender, BarUpdate barUpdate)
         {
@@ -75,10 +58,7 @@ namespace IB.Api.Client.Examples
         private static void HistoricalDataUpdateEndReceived(object sender, Tuple<int, List<Bar>> data)
         {
             Console.WriteLine($"{DateTime.Now}: Historical data received");
-            data.Item2.ForEach(x =>
-            {
-                Console.WriteLine($"{x.Open},{x.Close},{x.High},{x.Low},{x.Volume}");
-            });
+            data.Item2.ForEach(x => Console.WriteLine($"{x.Open},{x.Close},{x.High},{x.Low},{x.Volume}"));
         }
     }
 }

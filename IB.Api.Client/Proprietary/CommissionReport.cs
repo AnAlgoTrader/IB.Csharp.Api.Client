@@ -16,104 +16,70 @@ namespace IB.Api.Client.Proprietary
      */
     public class CommissionReport
     {
-        private string execId;
-        private double commission;
-        private string currency;
-        private double realizedPNL;
-        private double yield;
-        private int yieldRedemptionDate;
-
         /**
         * @brief the execution's id this commission belongs to.
         */
-        public string ExecId
-        {
-            get { return execId; }
-            set { execId = value; }
-        }
+        public string ExecId { get; set; }
 
         /**
          * @brief the commissions cost.
          */
-        public double Commission
-        {
-            get { return commission; }
-            set { commission = value; }
-        }
+        public double Commission { get; set; }
 
         /**
         * @brief the reporting currency.
         */
-        public string Currency
-        {
-            get { return currency; }
-            set { currency = value; }
-        }
+        public string Currency { get; set; }
 
         /**
         * @brief the realized profit and loss
         */
-        public double RealizedPNL
-        {
-            get { return realizedPNL; }
-            set { realizedPNL = value; }
-        }
+        public double RealizedPNL { get; set; }
 
         /**
          * @brief The income return.
          */
-        public double Yield
-        {
-            get { return yield; }
-            set { yield = value; }
-        }
+        public double Yield { get; set; }
 
         /**
          * @brief date expressed in yyyymmdd format.
          */
-        public int YieldRedemptionDate
-        {
-            get { return yieldRedemptionDate; }
-            set { yieldRedemptionDate = value; }
-        }
+        public int YieldRedemptionDate { get; set; }
 
         public CommissionReport()
         {
-            commission = 0;
-            realizedPNL = 0;
-            yield = 0;
-            yieldRedemptionDate = 0;
+            Commission = 0;
+            RealizedPNL = 0;
+            Yield = 0;
+            YieldRedemptionDate = 0;
         }
 
         public override bool Equals(Object p_other)
         {
-            bool l_bRetVal = false;
-
             if (p_other == null)
             {
-                l_bRetVal = false;
+                return false;
             }
             else if (this == p_other)
             {
-                l_bRetVal = true;
+                return true;
             }
             else
             {
                 CommissionReport l_theOther = (CommissionReport)p_other;
-                l_bRetVal = ExecId.Equals(l_theOther.ExecId);
+                return ExecId.Equals(l_theOther.ExecId);
             }
-            return l_bRetVal;
         }
 
         public override int GetHashCode()
         {
             HashCode hash = new HashCode();
-            hash.Add(execId);
-            hash.Add(commission);
-            hash.Add(currency);
-            hash.Add(realizedPNL);
-            hash.Add(yield);
-            hash.Add(yieldRedemptionDate);
+            hash.Add(ExecId);
+            hash.Add(Commission);
+            hash.Add(Currency);
+            hash.Add(RealizedPNL);
+            hash.Add(Yield);
+            hash.Add(YieldRedemptionDate);
             hash.Add(ExecId);
             hash.Add(Commission);
             hash.Add(Currency);

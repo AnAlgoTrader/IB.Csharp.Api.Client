@@ -1,6 +1,5 @@
 namespace IB.Api.Client.Model
 {
-
     public class ConnectionDetails
     {
         public string Host { get; set; }

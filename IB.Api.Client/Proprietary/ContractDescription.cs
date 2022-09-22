@@ -16,26 +16,15 @@ namespace IB.Api.Client.Proprietary
      */
     public class ContractDescription
     {
-        private Contract contract;
-        private string[] derivativeSecTypes;
-
         /**
         * @brief A contract data
         */
-        public Contract Contract
-        {
-            get { return contract; }
-            set { contract = value; }
-        }
+        public Contract Contract { get; set; }
 
         /**
          * @brief A list of derivative security types
          */
-        public string[] DerivativeSecTypes
-        {
-            get { return derivativeSecTypes; }
-            set { derivativeSecTypes = value; }
-        }
+        public string[] DerivativeSecTypes { get; set; }
 
         public ContractDescription()
         {

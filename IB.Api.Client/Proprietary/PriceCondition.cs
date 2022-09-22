@@ -19,7 +19,6 @@ namespace IB.Api.Client.Proprietary
     {
         public static readonly string[] friendlyNames = new string[] { "default", "double bid/ask", "last", "double last", "bid/ask", "", "", "last of bid/ask", "mid-point" };
 
-
         public static string ToFriendlyString(this TriggerMethod th)
         {
             return friendlyNames[(int)th];
@@ -31,8 +30,8 @@ namespace IB.Api.Client.Proprietary
         }
     }
 
-    /** 
-     *  @brief Used with conditional orders to cancel or submit order based on price of an instrument. 
+    /**
+     *  @brief Used with conditional orders to cancel or submit order based on price of an instrument.
      */
 
     public class PriceCondition : ContractCondition
@@ -56,9 +55,7 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(object obj)
         {
-            var other = obj as PriceCondition;
-
-            if (other == null)
+            if (!(obj is PriceCondition other))
                 return false;
 
             return base.Equals(obj)

@@ -76,7 +76,7 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("attemptedPrice")]
         public double AttemptedPrice { get; set; }
-        
+
         [JsonProperty("attemptedLimitPrice")]
         public double AttemptedLimitPrice { get; set; }
 

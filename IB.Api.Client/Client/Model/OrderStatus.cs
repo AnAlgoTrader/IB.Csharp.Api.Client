@@ -1,6 +1,6 @@
 namespace IB.Api.Client.Model
 {
-    public class OrderStatus
+    public static class OrderStatus
     {
         public static string UNKNOWN = "UNKNOWN";
         public static string FILLED = "Filled";

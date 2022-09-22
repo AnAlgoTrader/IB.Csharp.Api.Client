@@ -2,8 +2,7 @@ namespace IB.Api.Client.Model
 {
     /// <summary>
     /// Ref: https://interactivebrokers.github.io/tws-api/historical_bars.html#hd_barsize
-    /// </summary>    
-
+    /// </summary>
     public enum BarSizeType
     {
         secs,
@@ -15,11 +14,11 @@ namespace IB.Api.Client.Model
         week,
         month
     }
-    public class BarSize
+    public static class BarSize
     {
         public static string GetBarSize(int unit, BarSizeType barSizeType)
         {
-            return $"{unit} {barSizeType.ToString()}";
+            return $"{unit} {barSizeType}";
         }
     }
 }

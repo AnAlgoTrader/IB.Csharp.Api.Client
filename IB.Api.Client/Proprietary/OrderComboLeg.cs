@@ -2,10 +2,6 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -16,26 +12,19 @@ namespace IB.Api.Client.Proprietary
      */
     public class OrderComboLeg
     {
-
-        double price;
-
         /**
          * @brief The order's leg's price
          */
-        public double Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
+        public double Price { get; set; }
 
         public OrderComboLeg()
         {
-            price = double.MaxValue;
+            Price = double.MaxValue;
         }
 
         public OrderComboLeg(double p_price)
         {
-            price = p_price;
+            Price = p_price;
         }
 
         public override bool Equals(Object other)
@@ -51,17 +40,12 @@ namespace IB.Api.Client.Proprietary
 
             OrderComboLeg theOther = (OrderComboLeg)other;
 
-            if (price != theOther.Price)
-            {
-                return false;
-            }
-
-            return true;
+            return Price == theOther.Price;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(price, Price);
+            return HashCode.Combine(Price, Price);
         }
     }
 }

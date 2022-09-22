@@ -32,7 +32,7 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-         * @brief The UNIX timestamp of the historical tick 
+         * @brief The UNIX timestamp of the historical tick
          */
         public long Time
         {
@@ -45,15 +45,15 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Tick attribs of historical last tick
          */
-        public TickAttribLast TickAttribLast { get; private set; }
+        public TickAttribLast TickAttribLast { get; }
 
         /**
-         * @brief The last price of the historical tick 
+         * @brief The last price of the historical tick
          */
-        public double Price { get; private set; }
+        public double Price { get; }
 
         /**
-         * @brief The last size of the historical tick 
+         * @brief The last size of the historical tick
          */
         public long Size
         {
@@ -64,13 +64,13 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-         * @brief The source exchange of the historical tick 
+         * @brief The source exchange of the historical tick
          */
-        public string Exchange { get; private set; }
+        public string Exchange { get; }
 
         /**
          * @brief The conditions of the historical tick. Refer to Trade Conditions page for more details: https://www.interactivebrokers.com/en/index.php?f=7235
          */
-        public string SpecialConditions { get; private set; }
+        public string SpecialConditions { get; }
     }
 }

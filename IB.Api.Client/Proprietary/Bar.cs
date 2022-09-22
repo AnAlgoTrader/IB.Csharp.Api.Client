@@ -1,11 +1,6 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace IB.Api.Client.Proprietary
 {
     /**
@@ -28,43 +23,43 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-         * @brief The bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request). Time zone is the TWS time zone chosen on login. 
+         * @brief The bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request). Time zone is the TWS time zone chosen on login.
          */
-        public string Time { get; private set; }
+        public string Time { get; }
 
         /**
          * @brief The bar's open price
          */
-        public double Open { get; private set; }
+        public double Open { get; }
 
         /**
          * @brief The bar's high price
          */
-        public double High { get; private set; }
+        public double High { get; }
 
         /**
          * @brief The bar's low price
          */
-        public double Low { get; private set; }
+        public double Low { get; }
 
         /**
          * @brief The bar's close price
          */
-        public double Close { get; private set; }
+        public double Close { get; }
 
         /**
-         * @brief The bar's traded volume if available (only available for TRADES) 
+         * @brief The bar's traded volume if available (only available for TRADES)
          */
-        public long Volume { get; private set; }
+        public long Volume { get; }
 
         /**
-         * @brief The bar's Weighted Average Price (only available for TRADES) 
+         * @brief The bar's Weighted Average Price (only available for TRADES)
          */
-        public double WAP { get; private set; }
+        public double WAP { get; }
 
         /**
-         * @brief The number of trades during the bar's timespan (only available for TRADES) 
+         * @brief The number of trades during the bar's timespan (only available for TRADES)
          */
-        public int Count { get; private set; }
+        public int Count { get; }
     }
 }

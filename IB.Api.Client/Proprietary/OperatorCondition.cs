@@ -22,9 +22,7 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(object obj)
         {
-            var other = obj as OperatorCondition;
-
-            if (other == null)
+            if (!(obj is OperatorCondition other))
                 return false;
 
             return base.Equals(obj)

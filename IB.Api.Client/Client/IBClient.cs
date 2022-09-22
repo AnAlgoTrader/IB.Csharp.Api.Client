@@ -3,14 +3,14 @@ using IB.Api.Client.Proprietary;
 namespace IB.Api.Client
 {
     //Main
-    public partial class IBClient : EWrapper
+    public partial class IBClient : IEWrapper
     {
         internal readonly EClientSocket ClientSocket;
-        internal readonly EReaderSignal Signal;
+        internal readonly IEReaderSignal Signal;
         public IBClient()
         {
             Signal = new EReaderMonitorSignal();
             ClientSocket = new EClientSocket(this, Signal);
-        }        
+        }
     }
 }

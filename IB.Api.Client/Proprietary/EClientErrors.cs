@@ -12,7 +12,7 @@ namespace IB.Api.Client.Proprietary
     * @brief Contains all possible errors occurring on the client side. This errors are not sent by the TWS but rather generated as the result of malfunction within the
     * TWS API client.
     */
-    public class EClientErrors
+    public static class EClientErrors
     {
         public static readonly CodeMsgPair AlreadyConnected = new CodeMsgPair(501, "Already Connected.");
         public static readonly CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, @"Couldn't connect to TWS. Confirm that ""Enable ActiveX and Socket Clients"" 
@@ -96,34 +96,22 @@ namespace IB.Api.Client.Proprietary
         public static readonly CodeMsgPair FAIL_SEND_REQTICKBYTICKDATA = new CodeMsgPair(576, "Request Tick-By-Tick Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELTICKBYTICKDATA = new CodeMsgPair(577, "Cancel Tick-By-Tick Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQCOMPLETEDORDERS = new CodeMsgPair(578, "Request Completed Orders Sending Error - ");
-
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
-
     }
 
     /**
-      * @brief associates error code and error message as a pair. 
+      * @brief associates error code and error message as a pair.
       */
     public class CodeMsgPair
     {
-        private int code;
-        private string message;
-
         public CodeMsgPair(int code, string message)
         {
-            this.code = code;
-            this.message = message;
+            this.Code = code;
+            this.Message = message;
         }
 
-        public int Code
-        {
-            get { return code; }
-        }
+        public int Code { get; }
 
-        public string Message
-        {
-            get { return message; }
-        }
+        public string Message { get; }
     }
-
 }

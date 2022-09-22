@@ -1,18 +1,13 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace IB.Api.Client.Proprietary
 {
     /**
      * @class AccountSummaryTags
      * @brief class containing all existing values being reported by EClientSocket::reqAccountSummary
      */
-    public class AccountSummaryTags
+    public static class AccountSummaryTags
     {
         public const string AccountType = "AccountType";
         public const string NetLiquidation = "NetLiquidation";
@@ -50,6 +45,5 @@ namespace IB.Api.Client.Proprietary
                 + "," + ReqTMargin + "," + SMA + "," + InitMarginReq + "," + MaintMarginReq + "," + AvailableFunds + "," + ExcessLiquidity + "," + Cushion + "," + FullInitMarginReq + "," + FullMaintMarginReq + "," + FullAvailableFunds + "," + FullExcessLiquidity
                 + "," + LookAheadNextChange + "," + LookAheadInitMarginReq + "," + LookAheadMaintMarginReq + "," + LookAheadAvailableFunds + "," + LookAheadExcessLiquidity + "," + HighestSeverity + "," + DayTradesRemaining + "," + Leverage;
         }
-
     }
 }

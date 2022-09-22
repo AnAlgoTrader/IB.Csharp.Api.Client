@@ -16,19 +16,19 @@ namespace IB.Api.Client.Proprietary
     public class TickAttribBidAsk
     {
         /**
-         * @brief Used with real time tick-by-tick. Indicates if bid is lower than day's lowest low. 
+         * @brief Used with real time tick-by-tick. Indicates if bid is lower than day's lowest low.
          */
         public bool BidPastLow { get; set; }
 
         /**
-         * @brief Used with real time tick-by-tick. Indicates if ask is higher than day's highest ask. 
+         * @brief Used with real time tick-by-tick. Indicates if ask is higher than day's highest ask.
          */
         public bool AskPastHigh { get; set; }
 
         /**
-         * @brief Returns string to display. 
+         * @brief Returns string to display.
          */
-        public string toString()
+        public override string ToString()
         {
             return (BidPastLow ? "bidPastLow " : "") +
                 (AskPastHigh ? "askPastHigh " : "");

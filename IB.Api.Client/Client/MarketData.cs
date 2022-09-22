@@ -9,14 +9,14 @@ namespace IB.Api.Client
     //MarketData
     public partial class IBClient
     {
-        private PriceUpdate _priceUpdate = new PriceUpdate();
-        private Dictionary<int, OrderBookUpdate> _orderBookUpdates = new Dictionary<int, OrderBookUpdate>();
+        private readonly PriceUpdate _priceUpdate = new PriceUpdate();
+        private readonly Dictionary<int, OrderBookUpdate> _orderBookUpdates = new Dictionary<int, OrderBookUpdate>();
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
         public event EventHandler<HistoricalTickBidAsk> TimeAndSalesUpdateReceived;
         public void SubscribeToTimeAndSales(int reqId, Contract contract)
         {
-            ClientSocket.reqTickByTickData(reqId, contract, "BidAsk", 0, true);
+            ClientSocket.ReqTickByTickData(reqId, contract, "BidAsk", 0, true);
         }
         public void ReqMarketDepth(int reqId, Contract contract, double ratio)
         {
@@ -29,10 +29,10 @@ namespace IB.Api.Client
                 orderBookUpdate.OrderBookLines[iterator] = new OrderBookLine();
             _orderBookUpdates.Add(reqId, orderBookUpdate);
 
-            ClientSocket.reqMarketDepth(reqId, contract, 10, false, null);
+            ClientSocket.ReqMarketDepth(reqId, contract, 10, false, null);
             Notify($"Subscribed to {contract.Symbol} marketDepth");
         }
-        public virtual void updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
+        public virtual void UpdateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
         {
             if (side == 0)
                 position += 10;
@@ -59,7 +59,7 @@ namespace IB.Api.Client
             if (position == 19)
                 OrderBookUpdateReceived?.Invoke(this, _orderBookUpdates[tickerId]);
         }
-        public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs)
+        public virtual void TickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
             switch (field)
             {
@@ -83,7 +83,7 @@ namespace IB.Api.Client
                     }
             }
         }
-        public void tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        public void TickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
         {
             var tick = new HistoricalTickBidAsk
             {

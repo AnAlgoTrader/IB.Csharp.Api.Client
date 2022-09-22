@@ -7,11 +7,11 @@ using IB.Api.Client.Proprietary;
 
 namespace IB.Api.Client.Helper
 {
-    public class ContractHelper
+    public static class ContractHelper
     {
         public static List<TradingHours> GetTradingHours(ContractDetails contractDetails)
         {
-            var dateFormat = "yyyyMMdd:HHmm";
+            const string dateFormat = "yyyyMMdd:HHmm";
             var output = new List<TradingHours>();
             var lastTradeDateOrContractMonth = contractDetails.Contract.LastTradeDateOrContractMonth;
             var tradingHours = contractDetails.TradingHours.Split(';');
@@ -34,20 +34,16 @@ namespace IB.Api.Client.Helper
                     }
                 }
             }
-            return output.OrderBy(x => x.Start).ToList(); ;
+            return output.OrderBy(x => x.Start).ToList();
         }
 
         public static TradingHours GetNextSession(ContractDetails contractDetails)
         {
             var tradingHours = GetTradingHours(contractDetails);
 
-            var nextSession = tradingHours.Where(x =>
+            return tradingHours.Find(x =>
                 (DateTime.Now > x.Start && DateTime.Now < x.End) ||
-                (DateTime.Now < x.Start && DateTime.Now < x.End)
-                )
-                .FirstOrDefault();
-
-            return nextSession;
+                (DateTime.Now < x.Start && DateTime.Now < x.End));
         }
 
         private static bool ValidTradingHoursItem(string tradingHoursItem)
@@ -66,7 +62,7 @@ namespace IB.Api.Client.Helper
             ibClient.GetContractDetails(new Contract
             {
                 Symbol = symbol,
-                SecType = SecurityType.CASH.ToString(),
+                SecType = nameof(SecurityType.CASH),
                 Exchange = "IDEALPRO",
                 Currency = currency
             });
@@ -82,7 +78,7 @@ namespace IB.Api.Client.Helper
             ibClient.GetContractDetails(new Contract
             {
                 Symbol = symbol,
-                SecType = SecurityType.CMDTY.ToString(),
+                SecType = nameof(SecurityType.CMDTY),
                 Exchange = "SMART",
                 Currency = currency
             });

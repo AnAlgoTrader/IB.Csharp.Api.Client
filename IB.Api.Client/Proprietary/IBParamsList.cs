@@ -36,7 +36,6 @@ namespace IB.Api.Client.Proprietary
             {
                 source.Write(Constants.EOL);
             }
-
         }
 
         public static void AddParameter(this BinaryWriter source, string value)
@@ -74,7 +73,6 @@ namespace IB.Api.Client.Proprietary
                 source.Write(Constants.EOL);
             else
                 source.AddParameter(value);
-
         }
 
         public static void AddParameterMax(this BinaryWriter source, int value)
@@ -84,6 +82,5 @@ namespace IB.Api.Client.Proprietary
             else
                 source.AddParameter(value);
         }
-
     }
 }

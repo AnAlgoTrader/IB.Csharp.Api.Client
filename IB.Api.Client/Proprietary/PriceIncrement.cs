@@ -16,26 +16,15 @@ namespace IB.Api.Client.Proprietary
      */
     public class PriceIncrement
     {
-        private double lowEdge;
-        private double increment;
-
         /**
          * @brief The low edge
          */
-        public double LowEdge
-        {
-            get { return lowEdge; }
-            set { lowEdge = value; }
-        }
+        public double LowEdge { get; set; }
 
         /**
          * @brief The increment
          */
-        public double Increment
-        {
-            get { return increment; }
-            set { increment = value; }
-        }
+        public double Increment { get; set; }
 
         public PriceIncrement()
         {

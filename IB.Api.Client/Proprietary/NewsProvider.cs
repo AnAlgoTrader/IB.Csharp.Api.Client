@@ -2,10 +2,6 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -16,30 +12,18 @@ namespace IB.Api.Client.Proprietary
      */
     public class NewsProvider
     {
-        private String providerCode;
-        private String providerName;
-
         /**
          * @brief The API news provider code
          */
-        public string ProviderCode
-        {
-            get { return providerCode; }
-            set { providerCode = value; }
-        }
+        public string ProviderCode { get; set; }
 
         /**
          * @brief The API news provider name
          */
-        public string ProviderName
-        {
-            get { return providerName; }
-            set { providerName = value; }
-        }
+        public string ProviderName { get; set; }
 
         public NewsProvider()
         {
-
         }
 
         public NewsProvider(String providerCode, String providerName)

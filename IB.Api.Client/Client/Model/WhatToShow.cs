@@ -1,6 +1,5 @@
 namespace IB.Api.Client.Model
 {
-
     /// <summary>
     /// Ref: https://interactivebrokers.github.io/tws-api/historical_bars.html#hd_what_to_show
     /// </summary>

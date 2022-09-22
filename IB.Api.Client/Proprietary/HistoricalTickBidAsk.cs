@@ -1,11 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -18,7 +14,7 @@ namespace IB.Api.Client.Proprietary
     public class HistoricalTickBidAsk
     {
         /**
-         * @brief The UNIX timestamp of the historical tick 
+         * @brief The UNIX timestamp of the historical tick
          */
         public long Time
         {
@@ -39,12 +35,12 @@ namespace IB.Api.Client.Proprietary
         public double PriceBid { get; set; }
 
         /**
-         * @brief The ask price of the historical tick 
+         * @brief The ask price of the historical tick
          */
         public double PriceAsk { get; set; }
 
         /**
-         * @brief The bid size of the historical tick 
+         * @brief The bid size of the historical tick
          */
         public long SizeBid
         {
@@ -55,7 +51,7 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-         * @brief The ask size of the historical tick 
+         * @brief The ask size of the historical tick
          */
         public long SizeAsk
         {

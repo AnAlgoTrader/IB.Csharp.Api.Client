@@ -5,7 +5,7 @@ using IB.Api.Client.Proprietary;
 
 namespace IB.Api.Client.Examples
 {
-    public class RequestNews
+    public static class RequestNews
     {
         public static void RunGetNewsProviders(ConnectionDetails connectionDetails)
         {

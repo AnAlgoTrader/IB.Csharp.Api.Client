@@ -16,7 +16,7 @@ namespace IB.Api.Client.Proprietary
     public class TickAttribLast
     {
         /**
-         * @brief Not currently used with trade data; only applies to bid/ask data. 
+         * @brief Not currently used with trade data; only applies to bid/ask data.
          */
         public bool PastLimit { get; set; }
 
@@ -26,9 +26,9 @@ namespace IB.Api.Client.Proprietary
         public bool Unreported { get; set; }
 
         /**
-         * @brief Returns string to display. 
+         * @brief Returns string to display.
          */
-        public string toString()
+        public override string ToString()
         {
             return (PastLimit ? "pastLimit " : "") +
                 (Unreported ? "unreported " : "");

@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace IB.Api.Client.Helper
 {
-    public class DateHelper
+    public static class DateHelper
     {
         public const string EuropeanDateFormat = "dd/MM/yyyy HH:mm:ss";
         public const string AmericanDateFormat = "yyyyMMdd HH:mm:ss";
@@ -15,8 +15,7 @@ namespace IB.Api.Client.Helper
         public static DateTime UnixTimeStampToDateTime(double time)
         {
             var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(time).ToLocalTime();
-            return dateTime;
+            return dateTime.AddSeconds(time).ToLocalTime();
         }
         public static long DateToEpoch(DateTime date, long multiplier = 1)
         {

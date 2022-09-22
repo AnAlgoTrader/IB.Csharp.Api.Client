@@ -5,7 +5,7 @@ using IB.Api.Client.Helper;
 
 namespace IB.Api.Client.Examples
 {
-    public class BasicConnection
+    public static class BasicConnection
     {
         public static void Run(ConnectionDetails connectionDetails)
         {

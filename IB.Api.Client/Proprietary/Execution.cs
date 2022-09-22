@@ -3,14 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
-
     /**
      * @class Liquidity
      * @brief Class describing the liquidity type of an execution.
@@ -19,7 +14,7 @@ namespace IB.Api.Client.Proprietary
     public class Liquidity
     {
         /**
-         * @brief The enum of available liquidity flag types. 
+         * @brief The enum of available liquidity flag types.
          * 0 = Unknown, 1 = Added liquidity, 2 = Removed liquidity, 3 = Liquidity routed out
          */
 
@@ -65,7 +60,7 @@ namespace IB.Api.Client.Proprietary
         public int ClientId { get; set; }
 
         /**
-         * @brief The execution's identifier. Each partial fill has a separate ExecId. 
+         * @brief The execution's identifier. Each partial fill has a separate ExecId.
 		 * A correction is indicated by an ExecId which differs from a previous ExecId in only the digits after the final period,
 		 * e.g. an ExecId ending in ".02" would be a correction of a previous execution with an ExecId ending in ".01"
          */
@@ -103,23 +98,23 @@ namespace IB.Api.Client.Proprietary
         public double Price { get; set; }
 
         /**
-         * @brief The TWS order identifier. The PermId can be 0 for trades originating outside IB. 
+         * @brief The TWS order identifier. The PermId can be 0 for trades originating outside IB.
          */
         public int PermId { get; set; }
 
         /**
-         * @brief Identifies whether an execution occurred because of an IB-initiated liquidation. 
+         * @brief Identifies whether an execution occurred because of an IB-initiated liquidation.
          */
         public int Liquidation { get; set; }
 
         /**
-         * @brief Cumulative quantity. 
+         * @brief Cumulative quantity.
          * Used in regular trades, combo trades and legs of the combo.
          */
         public double CumQty { get; set; }
 
         /**
-         * @brief Average price. 
+         * @brief Average price.
          * Used in regular trades, combo trades and legs of the combo. Does not include commissions.
          */
         public double AvgPrice { get; set; }
@@ -193,22 +188,19 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(Object p_other)
         {
-            bool l_bRetVal = false;
-
             if (p_other == null)
             {
-                l_bRetVal = false;
+                return false;
             }
             else if (this == p_other)
             {
-                l_bRetVal = true;
+                return true;
             }
             else
             {
                 Execution l_theOther = (Execution)p_other;
-                l_bRetVal = String.Compare(ExecId, l_theOther.ExecId, true) == 0;
+                return String.Compare(ExecId, l_theOther.ExecId, true) == 0;
             }
-            return l_bRetVal;
         }
 
         public override int GetHashCode()

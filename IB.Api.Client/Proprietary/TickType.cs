@@ -2,16 +2,13 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
     /**
     * @brief - DOC_TODO
     */
-    public class TickType
+    public static class TickType
     {
         public const int BID_SIZE = 0;
         public const int BID = 1;
@@ -104,7 +101,7 @@ namespace IB.Api.Client.Proprietary
         public const int DELAYED_LAST_TIMESTAMP = 88;
         public const int SHORTABLE_SHARES = 89;
 
-        public static String getField(int tickType)
+        public static String GetField(int tickType)
         {
             switch (tickType)
             {
@@ -202,6 +199,5 @@ namespace IB.Api.Client.Proprietary
                 default: return "unknown";
             }
         }
-
     }
 }

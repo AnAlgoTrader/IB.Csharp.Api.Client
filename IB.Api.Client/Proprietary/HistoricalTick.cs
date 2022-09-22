@@ -29,7 +29,7 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-         * @brief The UNIX timestamp of the historical tick 
+         * @brief The UNIX timestamp of the historical tick
          */
         public long Time
         {
@@ -42,7 +42,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The historical tick price
          */
-        public double Price { get; private set; }
+        public double Price { get; }
 
         /**
          * @brief The historical tick size

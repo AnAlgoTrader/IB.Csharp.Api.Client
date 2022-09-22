@@ -1,19 +1,15 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace IB.Api.Client.Proprietary
 {
-    public class EReaderMonitorSignal : EReaderSignal
+    public class EReaderMonitorSignal : IEReaderSignal
     {
-        object cs = new object();
+        readonly object cs = new object();
         bool open = false;
 
-        public void issueSignal()
+        public void IssueSignal()
         {
             lock (cs)
             {
@@ -23,7 +19,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void waitForSignal()
+        public void WaitForSignal()
         {
             lock (cs)
             {

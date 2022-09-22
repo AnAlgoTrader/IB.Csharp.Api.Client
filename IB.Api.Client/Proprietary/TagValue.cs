@@ -15,21 +15,9 @@ namespace IB.Api.Client.Proprietary
     */
     public class TagValue
     {
-        private string tag;
-        private string value;
+        public string Tag { get; set; }
 
-        public string Tag
-        {
-            get { return tag; }
-            set { tag = value; }
-        }
-
-
-        public string Value
-        {
-            get { return this.value; }
-            set { this.value = value; }
-        }
+        public string Value { get; set; }
 
         public TagValue()
         {
@@ -37,13 +25,12 @@ namespace IB.Api.Client.Proprietary
 
         public TagValue(string p_tag, string p_value)
         {
-            tag = p_tag;
-            value = p_value;
+            Tag = p_tag;
+            Value = p_value;
         }
 
         public override bool Equals(Object other)
         {
-
             if (this == other)
                 return true;
 
@@ -52,18 +39,13 @@ namespace IB.Api.Client.Proprietary
 
             TagValue l_theOther = (TagValue)other;
 
-            if (Util.StringCompare(Tag, l_theOther.Tag) != 0 ||
-                Util.StringCompare(Value, l_theOther.Value) != 0)
-            {
-                return false;
-            }
-
-            return true;
+            return Util.StringCompare(Tag, l_theOther.Tag) == 0 &&
+                Util.StringCompare(Value, l_theOther.Value) == 0;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(tag, value, Tag, Value);
+            return HashCode.Combine(Tag, Value, Tag, Value);
         }
     }
 }

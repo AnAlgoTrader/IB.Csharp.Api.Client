@@ -16,58 +16,13 @@ namespace IB.Api.Client.Proprietary
      */
     public class ContractDetails
     {
-        private Contract contract;
-        private string marketName;
-        private double minTick;
-        private int priceMagnifier;
-        private string orderTypes;
-        private string validExchanges;
-        private int underConId;
-        private string longName;
-        private string contractMonth;
-        private string industry;
-        private string category;
-        private string subcategory;
-        private string timeZoneId;
-        private string tradingHours;
-        private string liquidHours;
-        private string evRule;
-        private double evMultiplier;
-        private int mdSizeMultiplier;
-        private int aggGroup;
-        private List<TagValue> secIdList;
-        private string underSymbol;
-        private string underSecType;
-        private string marketRuleIds;
-        private string realExpirationDate;
-        private string lastTradeTime;
-
-        // BOND values
-        private string cusip;
-        private string ratings;
-        private string descAppend;
-        private string bondType;
-        private string couponType;
-        private bool callable = false;
-        private bool putable = false;
-        private double coupon = 0;
-        private bool convertible = false;
-        private string maturity;
-        private string issueDate;
-        private string nextOptionDate;
-        private string nextOptionType;
-        private bool nextOptionPartial = false;
-        private string notes;
-
         /**
          * @brief A fully-defined Contract object.
          */
         public Contract Contract
         {
-            //! @cond
-            get { return contract; }
-            set { contract = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -75,35 +30,29 @@ namespace IB.Api.Client.Proprietary
         */
         public string MarketName
         {
-            //! @cond
-            get { return marketName; }
-            set { marketName = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief The minimum allowed price variation.
-         * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment price structure can be obtained with the reqMarketRule function or the IB Contract and Security Search site. 
+         * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment price structure can be obtained with the reqMarketRule function or the IB Contract and Security Search site.
         */
         public double MinTick
         {
-            //! @cond
-            get { return minTick; }
-            set { minTick = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief Allows execution and strike prices to be reported consistently with market data, historical data and the order price, i.e. Z on LIFFE is reported in Index points and not GBP.
 		* In TWS versions prior to 972, the price magnifier is used in defining future option strike prices (e.g. in the API the strike is specified in dollars, but in TWS it is specified in cents).
-		* In TWS versions 972 and higher, the price magnifier is not used in defining futures option strike prices so they are consistent in TWS and the API. 
+		* In TWS versions 972 and higher, the price magnifier is not used in defining futures option strike prices so they are consistent in TWS and the API.
         */
         public int PriceMagnifier
         {
-            //! @cond
-            get { return priceMagnifier; }
-            set { priceMagnifier = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -111,10 +60,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string OrderTypes
         {
-            //! @cond
-            get { return orderTypes; }
-            set { orderTypes = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -123,10 +70,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string ValidExchanges
         {
-            //! @cond
-            get { return validExchanges; }
-            set { validExchanges = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -134,10 +79,8 @@ namespace IB.Api.Client.Proprietary
         */
         public int UnderConId
         {
-            //! @cond
-            get { return underConId; }
-            set { underConId = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -145,10 +88,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string LongName
         {
-            //! @cond
-            get { return longName; }
-            set { longName = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -156,10 +97,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string ContractMonth
         {
-            //! @cond
-            get { return contractMonth; }
-            set { contractMonth = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -167,10 +106,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string Industry
         {
-            //! @cond
-            get { return industry; }
-            set { industry = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -178,10 +115,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string Category
         {
-            //! @cond
-            get { return category; }
-            set { category = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -189,10 +124,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string Subcategory
         {
-            //! @cond
-            get { return subcategory; }
-            set { subcategory = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -200,10 +133,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string TimeZoneId
         {
-            //! @cond
-            get { return timeZoneId; }
-            set { timeZoneId = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -215,10 +146,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string TradingHours
         {
-            //! @cond
-            get { return tradingHours; }
-            set { tradingHours = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -229,10 +158,8 @@ namespace IB.Api.Client.Proprietary
 		*/
         public string LiquidHours
         {
-            //! @cond
-            get { return liquidHours; }
-            set { liquidHours = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -241,33 +168,27 @@ namespace IB.Api.Client.Proprietary
         */
         public string EvRule
         {
-            //! @cond
-            get { return evRule; }
-            set { evRule = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
-        * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1. 
+        * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1.
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
         */
         public double EvMultiplier
         {
-            //! @cond
-            get { return evMultiplier; }
-            set { evMultiplier = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
-        * @brief MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments. 
+        * @brief MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments.
         */
         public int MdSizeMultiplier
         {
-            //! @cond
-            get { return mdSizeMultiplier; }
-            set { mdSizeMultiplier = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -277,57 +198,47 @@ namespace IB.Api.Client.Proprietary
         */
         public int AggGroup
         {
-            //! @cond
-            get { return aggGroup; }
-            set { aggGroup = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief A list of contract identifiers that the customer is allowed to view.
         * CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription.
-		* For Bonds, the CUSIP or ISIN is input directly into the symbol field of the Contract class.  
+		* For Bonds, the CUSIP or ISIN is input directly into the symbol field of the Contract class.
         */
         public List<TagValue> SecIdList
         {
-            //! @cond
-            get { return secIdList; }
-            set { secIdList = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
-        * @brief For derivatives, the symbol of the underlying contract. 
+        * @brief For derivatives, the symbol of the underlying contract.
         */
         public string UnderSymbol
         {
-            //! @cond
-            get { return underSymbol; }
-            set { underSymbol = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
-        * @brief For derivatives, returns the underlying security type. 
+        * @brief For derivatives, returns the underlying security type.
         */
         public string UnderSecType
         {
-            //! @cond
-            get { return underSecType; }
-            set { underSecType = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief The list of market rule IDs separated by comma
-		* Market rule IDs can be used to determine the minimum price increment at a given price. 
+		* Market rule IDs can be used to determine the minimum price increment at a given price.
         */
         public string MarketRuleIds
         {
-            //! @cond
-            get { return marketRuleIds; }
-            set { marketRuleIds = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -335,10 +246,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string RealExpirationDate
         {
-            //! @cond
-            get { return realExpirationDate; }
-            set { realExpirationDate = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -346,10 +255,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string LastTradeTime
         {
-            //! @cond
-            get { return lastTradeTime; }
-            set { lastTradeTime = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -358,23 +265,19 @@ namespace IB.Api.Client.Proprietary
         */
         public string Cusip
         {
-            //! @cond
-            get { return cusip; }
-            set { cusip = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief Identifies the credit rating of the issuer.
-		* This field is not currently available from the TWS API. 
+		* This field is not currently available from the TWS API.
         * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively. Not currently implemented due to bond market data restrictions.
         */
         public string Ratings
         {
-            //! @cond
-            get { return ratings; }
-            set { ratings = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -383,10 +286,8 @@ namespace IB.Api.Client.Proprietary
         */
         public string DescAppend
         {
-            //! @cond
-            get { return descAppend; }
-            set { descAppend = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -394,23 +295,19 @@ namespace IB.Api.Client.Proprietary
         */
         public string BondType
         {
-            //! @cond
-            get { return bondType; }
-            set { bondType = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief The type of bond coupon.
-		* This field is currently not available from the TWS API. 
+		* This field is currently not available from the TWS API.
         * For Bonds only.
         */
         public string CouponType
         {
-            //! @cond
-            get { return couponType; }
-            set { couponType = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
@@ -420,134 +317,106 @@ namespace IB.Api.Client.Proprietary
         */
         public bool Callable
         {
-            //! @cond
-            get { return callable; }
-            set { callable = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief Values are True or False. If true, the bond can be sold back to the issuer under certain conditions.
-		* This field is currently not available from the TWS API. 
+		* This field is currently not available from the TWS API.
         * For Bonds only.
         */
         public bool Putable
         {
-            //! @cond
-            get { return putable; }
-            set { putable = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief The interest rate used to calculate the amount you will receive in interest payments over the course of the year.
-        * This field is currently not available from the TWS API. 
+        * This field is currently not available from the TWS API.
 		* For Bonds only.
         */
         public double Coupon
         {
-            //! @cond
-            get { return coupon; }
-            set { coupon = value; }
-            //! @endcond
-        }
+            get;
+            set;
+        } = 0;
 
         /**
         * @brief Values are True or False. If true, the bond can be converted to stock under certain conditions.
-        * This field is currently not available from the TWS API. 
+        * This field is currently not available from the TWS API.
 		* For Bonds only.
         */
         public bool Convertible
         {
-            //! @cond
-            get { return convertible; }
-            set { convertible = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief he date on which the issuer must repay the face value of the bond.
-        * This field is currently not available from the TWS API. 
+        * This field is currently not available from the TWS API.
 		* For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string Maturity
         {
-            //! @cond
-            get { return maturity; }
-            set { maturity = value; }
-            //! @endcond
+            get;
+            set;
         }
 
-        /** 
-        * @brief The date the bond was issued. 
-        * This field is currently not available from the TWS API. 
+        /**
+        * @brief The date the bond was issued.
+        * This field is currently not available from the TWS API.
 		* For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string IssueDate
         {
-            //! @cond
-            get { return issueDate; }
-            set { issueDate = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
-        * @brief Only if bond has embedded options. 
-		* This field is currently not available from the TWS API. 
+        * @brief Only if bond has embedded options.
+		* This field is currently not available from the TWS API.
         * Refers to callable bonds and puttable bonds. Available in TWS description window for bonds.
         */
         public string NextOptionDate
         {
-            //! @cond
-            get { return nextOptionDate; }
-            set { nextOptionDate = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
         * @brief Type of embedded option.
-		* This field is currently not available from the TWS API. 
+		* This field is currently not available from the TWS API.
         * Only if bond has embedded options.
         */
         public string NextOptionType
         {
-            //! @cond
-            get { return nextOptionType; }
-            set { nextOptionType = value; }
-            //! @endcond
+            get;
+            set;
         }
 
         /**
        * @brief Only if bond has embedded options.
-	   * This field is currently not available from the TWS API. 
+	   * This field is currently not available from the TWS API.
        * For Bonds only.
        */
-        public bool NextOptionPartial
-        {
-            //! @cond
-            get { return nextOptionPartial; }
-            set { nextOptionPartial = value; }
-            //! @endcond
-        }
+        public bool NextOptionPartial { get; set; } = false;
 
         /**
         * @brief If populated for the bond in IB's database.
          * For Bonds only.
         */
-        public string Notes
-        {
-            //! @cond
-            get { return notes; }
-            set { notes = value; }
-            //! @endcond
-        }
+        public string Notes { get; set; }
 
         public ContractDetails()
         {
-            contract = new Contract();
-            minTick = 0;
-            underConId = 0;
-            evMultiplier = 0;
+            Contract = new Contract();
+            MinTick = 0;
+            UnderConId = 0;
+            EvMultiplier = 0;
         }
 
         public ContractDetails(Contract summary, String marketName,

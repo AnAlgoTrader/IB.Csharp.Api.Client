@@ -84,14 +84,12 @@ namespace IB.Api.Client.Proprietary
         {
             var conditions = Enum.GetValues(typeof(OrderConditionType)).OfType<OrderConditionType>().Select(t => Create(t)).ToList();
 
-            return conditions.FirstOrDefault(c => c.TryParse(cond));
+            return conditions.Find(c => c.TryParse(cond));
         }
 
         public override bool Equals(object obj)
         {
-            var other = obj as OrderCondition;
-
-            if (other == null)
+            if (!(obj is OrderCondition other))
                 return false;
 
             return this.IsConjunctionConnection == other.IsConjunctionConnection && this.Type == other.Type;

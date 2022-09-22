@@ -2,9 +2,6 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -17,7 +14,7 @@ namespace IB.Api.Client.Proprietary
 
         public Func<int, string, string> ContractResolver { get; set; }
 
-        public ContractCondition()
+        protected ContractCondition()
         {
             ContractResolver = (conid, exch) => conid + "(" + exch + ")";
         }
@@ -29,9 +26,7 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(object obj)
         {
-            var other = obj as ContractCondition;
-
-            if (other == null)
+            if (!(obj is ContractCondition other))
                 return false;
 
             return base.Equals(obj)
@@ -52,9 +47,8 @@ namespace IB.Api.Client.Proprietary
                     return false;
 
                 cond = cond.Substring(cond.IndexOf(delimiter) + delimiter.Length);
-                int conid;
 
-                if (!int.TryParse(cond.Substring(0, cond.IndexOf("(")), out conid))
+                if (!int.TryParse(cond.Substring(0, cond.IndexOf("(")), out int conid))
                     return false;
 
                 ConId = conid;

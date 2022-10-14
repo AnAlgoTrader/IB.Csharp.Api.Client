@@ -2,10 +2,6 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -24,47 +20,47 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The account's current initial margin.
          */
-        public string InitMarginBefore { get; set; }
+        public double InitMarginBefore { get; set; }
 
         /**
         * @brief The account's current maintenance margin
         */
-        public string MaintMarginBefore { get; set; }
+        public double MaintMarginBefore { get; set; }
 
         /**
         * @brief The account's current equity with loan
         */
-        public string EquityWithLoanBefore { get; set; }
+        public double EquityWithLoanBefore { get; set; }
 
         /**
          * @brief The change of the account's initial margin.
          */
-        public string InitMarginChange { get; set; }
+        public double InitMarginChange { get; set; }
 
         /**
         * @brief The change of the account's maintenance margin
         */
-        public string MaintMarginChange { get; set; }
+        public double MaintMarginChange { get; set; }
 
         /**
         * @brief The change of the account's equity with loan
         */
-        public string EquityWithLoanChange { get; set; }
+        public double EquityWithLoanChange { get; set; }
 
         /**
          * @brief The order's impact on the account's initial margin.
          */
-        public string InitMarginAfter { get; set; }
+        public double InitMarginAfter { get; set; }
 
         /**
         * @brief The order's impact on the account's maintenance margin
         */
-        public string MaintMarginAfter { get; set; }
+        public double MaintMarginAfter { get; set; }
 
         /**
         * @brief Shows the impact the order would have on the account's equity with loan
         */
-        public string EquityWithLoanAfter { get; set; }
+        public double EquityWithLoanAfter { get; set; }
 
         /**
           * @brief The order's generated commission.
@@ -99,15 +95,15 @@ namespace IB.Api.Client.Proprietary
         public OrderState()
         {
             Status = null;
-            InitMarginBefore = null;
-            MaintMarginBefore = null;
-            EquityWithLoanBefore = null;
-            InitMarginChange = null;
-            MaintMarginChange = null;
-            EquityWithLoanChange = null;
-            InitMarginAfter = null;
-            MaintMarginAfter = null;
-            EquityWithLoanAfter = null;
+            InitMarginBefore = 0.0;
+            MaintMarginBefore = 0.0;
+            EquityWithLoanBefore = 0.0;
+            InitMarginChange = 0.0;
+            MaintMarginChange = 0.0;
+            EquityWithLoanChange = 0.0;
+            InitMarginAfter = 0.0;
+            MaintMarginAfter = 0.0;
+            EquityWithLoanAfter = 0.0;
             Commission = 0.0;
             MinCommission = 0.0;
             MaxCommission = 0.0;
@@ -118,9 +114,9 @@ namespace IB.Api.Client.Proprietary
         }
 
         public OrderState(string status,
-                string initMarginBefore, string maintMarginBefore, string equityWithLoanBefore,
-                string initMarginChange, string maintMarginChange, string equityWithLoanChange,
-                string initMarginAfter, string maintMarginAfter, string equityWithLoanAfter,
+                double initMarginBefore, double maintMarginBefore, double equityWithLoanBefore,
+                double initMarginChange, double maintMarginChange, double equityWithLoanChange,
+                double initMarginAfter, double maintMarginAfter, double equityWithLoanAfter,
                 double commission, double minCommission,
                 double maxCommission, string commissionCurrency, string warningText,
                 string completedTime, string completedStatus)
@@ -164,15 +160,6 @@ namespace IB.Api.Client.Proprietary
             }
 
             if (Util.StringCompare(Status, state.Status) != 0 ||
-                Util.StringCompare(InitMarginBefore, state.InitMarginBefore) != 0 ||
-                Util.StringCompare(MaintMarginBefore, state.MaintMarginBefore) != 0 ||
-                Util.StringCompare(EquityWithLoanBefore, state.EquityWithLoanBefore) != 0 ||
-                Util.StringCompare(InitMarginChange, state.InitMarginChange) != 0 ||
-                Util.StringCompare(MaintMarginChange, state.MaintMarginChange) != 0 ||
-                Util.StringCompare(EquityWithLoanChange, state.EquityWithLoanChange) != 0 ||
-                Util.StringCompare(InitMarginAfter, state.InitMarginAfter) != 0 ||
-                Util.StringCompare(MaintMarginAfter, state.MaintMarginAfter) != 0 ||
-                Util.StringCompare(EquityWithLoanAfter, state.EquityWithLoanAfter) != 0 ||
                 Util.StringCompare(CommissionCurrency, state.CommissionCurrency) != 0 ||
                 Util.StringCompare(CompletedTime, state.CompletedTime) != 0 ||
                 Util.StringCompare(CompletedStatus, state.CompletedStatus) != 0)

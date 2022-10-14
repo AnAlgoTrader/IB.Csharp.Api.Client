@@ -11,6 +11,7 @@ namespace IB.Api.Client
         public event EventHandler<ExecutionUpdate> ExecutionUpdateReceived;
         public event EventHandler<OrderUpdate> OrderUpdateReceived;
         public event EventHandler<OpenOrderUpdate> OpenOrderUpdateReceived;
+        public event EventHandler<OpenOrderUpdate> WhatIfOpenOrderUpdateReceived;
         private int _nextOrderId;
         public int NextOrderId
         {
@@ -28,6 +29,11 @@ namespace IB.Api.Client
         }
         public void PlaceOrder(int orderId, Contract contract, Order order)
         {
+            ClientSocket.PlaceOrder(orderId, contract, order);
+        }
+        public void WhatIf(int orderId, Contract contract, Order order)
+        {
+            order.WhatIf = true;
             ClientSocket.PlaceOrder(orderId, contract, order);
         }
         public void CancelOrder(int orderId)
@@ -93,13 +99,22 @@ namespace IB.Api.Client
         }
         public void OpenOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {
-            OpenOrderUpdateReceived?.Invoke(this, new OpenOrderUpdate
-            {
-                OrderId = orderId,
-                Contract = contract,
-                Order = order,
-                OrderState = orderState
-            });
+            if (order.WhatIf)
+                WhatIfOpenOrderUpdateReceived?.Invoke(this, new OpenOrderUpdate
+                {
+                    OrderId = orderId,
+                    Contract = contract,
+                    Order = order,
+                    OrderState = orderState
+                });
+            else
+                OpenOrderUpdateReceived?.Invoke(this, new OpenOrderUpdate
+                {
+                    OrderId = orderId,
+                    Contract = contract,
+                    Order = order,
+                    OrderState = orderState
+                });
         }
     }
 }

@@ -17,7 +17,8 @@ namespace IB.Api.Client
         }
         public void TickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
         {
-            //Console.WriteLine("Tick News. Ticker Id: {0}, Time Stamp: {1}, Provider Code: {2}, Article Id: {3}, headline: {4}, extraData: {5}", tickerId, timeStamp, providerCode, articleId, headline, extraData);
+            var output = $"Tick News. Ticker Id: {tickerId}, Time Stamp: {timeStamp}, Provider Code: {providerCode}, Article Id: {articleId}, headline: {headline}, extraData: {extraData}";
+            Notify(output);
         }
         public void UpdateNewsBulletin(int msgId, int msgType, string message, string origExchange)
         {

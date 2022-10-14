@@ -37,6 +37,18 @@ namespace IB.Api.Client.Helper
             return output.OrderBy(x => x.Start).ToList();
         }
 
+        public static void GetMarginRequirements(IBClient ibClient, Contract contract)
+        {
+            var nextId = ibClient.NextOrderId++;
+            var order = new Order
+            {
+                OrderType = nameof(OrderType.MARKET),
+                Action = nameof(TradeAction.BUY),
+                TotalQuantity = 1
+            };
+            ibClient.WhatIf(nextId, contract, order);
+        }
+
         public static TradingHours GetNextSession(ContractDetails contractDetails)
         {
             var tradingHours = GetTradingHours(contractDetails);

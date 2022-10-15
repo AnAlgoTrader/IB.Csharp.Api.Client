@@ -48,7 +48,7 @@ namespace IB.Api.Client.Proprietary
             contract.Right = eDecoder.ReadString();
             if (msgVersion >= 32)
             {
-                contract.Multiplier = eDecoder.ReadString();
+                contract.Multiplier = eDecoder.ReadDoubleMax();
             }
             contract.Exchange = eDecoder.ReadString();
             contract.Currency = eDecoder.ReadString();

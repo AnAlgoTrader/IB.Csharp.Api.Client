@@ -1565,7 +1565,7 @@ namespace IB.Api.Client.Proprietary
                 return;
             if (!CheckServerVersion(reqId, MinServerVer.FUNDAMENTAL_DATA, " It does not support Fundamental Data requests."))
                 return;
-            if (!IsEmpty(contract.TradingClass) || contract.ConId > 0 || !IsEmpty(contract.Multiplier))
+            if (!IsEmpty(contract.TradingClass) || contract.ConId > 0 || contract.Multiplier != 0.0)
             {
                 if (!CheckServerVersion(reqId, MinServerVer.TRADING_CLASS, ""))
                     return;

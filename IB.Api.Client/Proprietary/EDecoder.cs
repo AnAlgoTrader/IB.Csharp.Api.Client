@@ -1343,7 +1343,7 @@ namespace IB.Api.Client.Proprietary
             contract.Right = ReadString();
             if (msgVersion >= 7)
             {
-                contract.Multiplier = ReadString();
+                contract.Multiplier = ReadDoubleMax();
                 contract.PrimaryExch = ReadString();
             }
             contract.Currency = ReadString();
@@ -1560,7 +1560,7 @@ namespace IB.Api.Client.Proprietary
             {
                 contract.MdSizeMultiplier = ReadInt();
             }
-            contract.Contract.Multiplier = ReadString();
+            contract.Contract.Multiplier = ReadDoubleMax();
             contract.OrderTypes = ReadString();
             contract.ValidExchanges = ReadString();
             if (msgVersion >= 2)
@@ -1661,7 +1661,7 @@ namespace IB.Api.Client.Proprietary
             contract.Right = ReadString();
             if (msgVersion >= 9)
             {
-                contract.Multiplier = ReadString();
+                contract.Multiplier = ReadDoubleMax();
             }
             contract.Exchange = ReadString();
             contract.Currency = ReadString();
@@ -1865,7 +1865,7 @@ namespace IB.Api.Client.Proprietary
                 LastTradeDateOrContractMonth = ReadString(),
                 Strike = ReadDouble(),
                 Right = ReadString(),
-                Multiplier = ReadString(),
+                Multiplier = ReadDoubleMax(),
                 Exchange = ReadString(),
                 Currency = ReadString(),
                 LocalSymbol = ReadString()
@@ -1966,7 +1966,7 @@ namespace IB.Api.Client.Proprietary
                 LastTradeDateOrContractMonth = ReadString(),
                 Strike = ReadDouble(),
                 Right = ReadString(),
-                Multiplier = ReadString(),
+                Multiplier = ReadDoubleMax(),
                 Exchange = ReadString(),
                 Currency = ReadString(),
                 LocalSymbol = ReadString(),

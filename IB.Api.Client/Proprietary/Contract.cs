@@ -61,7 +61,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The instrument's multiplier (i.e. options, futures).
          */
-        public double Multiplier { get; set; }
+        public string Multiplier { get; set; }
 
         /**
          * @brief The destination exchange.

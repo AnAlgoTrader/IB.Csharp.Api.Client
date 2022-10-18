@@ -48,7 +48,7 @@ namespace IB.Api.Client.Proprietary
             contract.Right = eDecoder.ReadString();
             if (msgVersion >= 32)
             {
-                contract.Multiplier = eDecoder.ReadDoubleMax();
+                contract.Multiplier = eDecoder.ReadString();
             }
             contract.Exchange = eDecoder.ReadString();
             contract.Currency = eDecoder.ReadString();
@@ -647,16 +647,16 @@ namespace IB.Api.Client.Proprietary
                 ReadOrderStatus();
                 if (serverVersion >= MinServerVer.WHAT_IF_EXT_FIELDS)
                 {
-                    orderState.InitMarginBefore = eDecoder.ReadDoubleMax();
-                    orderState.MaintMarginBefore = eDecoder.ReadDoubleMax();
-                    orderState.EquityWithLoanBefore = eDecoder.ReadDoubleMax();
-                    orderState.InitMarginChange = eDecoder.ReadDoubleMax();
-                    orderState.MaintMarginChange = eDecoder.ReadDoubleMax();
-                    orderState.EquityWithLoanChange = eDecoder.ReadDoubleMax();
+                    orderState.InitMarginBefore = eDecoder.ReadString();
+                    orderState.MaintMarginBefore = eDecoder.ReadString();
+                    orderState.EquityWithLoanBefore = eDecoder.ReadString();
+                    orderState.InitMarginChange = eDecoder.ReadString();
+                    orderState.MaintMarginChange = eDecoder.ReadString();
+                    orderState.EquityWithLoanChange = eDecoder.ReadString();
                 }
-                orderState.InitMarginAfter = eDecoder.ReadDoubleMax();
-                orderState.MaintMarginAfter = eDecoder.ReadDoubleMax();
-                orderState.EquityWithLoanAfter = eDecoder.ReadDoubleMax();
+                orderState.InitMarginAfter = eDecoder.ReadString();
+                orderState.MaintMarginAfter = eDecoder.ReadString();
+                orderState.EquityWithLoanAfter = eDecoder.ReadString();
                 orderState.Commission = eDecoder.ReadDoubleMax();
                 orderState.MinCommission = eDecoder.ReadDoubleMax();
                 orderState.MaxCommission = eDecoder.ReadDoubleMax();

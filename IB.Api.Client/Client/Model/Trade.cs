@@ -42,7 +42,7 @@ namespace IB.Api.Client.Model
         public double Quantity { get; set; }
 
         [JsonProperty("multiplier")]
-        public double Multiplier { get; set; }
+        public string Multiplier { get; set; }
 
         [JsonProperty("commission")]
         public double Commission { get; set; }
@@ -85,11 +85,5 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("targetExecutionId")]
         public string TargetExecutionId { get; set; }
-
-        [JsonProperty("lastBid")]
-        public double LastBid { get; set; }
-
-        [JsonProperty("lastAsk")]
-        public double LastAsk { get; set; }
     }
 }

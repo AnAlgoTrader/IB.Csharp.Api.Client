@@ -2,10 +2,6 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -69,17 +65,17 @@ namespace IB.Api.Client.Proprietary
         /**
           * @brief The order's generated commission.
           */
-        public double Commission { get; set; }
+        public string Commission { get; set; }
 
         /**
         * @brief The execution's minimum commission.
         */
-        public double MinCommission { get; set; }
+        public string MinCommission { get; set; }
 
         /**
         * @brief The executions maximum commission.
         */
-        public double MaxCommission { get; set; }
+        public string MaxCommission { get; set; }
 
         /**
          * @brief The generated commission currency
@@ -108,9 +104,9 @@ namespace IB.Api.Client.Proprietary
             InitMarginAfter = null;
             MaintMarginAfter = null;
             EquityWithLoanAfter = null;
-            Commission = 0.0;
-            MinCommission = 0.0;
-            MaxCommission = 0.0;
+            Commission = null;
+            MinCommission = null;
+            MaxCommission= null;
             CommissionCurrency = null;
             WarningText = null;
             CompletedTime = null;
@@ -121,8 +117,8 @@ namespace IB.Api.Client.Proprietary
                 string initMarginBefore, string maintMarginBefore, string equityWithLoanBefore,
                 string initMarginChange, string maintMarginChange, string equityWithLoanChange,
                 string initMarginAfter, string maintMarginAfter, string equityWithLoanAfter,
-                double commission, double minCommission,
-                double maxCommission, string commissionCurrency, string warningText,
+                string commission, string minCommission,
+                string maxCommission, string commissionCurrency, string warningText,
                 string completedTime, string completedStatus)
         {
             if (status == null)

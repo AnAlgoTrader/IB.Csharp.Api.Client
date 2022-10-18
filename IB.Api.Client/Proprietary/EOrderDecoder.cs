@@ -657,9 +657,9 @@ namespace IB.Api.Client.Proprietary
                 orderState.InitMarginAfter = eDecoder.ReadString();
                 orderState.MaintMarginAfter = eDecoder.ReadString();
                 orderState.EquityWithLoanAfter = eDecoder.ReadString();
-                orderState.Commission = eDecoder.ReadDoubleMax();
-                orderState.MinCommission = eDecoder.ReadDoubleMax();
-                orderState.MaxCommission = eDecoder.ReadDoubleMax();
+                orderState.Commission = eDecoder.ReadString();
+                orderState.MinCommission = eDecoder.ReadString();
+                orderState.MaxCommission = eDecoder.ReadString();
                 orderState.CommissionCurrency = eDecoder.ReadString();
                 orderState.WarningText = eDecoder.ReadString();
             }

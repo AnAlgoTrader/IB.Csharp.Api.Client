@@ -85,5 +85,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("targetExecutionId")]
         public string TargetExecutionId { get; set; }
+
+        [JsonProperty("stopPrice")]
+        public double? StopPrice { get; set; }
     }
 }

@@ -88,5 +88,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("stopPrice")]
         public double? StopPrice { get; set; }
+
+        [JsonProperty("drawdown")]
+        public double? Drawdown { get; set; }
     }
 }

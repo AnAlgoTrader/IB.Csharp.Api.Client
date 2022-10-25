@@ -91,5 +91,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("drawdown")]
         public double? Drawdown { get; set; }
+
+        [JsonProperty("lastPrice")]
+        public double? LastPrice { get; set; }
     }
 }

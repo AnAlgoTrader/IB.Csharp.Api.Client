@@ -18,6 +18,10 @@ namespace IB.Api.Client
         {
             ClientSocket.ReqTickByTickData(reqId, contract, "BidAsk", 0, true);
         }
+        public void SubscribeToLevel1(Contract contract)
+        {
+            ClientSocket.ReqMktData(1064, contract, "221", false, false, null);
+        }
         public void ReqMarketDepth(int reqId, Contract contract, double ratio)
         {
             var orderBookUpdate = new OrderBookUpdate
@@ -65,20 +69,12 @@ namespace IB.Api.Client
             {
                 case 1:
                     {
-                        if (_priceUpdate.Bid != price)
-                        {
-                            _priceUpdate.Bid = price;
-                            PriceUpdateReceived?.Invoke(this, _priceUpdate);
-                        }
+                        _priceUpdate.Bid = price;
                         break;
                     }
                 case 2:
                     {
-                        if (_priceUpdate.Ask != price)
-                        {
-                            _priceUpdate.Ask = price;
-                            PriceUpdateReceived?.Invoke(this, _priceUpdate);
-                        }
+                        _priceUpdate.Ask = price;
                         break;
                     }
             }
@@ -95,6 +91,39 @@ namespace IB.Api.Client
                 TickAttribBidAsk = tickAttribBidAsk
             };
             TimeAndSalesUpdateReceived?.Invoke(this, tick);
+        }
+        public void MarketDataType(int reqId, int marketDataType)
+        {
+            _priceUpdate.MarketDataType = marketDataType;
+        }
+        public void TickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            _priceUpdate.MinTick = minTick;
+            _priceUpdate.BboExchange = bboExchange;
+            _priceUpdate.SnapshotPermissions = snapshotPermissions;
+        }
+        public virtual void TickSize(int tickerId, int field, int size)
+        {
+            switch (field)
+            {
+                case 0:
+                    {
+
+                        _priceUpdate.BidSize = size;
+                        break;
+                    }
+                case 3:
+                    {
+
+                        _priceUpdate.AskSize = size;
+                        PriceUpdateReceived?.Invoke(this, _priceUpdate);
+                        break;
+                    }
+            }
+        }
+        public virtual void TickString(int tickerId, int tickType, string value)
+        {
+            
         }
     }
 }

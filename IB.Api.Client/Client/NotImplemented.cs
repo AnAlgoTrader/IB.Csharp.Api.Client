@@ -43,10 +43,6 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public void MarketDataType(int reqId, int marketDataType)
-        {
-            throw new NotImplementedException();
-        }
         public void MarketRule(int marketRuleId, PriceIncrement[] priceIncrements)
         {
             throw new NotImplementedException();
@@ -139,14 +135,7 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public virtual void TickSize(int tickerId, int field, int size)
-        {
-            throw new NotImplementedException();
-        }
-        public virtual void TickString(int tickerId, int tickType, string value)
-        {
-            throw new NotImplementedException();
-        }
+
         public virtual void TickGeneric(int tickerId, int field, double value)
         {
             throw new NotImplementedException();
@@ -172,10 +161,6 @@ namespace IB.Api.Client
             throw new NotImplementedException();
         }
         public void UpdateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size, bool isSmartDepth)
-        {
-            throw new NotImplementedException();
-        }
-        public void TickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
             throw new NotImplementedException();
         }

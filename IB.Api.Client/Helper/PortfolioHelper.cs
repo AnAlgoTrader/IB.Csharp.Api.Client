@@ -39,5 +39,17 @@ namespace IB.Api.Client.Helper
                 });
             }
         }
+
+        public static void CalculateTradesPnl(List<Trade> trades, PriceUpdate priceUpdate)
+        {
+            if (trades.Count > 0)
+            {
+                trades.ForEach(trade =>
+                {
+                    var price = trade.TradeAction == nameof(TradeAction.BUY) ? priceUpdate.Bid : priceUpdate.Ask;
+                    trade.Pnl = CalculateTradePnl(trade, price);
+                });
+            }
+        }
     }
 }

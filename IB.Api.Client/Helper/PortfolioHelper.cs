@@ -51,5 +51,31 @@ namespace IB.Api.Client.Helper
                 });
             }
         }
+
+        public static void UpdateTrailingStops(List<Trade> trades, double minTick, double currentLevel)
+        {
+            var difference = minTick * 5;
+            trades.ForEach(trade =>
+            {
+                if (trade.StopPrice == null)
+                    trade.StopPrice = trade.TradeAction == nameof(TradeAction.BUY) ?
+                        trade.FillPrice - difference : trade.FillPrice + difference;
+                else
+                {
+                    if (trade.TradeAction == nameof(TradeAction.BUY))
+                    {
+                        var buyStop = currentLevel - difference;
+                        var levels = new double?[] { buyStop, trade.StopPrice, trade.FillPrice };
+                        trade.StopPrice = levels.Max();
+                    }
+                    else
+                    {
+                        var sellStop = currentLevel + difference;
+                        var levels = new double?[] { sellStop, trade.StopPrice, trade.FillPrice };
+                        trade.StopPrice = levels.Min();
+                    }
+                }
+            });
+        }
     }
 }

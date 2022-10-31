@@ -4,6 +4,7 @@ using System.Linq;
 using IB.Api.Client.Client.Model;
 using IB.Api.Client.Model;
 using IB.Api.Client.Proprietary;
+using IB.Api.Client.Helper;
 
 namespace IB.Api.Client
 {
@@ -120,11 +121,34 @@ namespace IB.Api.Client
                 case 3:
                     {
                         _priceUpdate.AskSize = size;
+                        SetPriceBar();
                         PriceUpdateReceived?.Invoke(this, _priceUpdate);
                         break;
                     }
             }
         }
+
+        private void SetPriceBar()
+        {
+            var now = DateTime.Now;
+            var epochTime = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
+
+            if (epochTime != _priceUpdate.Time)
+            {
+                _priceUpdate.Time = epochTime;
+                _priceUpdate.Open = _priceUpdate.Bid;
+                _priceUpdate.Close = _priceUpdate.Ask;
+                _priceUpdate.High = _priceUpdate.Ask;
+                _priceUpdate.Low = _priceUpdate.Bid;
+            }
+            else
+            {
+                _priceUpdate.Close = _priceUpdate.Ask;
+                _priceUpdate.High = _priceUpdate.Ask > _priceUpdate.High ? _priceUpdate.Ask : _priceUpdate.High;
+                _priceUpdate.Low = _priceUpdate.Bid < _priceUpdate.Low ? _priceUpdate.Bid : _priceUpdate.Low;
+            }
+        }
+
         public virtual void TickString(int tickerId, int tickType, string value) { }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double wap, int count)
         {

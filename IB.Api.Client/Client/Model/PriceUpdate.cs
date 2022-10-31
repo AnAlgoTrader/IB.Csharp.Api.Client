@@ -4,6 +4,21 @@ namespace IB.Api.Client.Model
 {
     public class PriceUpdate
     {
+        [JsonProperty("time")]
+        public double Time { get; set; }
+
+        [JsonProperty("open")]
+        public double Open { get; set; }
+
+        [JsonProperty("high")]
+        public double High { get; set; }
+
+        [JsonProperty("low")]
+        public double Low { get; set; }
+
+        [JsonProperty("close")]
+        public double Close { get; set; }
+
         [JsonProperty("bid")]
         public double Bid { get; set; }
 

@@ -108,13 +108,11 @@ namespace IB.Api.Client
             {
                 case 0:
                     {
-
                         _priceUpdate.BidSize = size;
                         break;
                     }
                 case 3:
                     {
-
                         _priceUpdate.AskSize = size;
                         PriceUpdateReceived?.Invoke(this, _priceUpdate);
                         break;
@@ -123,7 +121,7 @@ namespace IB.Api.Client
         }
         public virtual void TickString(int tickerId, int tickType, string value)
         {
-            
+
         }
     }
 }

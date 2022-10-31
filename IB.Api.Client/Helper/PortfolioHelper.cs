@@ -54,7 +54,7 @@ namespace IB.Api.Client.Helper
 
         public static void UpdateTrailingStops(List<Trade> trades, double minTick, double currentLevel)
         {
-            var difference = minTick * 5;
+            var difference = minTick * 10;
             trades.ForEach(trade =>
             {
                 if (trade.StopPrice == null)

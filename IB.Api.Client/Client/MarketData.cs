@@ -14,13 +14,18 @@ namespace IB.Api.Client
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
         public event EventHandler<HistoricalTickBidAsk> TimeAndSalesUpdateReceived;
+        public event EventHandler<Bar> BarUpdateReceived;
         public void SubscribeToTimeAndSales(int reqId, Contract contract)
         {
             ClientSocket.ReqTickByTickData(reqId, contract, "BidAsk", 0, true);
         }
-        public void SubscribeToLevel1(Contract contract)
+        public void SubscribeToRealTimePrice(Contract contract)
         {
             ClientSocket.ReqMktData(1064, contract, "221", false, false, null);
+        }
+        public void SubscribeToDefaultBar(Contract contract)
+        {
+            ClientSocket.ReqRealTimeBars(1074, contract, 0, nameof(WhatToShow.TRADES), false, null);
         }
         public void ReqMarketDepth(int reqId, Contract contract, double ratio)
         {
@@ -119,9 +124,10 @@ namespace IB.Api.Client
                     }
             }
         }
-        public virtual void TickString(int tickerId, int tickType, string value)
+        public virtual void TickString(int tickerId, int tickType, string value) { }
+        public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double wap, int count)
         {
-
+            BarUpdateReceived?.Invoke(this, new Bar(date, open, high, low, close, volume, count, wap));
         }
     }
 }

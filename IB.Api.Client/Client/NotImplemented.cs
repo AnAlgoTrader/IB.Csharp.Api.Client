@@ -195,10 +195,6 @@ namespace IB.Api.Client
         public void NewsArticle(int requestId, int articleType, string articleText)
         {
             throw new NotImplementedException();
-        }
-        public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double WAP, int count)
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 }

@@ -10,9 +10,9 @@ namespace IB.Api.Client.Proprietary
      */
     public class Bar
     {
-        public Bar(string time, double open, double high, double low, double close, long volume, int count, double wap)
+        public Bar(string date, double open, double high, double low, double close, long volume, int count, double wap)
         {
-            Time = time;
+            Date = date;
             Open = open;
             High = high;
             Low = low;
@@ -25,7 +25,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The bar's date and time (either as a yyyymmss hh:mm:ss formatted string or as system time according to the request). Time zone is the TWS time zone chosen on login.
          */
-        public string Time { get; }
+        public string Date { get; }
 
         /**
          * @brief The bar's open price

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using IB.Api.Client.Client.Model;
 using IB.Api.Client.Model;
 using IB.Api.Client.Proprietary;
 
@@ -14,7 +15,7 @@ namespace IB.Api.Client
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
         public event EventHandler<HistoricalTickBidAsk> TimeAndSalesUpdateReceived;
-        public event EventHandler<Bar> BarUpdateReceived;
+        public event EventHandler<RealTimeBarUpdate> BarUpdateReceived;
         public void SubscribeToTimeAndSales(int reqId, Contract contract)
         {
             ClientSocket.ReqTickByTickData(reqId, contract, "BidAsk", 0, true);
@@ -62,7 +63,7 @@ namespace IB.Api.Client
                 _orderBookUpdates[tickerId].SumBid = sumBySide;
             else
                 _orderBookUpdates[tickerId].SumOffer = sumBySide;
-            _orderBookUpdates[tickerId].OrderBookLines[position].PercentageOfBook = Math.Round((100 * _orderBookUpdates[tickerId].OrderBookLines[position].Size) / max);
+            _orderBookUpdates[tickerId].OrderBookLines[position].PercentageOfBook = Math.Round(100 * _orderBookUpdates[tickerId].OrderBookLines[position].Size / max);
             _orderBookUpdates[tickerId].CurrentPrice = _orderBookUpdates[tickerId].OrderBookLines[0].Price;
 
             if (position == 19)
@@ -127,7 +128,7 @@ namespace IB.Api.Client
         public virtual void TickString(int tickerId, int tickType, string value) { }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double wap, int count)
         {
-            BarUpdateReceived?.Invoke(this, new Bar(date, open, high, low, close, volume, count, wap));
+            BarUpdateReceived?.Invoke(this, new RealTimeBarUpdate(date, open, high, low, close, volume, count, wap));
         }
     }
 }

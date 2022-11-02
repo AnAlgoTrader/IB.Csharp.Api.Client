@@ -16,26 +16,27 @@ namespace IB.Api.Client.Helper
 
         public static double? CalculateTradePnl(Trade trade, double currentPrice)
         {
-            if (trade.FillPrice != null)
-            {
-                var pnl = (currentPrice - trade.FillPrice) * double.Parse(trade.Multiplier) * trade.Quantity;
-                var commission = trade.Commission * 3;
-                if (trade.TradeAction == nameof(TradeAction.BUY))
-                    return Math.Round(pnl.Value - commission, 2);
-                else
-                    return Math.Round((pnl.Value * -1.0) - commission, 2);
-            }
-            return 0;
+            var pnl = (currentPrice - trade.FillPrice) * double.Parse(trade.Multiplier) * trade.Quantity;
+            var commission = trade.Commission * 3;
+            if (trade.TradeAction == nameof(TradeAction.BUY))
+                return Math.Round(pnl.Value - commission, 2);
+            else
+                return Math.Round((pnl.Value * -1.0) - commission, 2);
+
         }
 
         public static void CalculateTradesPnl(List<Trade> trades, HistoricalTickBidAsk tick)
         {
             if (trades.Count > 0)
             {
-                trades.Where(x => x.Status == OrderStatus.FILLED && string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
+                trades.Where(x => string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
                 {
-                    var price = trade.TradeAction == nameof(TradeAction.BUY) ? tick.PriceBid : tick.PriceAsk;
-                    trade.Pnl = CalculateTradePnl(trade, price);
+                    if (trade.Status == OrderStatus.FILLED)
+                    {
+                        var price = trade.TradeAction == nameof(TradeAction.BUY) ? tick.PriceBid : tick.PriceAsk;
+                        trade.Pnl = CalculateTradePnl(trade, price);
+                    }
+                    else trade.Pnl = 0;
                 });
             }
         }
@@ -44,9 +45,11 @@ namespace IB.Api.Client.Helper
         {
             if (trades.Count > 0)
             {
-                trades.Where(x => x.Status == OrderStatus.FILLED && string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
+                trades.Where(x => string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
                 {
-                    trade.Pnl = CalculateTradePnl(trade, price);
+                    if (trade.Status == OrderStatus.FILLED)
+                        trade.Pnl = CalculateTradePnl(trade, price);
+                    else trade.Pnl = 0;
                 });
             }
         }

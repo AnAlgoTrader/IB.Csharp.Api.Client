@@ -150,6 +150,7 @@ namespace IB.Api.Client
         }
 
         public virtual void TickString(int tickerId, int tickType, string value) { }
+        public virtual void TickGeneric(int tickerId, int field, double value) { }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double wap, int count)
         {
             BarUpdateReceived?.Invoke(this, new RealTimeBarUpdate(date, open, high, low, close, volume, count, wap));

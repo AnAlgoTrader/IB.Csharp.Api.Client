@@ -32,7 +32,7 @@ namespace IB.Api.Client.Helper
         {
             if (trades.Count > 0)
             {
-                trades.ForEach(trade =>
+                trades.Where(x => x.Status == OrderStatus.FILLED && string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
                 {
                     var price = trade.TradeAction == nameof(TradeAction.BUY) ? tick.PriceBid : tick.PriceAsk;
                     trade.Pnl = CalculateTradePnl(trade, price);
@@ -40,13 +40,12 @@ namespace IB.Api.Client.Helper
             }
         }
 
-        public static void CalculateTradesPnl(List<Trade> trades, PriceUpdate priceUpdate)
+        public static void CalculateTradesPnl(List<Trade> trades, double price)
         {
             if (trades.Count > 0)
             {
-                trades.ForEach(trade =>
+                trades.Where(x => x.Status == OrderStatus.FILLED && string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
                 {
-                    var price = trade.TradeAction == nameof(TradeAction.BUY) ? priceUpdate.Bid : priceUpdate.Ask;
                     trade.Pnl = CalculateTradePnl(trade, price);
                 });
             }

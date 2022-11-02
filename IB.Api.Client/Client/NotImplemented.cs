@@ -135,11 +135,7 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-
-        public virtual void TickGeneric(int tickerId, int field, double value)
-        {
-            throw new NotImplementedException();
-        }
+        
         public void TickByTickAllLast(int reqId, int tickType, long time, double price, int size, TickAttribLast tickAttriblast, string exchange, string specialConditions)
         {
             throw new NotImplementedException();

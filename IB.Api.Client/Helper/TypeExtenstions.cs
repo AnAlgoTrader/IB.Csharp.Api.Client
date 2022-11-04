@@ -20,8 +20,7 @@ namespace IB.Api.Client.Helper
                 {
                     sb.Append(property.GetValue(obj, null));
                 }
-
-                sb.Append(System.Environment.NewLine);
+                sb.Append(" ");
             }
 
             return sb.ToString();

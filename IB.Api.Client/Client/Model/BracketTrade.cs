@@ -1,11 +1,10 @@
-using IB.Api.Client.Model;
-
 namespace IB.Api.Client.Model
 {
+
     public class BracketTrade
     {
-        public Trade Parent { get; set; }
-        public Trade TakeProfit { get; set; }
-        public Trade StopLoss { get; set; }
+        public Trade ParentTrade { get; set; }
+        public Trade StopTrade { get; set; }
+        public Trade TakeProfitTrade { get; set; }
     }
 }

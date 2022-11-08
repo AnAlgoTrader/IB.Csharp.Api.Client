@@ -13,20 +13,15 @@ namespace IB.Api.Client.Helper
             var pnl = trades.Where(x => x.TradeAction == portfolioUpdate.Action).Sum(x => x.Pnl);
             portfolioUpdate.UnrealizedPnl = Math.Round(pnl.Value, 2);
         }
+        public static void CalculatePortfolioPnl(PortfolioUpdate portfolioUpdate, List<TrailingTrade> trades)
+        {
+            var pnl = trades.Where(x => x.ParentTrade.TradeAction == portfolioUpdate.Action).Sum(x => x.ParentTrade.Pnl);
+            portfolioUpdate.UnrealizedPnl = Math.Round(pnl.Value, 2);
+        }
         public static void CalculatePortfolioPnl(PortfolioUpdate portfolioUpdate, List<BracketTrade> trades)
         {
             var pnl = trades.Where(x => x.Parent.TradeAction == portfolioUpdate.Action).Sum(x => x.Parent.Pnl);
             portfolioUpdate.UnrealizedPnl = Math.Round(pnl.Value, 2);
-        }
-
-        public static double? CalculateTradePnl(Trade trade, double currentPrice)
-        {
-            var pnl = (currentPrice - trade.FillPrice) * double.Parse(trade.Multiplier) * trade.Quantity;
-            var commission = trade.Commission * 3;
-            if (trade.TradeAction == nameof(TradeAction.BUY))
-                return Math.Round(pnl.Value - commission, 2);
-            else
-                return Math.Round((pnl.Value * -1.0) - commission, 2);
         }
         public static double? CalculateTradePnl(BracketTrade trade, double currentPrice)
         {
@@ -37,36 +32,15 @@ namespace IB.Api.Client.Helper
             else
                 return Math.Round((pnl.Value * -1.0) - commission, 2);
         }
-
-        public static void CalculateTradesPnl(List<Trade> trades, HistoricalTickBidAsk tick)
+        public static double? CalculateTradePnl(TrailingTrade trade, double currentPrice)
         {
-            if (trades.Count > 0)
-            {
-                trades.Where(x => string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
-                {
-                    if (trade.Status == OrderStatus.FILLED)
-                    {
-                        var price = trade.TradeAction == nameof(TradeAction.BUY) ? tick.PriceBid : tick.PriceAsk;
-                        trade.Pnl = CalculateTradePnl(trade, price);
-                    }
-                    else trade.Pnl = 0;
-                });
-            }
+            var pnl = (currentPrice - trade.ParentTrade.FillPrice) * double.Parse(trade.ParentTrade.Multiplier) * trade.ParentTrade.Quantity;
+            var commission = trade.ParentTrade.Commission * 3;
+            if (trade.ParentTrade.TradeAction == nameof(TradeAction.BUY))
+                return Math.Round(pnl.Value - commission, 2);
+            else
+                return Math.Round((pnl.Value * -1.0) - commission, 2);
         }
-
-        public static void CalculateTradesPnl(List<Trade> trades, double price)
-        {
-            if (trades.Count > 0)
-            {
-                trades.Where(x => string.IsNullOrEmpty(x.TargetStatus)).ToList().ForEach(trade =>
-                {
-                    if (trade.Status == OrderStatus.FILLED)
-                        trade.Pnl = CalculateTradePnl(trade, price);
-                    else trade.Pnl = 0;
-                });
-            }
-        }
-
         public static void CalculateTradesPnl(List<BracketTrade> trades, double price)
         {
             if (trades.Count > 0)
@@ -76,6 +50,18 @@ namespace IB.Api.Client.Helper
                     if (trade.Parent.Status == OrderStatus.FILLED)
                         trade.Parent.Pnl = CalculateTradePnl(trade, price);
                     else trade.Parent.Pnl = 0;
+                });
+            }
+        }
+        public static void CalculateTradesPnl(List<TrailingTrade> trades, double price)
+        {
+            if (trades.Count > 0)
+            {
+                trades.Where(x => x.TrailingStop == null || x.TrailingStop.Status != OrderStatus.FILLED).ToList().ForEach(trade =>
+                {
+                    if (trade.ParentTrade.Status == OrderStatus.FILLED)
+                        trade.ParentTrade.Pnl = CalculateTradePnl(trade, price);
+                    else trade.ParentTrade.Pnl = 0;
                 });
             }
         }

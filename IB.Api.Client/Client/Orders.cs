@@ -40,6 +40,10 @@ namespace IB.Api.Client
         {
             ClientSocket.CancelOrder(orderId);
         }
+        public void CancellAllOrders()
+        {
+            ClientSocket.ReqGlobalCancel();
+        }
         public void RequestExecutions(int reqId)
         {
             ClientSocket.ReqExecutions(reqId, new ExecutionFilter());

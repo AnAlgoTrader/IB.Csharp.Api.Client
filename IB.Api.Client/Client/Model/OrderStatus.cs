@@ -9,5 +9,6 @@ namespace IB.Api.Client.Model
         public static string INACTIVE = "Inactive";
         public static string ACTIVE = "Active";
         public static string CLOSED = "Closed";
+        public static string SUBMITTED = "Submitted";
     }
 }

@@ -781,6 +781,9 @@ namespace IB.Api.Client.Proprietary
             if (p_other == null)
                 return false;
 
+            if (p_other.GetType() != typeof(Order))
+                return false;
+
             Order l_theOther = (Order)p_other;
 
             if (PermId == l_theOther.PermId)

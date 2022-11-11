@@ -10,5 +10,6 @@ namespace IB.Api.Client.Model
         public static string ACTIVE = "Active";
         public static string CLOSED = "Closed";
         public static string SUBMITTED = "Submitted";
+        public static string PENDING_SUBMIT = "PendingSubmit";
     }
 }

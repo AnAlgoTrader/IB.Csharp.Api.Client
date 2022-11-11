@@ -44,8 +44,11 @@ namespace IB.Api.Client.Model
         [JsonProperty("pnl")]
         public double? Pnl { get; set; }        
 
-        [JsonProperty("attemptedPrice")]
-        public double AttemptedPrice { get; set; }
+        [JsonProperty("limitPrice")]
+        public double LimitPrice { get; set; }
+
+        [JsonProperty("stopPrice")]
+        public double StopPrice { get; set; }
 
         [JsonProperty("fillPrice")]
         public double? FillPrice { get; set; }
@@ -58,5 +61,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("lastPrice")]
         public double? LastPrice { get; set; }
+
+        [JsonProperty("initialStop")]
+        public double InitialStop { get; set; }
     }
 }

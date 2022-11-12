@@ -112,7 +112,7 @@ namespace IBApi
         public const int ESTIMATED_IPO_MIDPOINT = 101;
         public const int FINAL_IPO_LAST = 102;
 
-        public static string getField( int tickType) {
+        public static string GetField( int tickType) {
             switch( tickType) {
                 case BID_SIZE:                    return "bidSize";
                 case BID:                         return "bidPrice";

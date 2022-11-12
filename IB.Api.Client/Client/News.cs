@@ -1,5 +1,5 @@
 using System;
-using IB.Api.Client.Proprietary;
+using IBApi;
 
 namespace IB.Api.Client
 {

@@ -86,9 +86,7 @@ namespace IBApi
 
         public override bool Equals(object obj)
         {
-            var other = obj as OrderCondition;
-
-            if (other == null)
+            if (!(obj is OrderCondition other))
                 return false;
 
             return IsConjunctionConnection == other.IsConjunctionConnection && Type == other.Type;

@@ -1,4 +1,4 @@
-using IB.Api.Client.Proprietary;
+using IBApi;
 
 namespace IB.Api.Client.Model
 {
@@ -7,14 +7,14 @@ namespace IB.Api.Client.Model
         public int ReqTickerId { get; set; }
         public Future(int reqTickerId, string symbol, string localSymbol, string lastTradeDateOrContractMonth, string exchange, string multiplier, string currency)
         {
-            this.ReqTickerId = reqTickerId;
-            this.Symbol = symbol;
-            this.LocalSymbol = localSymbol;
-            this.LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
-            this.Exchange = exchange;
-            this.Multiplier = multiplier;
-            this.Currency = currency;
-            this.SecType = "FUT";
+            ReqTickerId = reqTickerId;
+            Symbol = symbol;
+            LocalSymbol = localSymbol;
+            LastTradeDateOrContractMonth = lastTradeDateOrContractMonth;
+            Exchange = exchange;
+            Multiplier = multiplier;
+            Currency = currency;
+            SecType = "FUT";
         }
     }
 }

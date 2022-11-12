@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using IB.Api.Client.Model;
-using IB.Api.Client.Proprietary;
+using IBApi;
 
 namespace IB.Api.Client.Helper
 {

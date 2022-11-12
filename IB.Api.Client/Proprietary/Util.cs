@@ -16,10 +16,9 @@ namespace IBApi
             return string.IsNullOrEmpty(str);
         }
 
-
         public static string NormalizeString(string str)
         {
-            return str != null ? str : "";
+            return !string.IsNullOrEmpty(str) ? str : "";
         }
 
         public static int StringCompare(string lhs, string rhs)
@@ -112,7 +111,7 @@ namespace IBApi
             return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(seconds)).ToString(format);
         }
 
-        public static string formatDoubleString(string str)
+        public static string FormatDoubleString(string str)
         {
             return string.IsNullOrEmpty(str) ? "" : Util.DoubleMaxString(double.Parse(str));
         }

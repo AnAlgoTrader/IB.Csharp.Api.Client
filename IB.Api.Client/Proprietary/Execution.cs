@@ -188,11 +188,9 @@ namespace IBApi
 
         public override bool Equals(object p_other)
         {
-            bool l_bRetVal = false;
-            Execution l_theOther = p_other as Execution;
-
-            if (l_theOther == null)
-            { 
+            bool l_bRetVal;
+            if (!(p_other is Execution l_theOther))
+            {
                 l_bRetVal = false;
             }
             else if (this == p_other)
@@ -208,26 +206,26 @@ namespace IBApi
 
         public override int GetHashCode()
         {
-            var hashCode = 926796717;
-            hashCode = hashCode * -1521134295 + OrderId.GetHashCode();
-            hashCode = hashCode * -1521134295 + ClientId.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ExecId);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Time);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AcctNumber);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Exchange);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Side);
-            hashCode = hashCode * -1521134295 + Shares.GetHashCode();
-            hashCode = hashCode * -1521134295 + Price.GetHashCode();
-            hashCode = hashCode * -1521134295 + PermId.GetHashCode();
-            hashCode = hashCode * -1521134295 + Liquidation.GetHashCode();
-            hashCode = hashCode * -1521134295 + CumQty.GetHashCode();
-            hashCode = hashCode * -1521134295 + AvgPrice.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(OrderRef);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EvRule);
-            hashCode = hashCode * -1521134295 + EvMultiplier.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ModelCode);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Liquidity>.Default.GetHashCode(LastLiquidity);
-            return hashCode;
+            System.HashCode hash = new System.HashCode();
+            hash.Add(OrderId);
+            hash.Add(ClientId);
+            hash.Add(ExecId);
+            hash.Add(Time);
+            hash.Add(AcctNumber);
+            hash.Add(Exchange);
+            hash.Add(Side);
+            hash.Add(Shares);
+            hash.Add(Price);
+            hash.Add(PermId);
+            hash.Add(Liquidation);
+            hash.Add(CumQty);
+            hash.Add(AvgPrice);
+            hash.Add(OrderRef);
+            hash.Add(EvRule);
+            hash.Add(EvMultiplier);
+            hash.Add(ModelCode);
+            hash.Add(LastLiquidity);
+            return hash.ToHashCode();
         }
     }
 }

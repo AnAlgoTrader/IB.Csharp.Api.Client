@@ -45,7 +45,7 @@ namespace IBApi
 
         public static void AddParameter(this BinaryWriter source, string value)
         {
-            if (value != null && !isAsciiPrintable(value))
+            if (value != null && !IsAsciiPrintable(value))
                 throw new EClientException(EClientErrors.INVALID_SYMBOL, value);
 
             if (value != null)
@@ -94,7 +94,7 @@ namespace IBApi
                 source.AddParameter(value);
         }
 
-        private static bool isAsciiPrintable(string str)
+        private static bool IsAsciiPrintable(string str)
         {
             if (str == null)
             {
@@ -102,7 +102,7 @@ namespace IBApi
             }
             for (int i = 0; i < str.Length; i++)
             {
-                if (isAsciiPrintable(str[i]) == false)
+                if (IsAsciiPrintable(str[i]) == false)
                 {
                     return false;
                 }
@@ -110,7 +110,7 @@ namespace IBApi
             return true;
         }
 
-        private static bool isAsciiPrintable(char ch)
+        private static bool IsAsciiPrintable(char ch)
         {
             return ch >= 32 && ch < 127;
         }

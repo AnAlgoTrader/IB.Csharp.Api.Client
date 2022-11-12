@@ -3,7 +3,7 @@
 using System.IO;
 using System.Net.Security;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
     * @brief Implements a Secure Socket Layer (SSL) on top of the EClientSocket class.

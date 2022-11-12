@@ -37,5 +37,14 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("accountName")]
         public string AccountName { get; internal set; }
+
+        [JsonProperty("marketPrice")]
+        public double MarketPrice { get; internal set; }
+
+        [JsonProperty("marketValue")]
+        public double MarketValue { get; internal set; }
+
+        [JsonProperty("averageCost")]
+        public double AverageCost { get; internal set; }
     }
 }

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using IB.Api.Client.Client.Model;
 using IB.Api.Client.Model;
-using IB.Api.Client.Proprietary;
+using IBApi;
 using IB.Api.Client.Helper;
 
 namespace IB.Api.Client
@@ -88,6 +87,7 @@ namespace IB.Api.Client
         }
         public void TickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
         {
+            _ = reqId;
             var tick = new HistoricalTickBidAsk
             {
                 Time = time,
@@ -153,6 +153,7 @@ namespace IB.Api.Client
         public virtual void TickGeneric(int tickerId, int field, double value) { }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double wap, int count)
         {
+            _ = reqId;
             BarUpdateReceived?.Invoke(this, new RealTimeBarUpdate(date, open, high, low, close, volume, count, wap));
         }
     }

@@ -1,6 +1,6 @@
 using System;
 using IB.Api.Client.Model;
-using IB.Api.Client.Proprietary;
+using IBApi;
 
 namespace IB.Api.Client
 {
@@ -12,8 +12,11 @@ namespace IB.Api.Client
         {
             var portfolioUpdate = new PortfolioUpdate
             {
+                MarketPrice = marketPrice,
+                MarketValue = marketValue,
                 AccountName = accountName,
                 UpdatedOn = DateTime.Now,
+                AverageCost = averageCost,
                 Symbol = contract.Symbol,
                 Position = position,
                 UnrealizedPnl = unrealizedPNL,

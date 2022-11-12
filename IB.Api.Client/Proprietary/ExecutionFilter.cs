@@ -67,10 +67,8 @@ namespace IBApi
 
         public override bool Equals(object other)
         {
-            bool l_bRetVal = false;
-            ExecutionFilter l_theOther = other as ExecutionFilter;
-
-            if (l_theOther == null)
+            bool l_bRetVal;
+            if (!(other is ExecutionFilter l_theOther))
             {
                 l_bRetVal = false;
             }
@@ -93,15 +91,7 @@ namespace IBApi
 
         public override int GetHashCode()
         {
-            var hashCode = 82934527;
-            hashCode = hashCode * -1521134295 + ClientId.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AcctCode);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Time);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Symbol);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SecType);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Exchange);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Side);
-            return hashCode;
+            return System.HashCode.Combine(ClientId, AcctCode, Time, Symbol, SecType, Exchange, Side);
         }
     }
 }

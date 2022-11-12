@@ -26,9 +26,7 @@ namespace IBApi
 
         public override bool Equals(object obj)
         {
-            var other = obj as ContractCondition;
-
-            if (other == null)
+            if (!(obj is ContractCondition other))
                 return false;
 
             return base.Equals(obj)
@@ -49,9 +47,8 @@ namespace IBApi
                     return false;
 
                 cond = cond.Substring(cond.IndexOf(delimiter) + delimiter.Length);
-                int conid;
 
-                if (!int.TryParse(cond.Substring(0, cond.IndexOf("(")), out conid))
+                if (!int.TryParse(cond.Substring(0, cond.IndexOf("(")), out int conid))
                     return false;
 
                 ConId = conid;

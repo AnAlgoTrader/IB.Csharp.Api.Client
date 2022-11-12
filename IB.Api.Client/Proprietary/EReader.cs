@@ -12,10 +12,10 @@ namespace IBApi
     */
     public class EReader
     {
-        EClientSocket eClientSocket;
-        EReaderSignal eReaderSignal;
-        Queue<EMessage> msgQueue = new Queue<EMessage>();
-        EDecoder processMsgsDecoder;
+        readonly EClientSocket eClientSocket;
+        readonly IEReaderSignal eReaderSignal;
+        readonly Queue<EMessage> msgQueue = new Queue<EMessage>();
+        readonly EDecoder processMsgsDecoder;
         const int defaultInBufSize = ushort.MaxValue / 8;
 
         bool UseV100Plus
@@ -27,9 +27,9 @@ namespace IBApi
         }
 
 
-        static EWrapper defaultWrapper = new DefaultEWrapper();
+        static readonly IEWrapper defaultWrapper = new DefaultEWrapper();
 
-        public EReader(EClientSocket clientSocket, EReaderSignal signal)
+        public EReader(EClientSocket clientSocket, IEReaderSignal signal)
         {
             eClientSocket = clientSocket;
             eReaderSignal = signal;
@@ -50,39 +50,39 @@ namespace IBApi
                             continue;
                         }
 
-                        if (!putMessageToQueue())
+                        if (!PutMessageToQueue())
                             break;
                     }
                 }
                 catch (Exception ex)
                 {
-                    eClientSocket.Wrapper.error(ex);
-                    eClientSocket.eDisconnect();
+                    eClientSocket.Wrapper.Error(ex);
+                    eClientSocket.EDisconnect();
                 }
 
-                eReaderSignal.issueSignal();
+                eReaderSignal.IssueSignal();
             }) { IsBackground = true }.Start();
         }
 
-        EMessage getMsg()
+        EMessage GetMsg()
         {
             lock (msgQueue)
                 return msgQueue.Count == 0 ? null : msgQueue.Dequeue();
         }
 
-        public void processMsgs()
+        public void ProcessMsgs()
         {
-            EMessage msg = getMsg();
+            EMessage msg = GetMsg();
 
             while (msg != null && processMsgsDecoder.ParseAndProcessMsg(msg.GetBuf()) > 0)
-                msg = getMsg();
+                msg = GetMsg();
         }
 
-        public bool putMessageToQueue()
+        public bool PutMessageToQueue()
         {
             try
             {
-                EMessage msg = readSingleMessage();
+                EMessage msg = ReadSingleMessage();
 
                 if (msg == null)
                     return false;
@@ -90,25 +90,24 @@ namespace IBApi
                 lock (msgQueue)
                     msgQueue.Enqueue(msg);
 
-                eReaderSignal.issueSignal();
+                eReaderSignal.IssueSignal();
 
                 return true;
             }
             catch (Exception ex)
             {
                 if (eClientSocket.IsConnected())
-                    eClientSocket.Wrapper.error(ex);
+                    eClientSocket.Wrapper.Error(ex);
 
                 return false;
             }
         }
 
-        List<byte> inBuf = new List<byte>(defaultInBufSize);
+        readonly List<byte> inBuf = new List<byte>(defaultInBufSize);
 
-        private EMessage readSingleMessage()
+        private EMessage ReadSingleMessage()
         {
-            var msgSize = 0;
-
+            int msgSize;
             if (UseV100Plus)
             {
                 msgSize = eClientSocket.ReadInt();

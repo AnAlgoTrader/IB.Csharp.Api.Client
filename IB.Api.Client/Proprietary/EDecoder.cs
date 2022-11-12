@@ -11,13 +11,13 @@ namespace IBApi
 {
     class EDecoder : IDecoder
     {
-        private EClientMsgSink eClientMsgSink;
-        private EWrapper eWrapper;
+        readonly private IEClientMsgSink eClientMsgSink;
+        readonly private IEWrapper eWrapper;
         private int serverVersion;
         private BinaryReader dataReader;
         private int nDecodedLen;
 
-        public EDecoder(int serverVersion, EWrapper callback, EClientMsgSink sink = null)
+        public EDecoder(int serverVersion, IEWrapper callback, IEClientMsgSink sink = null)
         {
             this.serverVersion = serverVersion;
             eWrapper = callback;
@@ -26,8 +26,7 @@ namespace IBApi
 
         public int ParseAndProcessMsg(byte[] buf)
         {
-            if (dataReader != null)
-                dataReader.Dispose();
+            dataReader?.Dispose();
 
             dataReader = new BinaryReader(new MemoryStream(buf));
             nDecodedLen = 0;
@@ -52,23 +51,18 @@ namespace IBApi
 
                 serverVersion = 0;
 
-                if (eClientMsgSink != null)
-                    eClientMsgSink.redirect(srv);
+                eClientMsgSink?.Redirect(srv);
 
                 return;
             }
 
             var serverTime = "";
-
             if (serverVersion >= 20)
             {
                 serverTime = ReadString();
             }
-
-            if (eClientMsgSink != null)
-                eClientMsgSink.serverVersion(serverVersion, serverTime);
-
-            eWrapper.connectAck();
+            eClientMsgSink?.ServerVersion(serverVersion, serverTime);
+            eWrapper.ConnectAck();
         }
 
         private bool ProcessIncomingMessage(int incomingMessage)
@@ -407,7 +401,7 @@ namespace IBApi
                     break;
 
                 default:
-                    eWrapper.error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message, "");
+                    eWrapper.Error(IncomingMessage.NotValid, EClientErrors.UNKNOWN_ID.Code, EClientErrors.UNKNOWN_ID.Message, "");
                     return false;
             }
 
@@ -422,77 +416,77 @@ namespace IBApi
             EOrderDecoder eOrderDecoder = new EOrderDecoder(this, contract, order, orderState, int.MaxValue, serverVersion);
 
             // read contract fields
-            eOrderDecoder.readContractFields();
+            eOrderDecoder.ReadContractFields();
 
             // read order fields
-            eOrderDecoder.readAction();
-            eOrderDecoder.readTotalQuantity();
-            eOrderDecoder.readOrderType();
-            eOrderDecoder.readLmtPrice();
-            eOrderDecoder.readAuxPrice();
-            eOrderDecoder.readTIF();
-            eOrderDecoder.readOcaGroup();
-            eOrderDecoder.readAccount();
-            eOrderDecoder.readOpenClose();
-            eOrderDecoder.readOrigin();
-            eOrderDecoder.readOrderRef();
-            eOrderDecoder.readPermId();
-            eOrderDecoder.readOutsideRth();
-            eOrderDecoder.readHidden();
-            eOrderDecoder.readDiscretionaryAmount();
-            eOrderDecoder.readGoodAfterTime();
-            eOrderDecoder.readFAParams();
-            eOrderDecoder.readModelCode();
-            eOrderDecoder.readGoodTillDate();
-            eOrderDecoder.readRule80A();
-            eOrderDecoder.readPercentOffset();
-            eOrderDecoder.readSettlingFirm();
-            eOrderDecoder.readShortSaleParams();
-            eOrderDecoder.readBoxOrderParams();
-            eOrderDecoder.readPegToStkOrVolOrderParams();
-            eOrderDecoder.readDisplaySize();
-            eOrderDecoder.readSweepToFill();
-            eOrderDecoder.readAllOrNone();
-            eOrderDecoder.readMinQty();
-            eOrderDecoder.readOcaType();
-            eOrderDecoder.readTriggerMethod();
-            eOrderDecoder.readVolOrderParams(false);
-            eOrderDecoder.readTrailParams();
-            eOrderDecoder.readComboLegs();
-            eOrderDecoder.readSmartComboRoutingParams();
-            eOrderDecoder.readScaleOrderParams();
-            eOrderDecoder.readHedgeParams();
-            eOrderDecoder.readClearingParams();
-            eOrderDecoder.readNotHeld();
-            eOrderDecoder.readDeltaNeutral();
-            eOrderDecoder.readAlgoParams();
-            eOrderDecoder.readSolicited();
-            eOrderDecoder.readOrderStatus();
-            eOrderDecoder.readVolRandomizeFlags();
-            eOrderDecoder.readPegToBenchParams();
-            eOrderDecoder.readConditions();
-            eOrderDecoder.readStopPriceAndLmtPriceOffset();
-            eOrderDecoder.readCashQty();
-            eOrderDecoder.readDontUseAutoPriceForHedge();
-            eOrderDecoder.readIsOmsContainer();
-            eOrderDecoder.readAutoCancelDate();
-            eOrderDecoder.readFilledQuantity();
-            eOrderDecoder.readRefFuturesConId();
-            eOrderDecoder.readAutoCancelParent();
-            eOrderDecoder.readShareholder();
-            eOrderDecoder.readImbalanceOnly();
-            eOrderDecoder.readRouteMarketableToBbo();
-            eOrderDecoder.readParentPermId();
-            eOrderDecoder.readCompletedTime();
-            eOrderDecoder.readCompletedStatus();
-            eOrderDecoder.readPegBestPegMidOrderAttributes();
+            eOrderDecoder.ReadAction();
+            eOrderDecoder.ReadTotalQuantity();
+            eOrderDecoder.ReadOrderType();
+            eOrderDecoder.ReadLmtPrice();
+            eOrderDecoder.ReadAuxPrice();
+            eOrderDecoder.ReadTIF();
+            eOrderDecoder.ReadOcaGroup();
+            eOrderDecoder.ReadAccount();
+            eOrderDecoder.ReadOpenClose();
+            eOrderDecoder.ReadOrigin();
+            eOrderDecoder.ReadOrderRef();
+            eOrderDecoder.ReadPermId();
+            eOrderDecoder.ReadOutsideRth();
+            eOrderDecoder.ReadHidden();
+            eOrderDecoder.ReadDiscretionaryAmount();
+            eOrderDecoder.ReadGoodAfterTime();
+            eOrderDecoder.ReadFAParams();
+            eOrderDecoder.ReadModelCode();
+            eOrderDecoder.ReadGoodTillDate();
+            eOrderDecoder.ReadRule80A();
+            eOrderDecoder.ReadPercentOffset();
+            eOrderDecoder.ReadSettlingFirm();
+            eOrderDecoder.ReadShortSaleParams();
+            eOrderDecoder.ReadBoxOrderParams();
+            eOrderDecoder.ReadPegToStkOrVolOrderParams();
+            eOrderDecoder.ReadDisplaySize();
+            eOrderDecoder.ReadSweepToFill();
+            eOrderDecoder.ReadAllOrNone();
+            eOrderDecoder.ReadMinQty();
+            eOrderDecoder.ReadOcaType();
+            eOrderDecoder.ReadTriggerMethod();
+            eOrderDecoder.ReadVolOrderParams(false);
+            eOrderDecoder.ReadTrailParams();
+            eOrderDecoder.ReadComboLegs();
+            eOrderDecoder.ReadSmartComboRoutingParams();
+            eOrderDecoder.ReadScaleOrderParams();
+            eOrderDecoder.ReadHedgeParams();
+            eOrderDecoder.ReadClearingParams();
+            eOrderDecoder.ReadNotHeld();
+            eOrderDecoder.ReadDeltaNeutral();
+            eOrderDecoder.ReadAlgoParams();
+            eOrderDecoder.ReadSolicited();
+            eOrderDecoder.ReadOrderStatus();
+            eOrderDecoder.ReadVolRandomizeFlags();
+            eOrderDecoder.ReadPegToBenchParams();
+            eOrderDecoder.ReadConditions();
+            eOrderDecoder.ReadStopPriceAndLmtPriceOffset();
+            eOrderDecoder.ReadCashQty();
+            eOrderDecoder.ReadDontUseAutoPriceForHedge();
+            eOrderDecoder.ReadIsOmsContainer();
+            eOrderDecoder.ReadAutoCancelDate();
+            eOrderDecoder.ReadFilledQuantity();
+            eOrderDecoder.ReadRefFuturesConId();
+            eOrderDecoder.ReadAutoCancelParent();
+            eOrderDecoder.ReadShareholder();
+            eOrderDecoder.ReadImbalanceOnly();
+            eOrderDecoder.ReadRouteMarketableToBbo();
+            eOrderDecoder.ReadParentPermId();
+            eOrderDecoder.ReadCompletedTime();
+            eOrderDecoder.ReadCompletedStatus();
+            eOrderDecoder.ReadPegBestPegMidOrderAttributes();
 
-            eWrapper.completedOrder(contract, order, orderState);
+            eWrapper.CompletedOrder(contract, order, orderState);
         }
 
         private void CompletedOrdersEndEvent()
         {
-            eWrapper.completedOrdersEnd();
+            eWrapper.CompletedOrdersEnd();
         }
 
         private void OrderBoundEvent()
@@ -501,7 +495,7 @@ namespace IBApi
             int apiClientId = ReadInt();
             int apiOrderId = ReadInt();
 
-            eWrapper.orderBound(orderId, apiClientId, apiOrderId);
+            eWrapper.OrderBound(orderId, apiClientId, apiOrderId);
         }
 
         private void TickByTickEvent()
@@ -520,12 +514,14 @@ namespace IBApi
                     double price = ReadDouble();
                     decimal size = ReadDecimal();
                     mask = new BitMask(ReadInt());
-                    TickAttribLast tickAttribLast = new TickAttribLast();
-                    tickAttribLast.PastLimit = mask[0];
-                    tickAttribLast.Unreported = mask[1];
+                    TickAttribLast tickAttribLast = new TickAttribLast
+                    {
+                        PastLimit = mask[0],
+                        Unreported = mask[1]
+                    };
                     string exchange = ReadString();
                     string specialConditions = ReadString();
-                    eWrapper.tickByTickAllLast(reqId, tickType, time, price, size, tickAttribLast, exchange, specialConditions);
+                    eWrapper.TickByTickAllLast(reqId, tickType, time, price, size, tickAttribLast, exchange, specialConditions);
                     break;
                 case 3: // BidAsk
                     double bidPrice = ReadDouble();
@@ -533,14 +529,16 @@ namespace IBApi
                     decimal bidSize = ReadDecimal();
                     decimal askSize = ReadDecimal();
                     mask = new BitMask(ReadInt());
-                    TickAttribBidAsk tickAttribBidAsk = new TickAttribBidAsk();
-                    tickAttribBidAsk.BidPastLow = mask[0];
-                    tickAttribBidAsk.AskPastHigh = mask[1];
-                    eWrapper.tickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, tickAttribBidAsk);
+                    TickAttribBidAsk tickAttribBidAsk = new TickAttribBidAsk
+                    {
+                        BidPastLow = mask[0],
+                        AskPastHigh = mask[1]
+                    };
+                    eWrapper.TickByTickBidAsk(reqId, time, bidPrice, askPrice, bidSize, askSize, tickAttribBidAsk);
                     break;
                 case 4: // MidPoint
                     double midPoint = ReadDouble();
-                    eWrapper.tickByTickMidPoint(reqId, time, midPoint);
+                    eWrapper.TickByTickMidPoint(reqId, time, midPoint);
                     break;
             }
         }
@@ -555,9 +553,11 @@ namespace IBApi
             {
                 var time = ReadLong();
                 BitMask mask = new BitMask(ReadInt());
-                TickAttribLast tickAttribLast = new TickAttribLast();
-                tickAttribLast.PastLimit = mask[0];
-                tickAttribLast.Unreported = mask[1];
+                TickAttribLast tickAttribLast = new TickAttribLast
+                {
+                    PastLimit = mask[0],
+                    Unreported = mask[1]
+                };
                 var price = ReadDouble();
                 var size = ReadDecimal();
                 var exchange = ReadString();
@@ -568,7 +568,7 @@ namespace IBApi
 
             bool done = ReadBoolFromInt();
 
-            eWrapper.historicalTicksLast(reqId, ticks, done);
+            eWrapper.HistoricalTicksLast(reqId, ticks, done);
         }
 
         private void HistoricalTickBidAskEvent()
@@ -581,9 +581,11 @@ namespace IBApi
             {
                 var time = ReadLong();
                 BitMask mask = new BitMask(ReadInt());
-                TickAttribBidAsk tickAttribBidAsk = new TickAttribBidAsk();
-                tickAttribBidAsk.AskPastHigh = mask[0];
-                tickAttribBidAsk.BidPastLow = mask[1];
+                TickAttribBidAsk tickAttribBidAsk = new TickAttribBidAsk
+                {
+                    AskPastHigh = mask[0],
+                    BidPastLow = mask[1]
+                };
                 var priceBid = ReadDouble();
                 var priceAsk = ReadDouble();
                 var sizeBid = ReadDecimal();
@@ -594,7 +596,7 @@ namespace IBApi
 
             bool done = ReadBoolFromInt();
 
-            eWrapper.historicalTicksBidAsk(reqId, ticks, done);
+            eWrapper.HistoricalTicksBidAsk(reqId, ticks, done);
         }
 
         private void HistoricalTickEvent()
@@ -615,7 +617,7 @@ namespace IBApi
 
             bool done = ReadBoolFromInt();
 
-            eWrapper.historicalTicks(reqId, ticks, done);
+            eWrapper.HistoricalTicks(reqId, ticks, done);
         }
 
         private void MarketRuleEvent()
@@ -634,7 +636,7 @@ namespace IBApi
                 }
             }
 
-            eWrapper.marketRule(marketRuleId, priceIncrements);
+            eWrapper.MarketRule(marketRuleId, priceIncrements);
         }
 
         private void RerouteMktDepthReqEvent()
@@ -643,7 +645,7 @@ namespace IBApi
             var conId = ReadInt();
             string exchange = ReadString();
 
-            eWrapper.rerouteMktDepthReq(reqId, conId, exchange);
+            eWrapper.RerouteMktDepthReq(reqId, conId, exchange);
         }
 
         private void RerouteMktDataReqEvent()
@@ -652,7 +654,7 @@ namespace IBApi
             var conId = ReadInt();
             string exchange = ReadString();
 
-            eWrapper.rerouteMktDataReq(reqId, conId, exchange);
+            eWrapper.RerouteMktDataReq(reqId, conId, exchange);
         }
 
         private void HistoricalDataUpdateEvent()
@@ -667,7 +669,7 @@ namespace IBApi
             decimal WAP = ReadDecimal();
             decimal volume = ReadDecimal();
 
-            eWrapper.historicalDataUpdate(requestId, new Bar(date, open, high, low,
+            eWrapper.HistoricalDataUpdate(requestId, new Bar(date, open, high, low,
                                     close, volume, barCount, WAP));
         }
 
@@ -692,7 +694,7 @@ namespace IBApi
 
             double value = ReadDouble();
 
-            eWrapper.pnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
+            eWrapper.PnlSingle(reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value);
         }
 
         private void PnLEvent()
@@ -712,7 +714,7 @@ namespace IBApi
                 realizedPnL = ReadDouble();
             }
 
-            eWrapper.pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
+            eWrapper.Pnl(reqId, dailyPnL, unrealizedPnL, realizedPnL);
         }
 
         private void HistogramDataEvent()
@@ -727,7 +729,7 @@ namespace IBApi
                 data[i].Size = ReadDecimal();
             }
 
-            eWrapper.histogramData(reqId, data);
+            eWrapper.HistogramData(reqId, data);
         }
 
         private void HeadTimestampEvent()
@@ -735,7 +737,7 @@ namespace IBApi
             int reqId = ReadInt();
             string headTimestamp = ReadString();
 
-            eWrapper.headTimestamp(reqId, headTimestamp);
+            eWrapper.HeadTimestamp(reqId, headTimestamp);
         }
 
         private void HistoricalNewsEvent()
@@ -746,7 +748,7 @@ namespace IBApi
             string articleId = ReadString();
             string headline = ReadString();
 
-            eWrapper.historicalNews(requestId, time, providerCode, articleId, headline);
+            eWrapper.HistoricalNews(requestId, time, providerCode, articleId, headline);
         }
 
         private void HistoricalNewsEndEvent()
@@ -754,7 +756,7 @@ namespace IBApi
             int requestId = ReadInt();
             bool hasMore = ReadBoolFromInt();
 
-            eWrapper.historicalNewsEnd(requestId, hasMore);
+            eWrapper.HistoricalNewsEnd(requestId, hasMore);
         }
 
         private void NewsArticleEvent()
@@ -763,7 +765,7 @@ namespace IBApi
             int articleType = ReadInt();
             string articleText = ReadString();
 
-            eWrapper.newsArticle(requestId, articleType, articleText);
+            eWrapper.NewsArticle(requestId, articleType, articleText);
         }
 
         private void NewsProvidersEvent()
@@ -781,7 +783,7 @@ namespace IBApi
                 }
             }
 
-            eWrapper.newsProviders(newsProviders);
+            eWrapper.NewsProviders(newsProviders);
         }
 
         private void SmartComponentsEvent()
@@ -799,7 +801,7 @@ namespace IBApi
                 theMap.Add(bitNumber, new KeyValuePair<string, char>(exchange, exchangeLetter));
             }
 
-            eWrapper.smartComponents(reqId, theMap);
+            eWrapper.SmartComponents(reqId, theMap);
         }
 
         private void TickReqParamsEvent()
@@ -809,7 +811,7 @@ namespace IBApi
             string bboExchange = ReadString();
             int snapshotPermissions = ReadInt();
 
-            eWrapper.tickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
+            eWrapper.TickReqParams(tickerId, minTick, bboExchange, snapshotPermissions);
         }
 
         private void TickNewsEvent()
@@ -821,7 +823,7 @@ namespace IBApi
             string headline = ReadString();
             string extraData = ReadString();
 
-            eWrapper.tickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
+            eWrapper.TickNews(tickerId, timeStamp, providerCode, articleId, headline, extraData);
         }
 
         private void SymbolSamplesEvent()
@@ -837,12 +839,14 @@ namespace IBApi
                 for (int i = 0; i < nContractDescriptions; ++i)
                 {
                     // read contract fields
-                    Contract contract = new Contract();
-                    contract.ConId = ReadInt();
-                    contract.Symbol = ReadString();
-                    contract.SecType = ReadString();
-                    contract.PrimaryExch = ReadString();
-                    contract.Currency = ReadString();
+                    Contract contract = new Contract
+                    {
+                        ConId = ReadInt(),
+                        Symbol = ReadString(),
+                        SecType = ReadString(),
+                        PrimaryExch = ReadString(),
+                        Currency = ReadString()
+                    };
 
                     // read derivative sec types list
                     string[] derivativeSecTypes = new string[0];
@@ -866,7 +870,7 @@ namespace IBApi
                 }
             }
 
-            eWrapper.symbolSamples(reqId, contractDescriptions);
+            eWrapper.SymbolSamples(reqId, contractDescriptions);
         }
 
         private void FamilyCodesEvent()
@@ -884,7 +888,7 @@ namespace IBApi
                 }
             }
 
-            eWrapper.familyCodes(familyCodes);
+            eWrapper.FamilyCodes(familyCodes);
         }
 
         private void MktDepthExchangesEvent()
@@ -909,7 +913,7 @@ namespace IBApi
                 }
             }
 
-            eWrapper.mktDepthExchanges(depthMktDataDescriptions);
+            eWrapper.MktDepthExchanges(depthMktDataDescriptions);
         }
 
         private void SoftDollarTierEvent()
@@ -923,14 +927,14 @@ namespace IBApi
                 tiers[i] = new SoftDollarTier(ReadString(), ReadString(), ReadString());
             }
 
-            eWrapper.softDollarTiers(reqId, tiers);
+            eWrapper.SoftDollarTiers(reqId, tiers);
         }
 
         private void SecurityDefinitionOptionParameterEndEvent()
         {
             int reqId = ReadInt();
 
-            eWrapper.securityDefinitionOptionParameterEnd(reqId);
+            eWrapper.SecurityDefinitionOptionParameterEnd(reqId);
         }
 
         private void SecurityDefinitionOptionParameterEvent()
@@ -956,60 +960,60 @@ namespace IBApi
                 strikes.Add(ReadDouble());
             }
 
-            eWrapper.securityDefinitionOptionParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
+            eWrapper.SecurityDefinitionOptionParameter(reqId, exchange, underlyingConId, tradingClass, multiplier, expirations, strikes);
         }
 
         private void DisplayGroupUpdatedEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int reqId = ReadInt();
             string contractInfo = ReadString();
 
-            eWrapper.displayGroupUpdated(reqId, contractInfo);
+            eWrapper.DisplayGroupUpdated(reqId, contractInfo);
         }
 
         private void DisplayGroupListEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int reqId = ReadInt();
             string groups = ReadString();
 
-            eWrapper.displayGroupList(reqId, groups);
+            eWrapper.DisplayGroupList(reqId, groups);
         }
 
         private void VerifyCompletedEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             bool isSuccessful = string.Compare(ReadString(), "true", true) == 0;
             string errorText = ReadString();
 
-            eWrapper.verifyCompleted(isSuccessful, errorText);
+            eWrapper.VerifyCompleted(isSuccessful, errorText);
         }
 
         private void VerifyMessageApiEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             string apiData = ReadString();
 
-            eWrapper.verifyMessageAPI(apiData);
+            eWrapper.VerifyMessageAPI(apiData);
         }
 
         private void VerifyAndAuthCompletedEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             bool isSuccessful = string.Compare(ReadString(), "true", true) == 0;
             string errorText = ReadString();
 
-            eWrapper.verifyAndAuthCompleted(isSuccessful, errorText);
+            eWrapper.VerifyAndAuthCompleted(isSuccessful, errorText);
         }
 
         private void VerifyAndAuthMessageApiEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             string apiData = ReadString();
             string xyzChallenge = ReadString();
 
-            eWrapper.verifyAndAuthMessageAPI(apiData, xyzChallenge);
+            eWrapper.VerifyAndAuthMessageAPI(apiData, xyzChallenge);
         }
 
         private void TickPriceEvent()
@@ -1046,7 +1050,7 @@ namespace IBApi
             }
 
 
-            eWrapper.tickPrice(requestId, tickType, price, attr);
+            eWrapper.TickPrice(requestId, tickType, price, attr);
 
             if (msgVersion >= 2)
             {
@@ -1074,41 +1078,41 @@ namespace IBApi
                 }
                 if (sizeTickType != -1)
                 {
-                    eWrapper.tickSize(requestId, sizeTickType, size);
+                    eWrapper.TickSize(requestId, sizeTickType, size);
                 }
             }
         }
 
         private void TickSizeEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
             decimal size = ReadDecimal();
-            eWrapper.tickSize(requestId, tickType, size);
+            eWrapper.TickSize(requestId, tickType, size);
         }
 
         private void TickStringEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
             string value = ReadString();
-            eWrapper.tickString(requestId, tickType, value);
+            eWrapper.TickString(requestId, tickType, value);
         }
 
         private void TickGenericEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
             double value = ReadDouble();
-            eWrapper.tickGeneric(requestId, tickType, value);
+            eWrapper.TickGeneric(requestId, tickType, value);
         }
 
         private void TickEFPEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int tickType = ReadInt();
             double basisPoints = ReadDouble();
@@ -1118,14 +1122,14 @@ namespace IBApi
             string futureLastTradeDate = ReadString();
             double dividendImpact = ReadDouble();
             double dividendsToLastTradeDate = ReadDouble();
-            eWrapper.tickEFP(requestId, tickType, basisPoints, formattedBasisPoints, impliedFuturesPrice, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
+            eWrapper.TickEFP(requestId, tickType, basisPoints, formattedBasisPoints, impliedFuturesPrice, holdDays, futureLastTradeDate, dividendImpact, dividendsToLastTradeDate);
         }
 
         private void TickSnapshotEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            eWrapper.tickSnapshotEnd(requestId);
+            eWrapper.TickSnapshotEnd(requestId);
         }
 
         private void ErrorEvent()
@@ -1134,7 +1138,7 @@ namespace IBApi
             if (msgVersion < 2)
             {
                 string msg = ReadString();
-                eWrapper.error(msg);
+                eWrapper.Error(msg);
             }
             else
             {
@@ -1150,40 +1154,42 @@ namespace IBApi
                         advancedOrderRejectJson = Regex.Unescape(tempStr);
                     }
                 }
-                eWrapper.error(id, errorCode, errorMsg, advancedOrderRejectJson);
+                eWrapper.Error(id, errorCode, errorMsg, advancedOrderRejectJson);
             }
         }
 
         private void CurrentTimeEvent()
         {
-            int msgVersion = ReadInt();//version
+            _ = ReadInt();//version
             long time = ReadLong();
-            eWrapper.currentTime(time);
+            eWrapper.CurrentTime(time);
         }
 
         private void ManagedAccountsEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             string accountsList = ReadString();
-            eWrapper.managedAccounts(accountsList);
+            eWrapper.ManagedAccounts(accountsList);
         }
 
         private void NextValidIdEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int orderId = ReadInt();
-            eWrapper.nextValidId(orderId);
+            eWrapper.NextValidId(orderId);
         }
 
         private void DeltaNeutralValidationEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            DeltaNeutralContract deltaNeutralContract = new DeltaNeutralContract();
-            deltaNeutralContract.ConId = ReadInt();
-            deltaNeutralContract.Delta = ReadDouble();
-            deltaNeutralContract.Price = ReadDouble();
-            eWrapper.deltaNeutralValidation(requestId, deltaNeutralContract);
+            DeltaNeutralContract deltaNeutralContract = new DeltaNeutralContract
+            {
+                ConId = ReadInt(),
+                Delta = ReadDouble(),
+                Price = ReadDouble()
+            };
+            eWrapper.DeltaNeutralValidation(requestId, deltaNeutralContract);
         }
 
         private void TickOptionComputationEvent()
@@ -1250,25 +1256,25 @@ namespace IBApi
                 }
             }
 
-            eWrapper.tickOptionComputation(requestId, tickType, tickAttrib, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+            eWrapper.TickOptionComputation(requestId, tickType, tickAttrib, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
         }
 
         private void AccountSummaryEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             string account = ReadString();
             string tag = ReadString();
             string value = ReadString();
             string currency = ReadString();
-            eWrapper.accountSummary(requestId, account, tag, value, currency);
+            eWrapper.AccountSummary(requestId, account, tag, value, currency);
         }
 
         private void AccountSummaryEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            eWrapper.accountSummaryEnd(requestId);
+            eWrapper.AccountSummaryEnd(requestId);
         }
 
         private void AccountValueEvent()
@@ -1280,7 +1286,7 @@ namespace IBApi
             string accountName = null;
             if (msgVersion >= 2)
                 accountName = ReadString();
-            eWrapper.updateAccountValue(key, value, currency, accountName);
+            eWrapper.UpdateAccountValue(key, value, currency, accountName);
         }
 
         private void BondContractDetailsEvent()
@@ -1302,7 +1308,7 @@ namespace IBApi
             contract.Contract.SecType = ReadString();
             contract.Cusip = ReadString();
             contract.Coupon = ReadDouble();
-            readLastTradeDate(contract, true);
+            ReadLastTradeDate(contract, true);
             contract.IssueDate = ReadString();
             contract.Ratings = ReadString();
             contract.BondType = ReadString();
@@ -1347,9 +1353,11 @@ namespace IBApi
                     contract.SecIdList = new List<TagValue>();
                     for (int i = 0; i < secIdListCount; ++i)
                     {
-                        TagValue tagValue = new TagValue();
-                        tagValue.Tag = ReadString();
-                        tagValue.Value = ReadString();
+                        TagValue tagValue = new TagValue
+                        {
+                            Tag = ReadString(),
+                            Value = ReadString()
+                        };
                         contract.SecIdList.Add(tagValue);
                     }
                 }
@@ -1369,7 +1377,7 @@ namespace IBApi
                 contract.SuggestedSizeIncrement = ReadDecimal();
             }
 
-            eWrapper.bondContractDetails(requestId, contract);
+            eWrapper.BondContractDetails(requestId, contract);
         }
 
         private void PortfolioValueEvent()
@@ -1422,22 +1430,22 @@ namespace IBApi
                 contract.PrimaryExch = ReadString();
             }
 
-            eWrapper.updatePortfolio(contract, position, marketPrice, marketValue,
+            eWrapper.UpdatePortfolio(contract, position, marketPrice, marketValue,
                             averageCost, unrealizedPNL, realizedPNL, accountName);
         }
 
         private void AccountUpdateTimeEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             string timestamp = ReadString();
-            eWrapper.updateAccountTime(timestamp);
+            eWrapper.UpdateAccountTime(timestamp);
         }
 
         private void AccountDownloadEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             string account = ReadString();
-            eWrapper.accountDownloadEnd(account);
+            eWrapper.AccountDownloadEnd(account);
         }
 
         private void OrderStatusEvent()
@@ -1486,7 +1494,7 @@ namespace IBApi
                 mktCapPrice = ReadDouble();
             }
 
-            eWrapper.orderStatus(id, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
+            eWrapper.OrderStatus(id, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
         }
 
         private void OpenOrderEvent()
@@ -1499,88 +1507,88 @@ namespace IBApi
             EOrderDecoder eOrderDecoder = new EOrderDecoder(this, contract, order, orderState, msgVersion, serverVersion);
 
             // read order id
-            eOrderDecoder.readOrderId();
+            eOrderDecoder.ReadOrderId();
 
             // read contract fields
-            eOrderDecoder.readContractFields();
+            eOrderDecoder.ReadContractFields();
 
             // read order fields
-            eOrderDecoder.readAction();
-            eOrderDecoder.readTotalQuantity();
-            eOrderDecoder.readOrderType();
-            eOrderDecoder.readLmtPrice();
-            eOrderDecoder.readAuxPrice();
-            eOrderDecoder.readTIF();
-            eOrderDecoder.readOcaGroup();
-            eOrderDecoder.readAccount();
-            eOrderDecoder.readOpenClose();
-            eOrderDecoder.readOrigin();
-            eOrderDecoder.readOrderRef();
-            eOrderDecoder.readClientId();
-            eOrderDecoder.readPermId();
-            eOrderDecoder.readOutsideRth();
-            eOrderDecoder.readHidden();
-            eOrderDecoder.readDiscretionaryAmount();
-            eOrderDecoder.readGoodAfterTime();
-            eOrderDecoder.skipSharesAllocation();
-            eOrderDecoder.readFAParams();
-            eOrderDecoder.readModelCode();
-            eOrderDecoder.readGoodTillDate();
-            eOrderDecoder.readRule80A();
-            eOrderDecoder.readPercentOffset();
-            eOrderDecoder.readSettlingFirm();
-            eOrderDecoder.readShortSaleParams();
-            eOrderDecoder.readAuctionStrategy();
-            eOrderDecoder.readBoxOrderParams();
-            eOrderDecoder.readPegToStkOrVolOrderParams();
-            eOrderDecoder.readDisplaySize();
-            eOrderDecoder.readOldStyleOutsideRth();
-            eOrderDecoder.readBlockOrder();
-            eOrderDecoder.readSweepToFill();
-            eOrderDecoder.readAllOrNone();
-            eOrderDecoder.readMinQty();
-            eOrderDecoder.readOcaType();
-            eOrderDecoder.skipETradeOnly();
-            eOrderDecoder.skipFirmQuoteOnly();
-            eOrderDecoder.skipNbboPriceCap();
-            eOrderDecoder.readParentId();
-            eOrderDecoder.readTriggerMethod();
-            eOrderDecoder.readVolOrderParams(true);
-            eOrderDecoder.readTrailParams();
-            eOrderDecoder.readBasisPoints();
-            eOrderDecoder.readComboLegs();
-            eOrderDecoder.readSmartComboRoutingParams();
-            eOrderDecoder.readScaleOrderParams();
-            eOrderDecoder.readHedgeParams();
-            eOrderDecoder.readOptOutSmartRouting();
-            eOrderDecoder.readClearingParams();
-            eOrderDecoder.readNotHeld();
-            eOrderDecoder.readDeltaNeutral();
-            eOrderDecoder.readAlgoParams();
-            eOrderDecoder.readSolicited();
-            eOrderDecoder.readWhatIfInfoAndCommission();
-            eOrderDecoder.readVolRandomizeFlags();
-            eOrderDecoder.readPegToBenchParams();
-            eOrderDecoder.readConditions();
-            eOrderDecoder.readAdjustedOrderParams();
-            eOrderDecoder.readSoftDollarTier();
-            eOrderDecoder.readCashQty();
-            eOrderDecoder.readDontUseAutoPriceForHedge();
-            eOrderDecoder.readIsOmsContainer();
-            eOrderDecoder.readDiscretionaryUpToLimitPrice();
-            eOrderDecoder.readUsePriceMgmtAlgo();
-            eOrderDecoder.readDuration();
-            eOrderDecoder.readPostToAts();
-            eOrderDecoder.readAutoCancelParent(MinServerVer.AUTO_CANCEL_PARENT);
-            eOrderDecoder.readPegBestPegMidOrderAttributes();
+            eOrderDecoder.ReadAction();
+            eOrderDecoder.ReadTotalQuantity();
+            eOrderDecoder.ReadOrderType();
+            eOrderDecoder.ReadLmtPrice();
+            eOrderDecoder.ReadAuxPrice();
+            eOrderDecoder.ReadTIF();
+            eOrderDecoder.ReadOcaGroup();
+            eOrderDecoder.ReadAccount();
+            eOrderDecoder.ReadOpenClose();
+            eOrderDecoder.ReadOrigin();
+            eOrderDecoder.ReadOrderRef();
+            eOrderDecoder.ReadClientId();
+            eOrderDecoder.ReadPermId();
+            eOrderDecoder.ReadOutsideRth();
+            eOrderDecoder.ReadHidden();
+            eOrderDecoder.ReadDiscretionaryAmount();
+            eOrderDecoder.ReadGoodAfterTime();
+            eOrderDecoder.SkipSharesAllocation();
+            eOrderDecoder.ReadFAParams();
+            eOrderDecoder.ReadModelCode();
+            eOrderDecoder.ReadGoodTillDate();
+            eOrderDecoder.ReadRule80A();
+            eOrderDecoder.ReadPercentOffset();
+            eOrderDecoder.ReadSettlingFirm();
+            eOrderDecoder.ReadShortSaleParams();
+            eOrderDecoder.ReadAuctionStrategy();
+            eOrderDecoder.ReadBoxOrderParams();
+            eOrderDecoder.ReadPegToStkOrVolOrderParams();
+            eOrderDecoder.ReadDisplaySize();
+            eOrderDecoder.ReadOldStyleOutsideRth();
+            eOrderDecoder.ReadBlockOrder();
+            eOrderDecoder.ReadSweepToFill();
+            eOrderDecoder.ReadAllOrNone();
+            eOrderDecoder.ReadMinQty();
+            eOrderDecoder.ReadOcaType();
+            eOrderDecoder.SkipETradeOnly();
+            eOrderDecoder.SkipFirmQuoteOnly();
+            eOrderDecoder.SkipNbboPriceCap();
+            eOrderDecoder.ReadParentId();
+            eOrderDecoder.ReadTriggerMethod();
+            eOrderDecoder.ReadVolOrderParams(true);
+            eOrderDecoder.ReadTrailParams();
+            eOrderDecoder.ReadBasisPoints();
+            eOrderDecoder.ReadComboLegs();
+            eOrderDecoder.ReadSmartComboRoutingParams();
+            eOrderDecoder.ReadScaleOrderParams();
+            eOrderDecoder.ReadHedgeParams();
+            eOrderDecoder.ReadOptOutSmartRouting();
+            eOrderDecoder.ReadClearingParams();
+            eOrderDecoder.ReadNotHeld();
+            eOrderDecoder.ReadDeltaNeutral();
+            eOrderDecoder.ReadAlgoParams();
+            eOrderDecoder.ReadSolicited();
+            eOrderDecoder.ReadWhatIfInfoAndCommission();
+            eOrderDecoder.ReadVolRandomizeFlags();
+            eOrderDecoder.ReadPegToBenchParams();
+            eOrderDecoder.ReadConditions();
+            eOrderDecoder.ReadAdjustedOrderParams();
+            eOrderDecoder.ReadSoftDollarTier();
+            eOrderDecoder.ReadCashQty();
+            eOrderDecoder.ReadDontUseAutoPriceForHedge();
+            eOrderDecoder.ReadIsOmsContainer();
+            eOrderDecoder.ReadDiscretionaryUpToLimitPrice();
+            eOrderDecoder.ReadUsePriceMgmtAlgo();
+            eOrderDecoder.ReadDuration();
+            eOrderDecoder.ReadPostToAts();
+            eOrderDecoder.ReadAutoCancelParent(MinServerVer.AUTO_CANCEL_PARENT);
+            eOrderDecoder.ReadPegBestPegMidOrderAttributes();
 
-            eWrapper.openOrder(order.OrderId, contract, order, orderState);
+            eWrapper.OpenOrder(order.OrderId, contract, order, orderState);
         }
 
         private void OpenOrderEndEvent()
         {
-            int msgVersion = ReadInt();
-            eWrapper.openOrderEnd();
+            _ = ReadInt();
+            eWrapper.OpenOrderEnd();
         }
 
         private void ContractDataEvent()
@@ -1596,7 +1604,7 @@ namespace IBApi
             ContractDetails contract = new ContractDetails();
             contract.Contract.Symbol = ReadString();
             contract.Contract.SecType = ReadString();
-            readLastTradeDate(contract, false);
+            ReadLastTradeDate(contract, false);
             contract.Contract.Strike = ReadDouble();
             contract.Contract.Right = ReadString();
             contract.Contract.Exchange = ReadString();
@@ -1649,9 +1657,11 @@ namespace IBApi
                     contract.SecIdList = new List<TagValue>(secIdListCount);
                     for (int i = 0; i < secIdListCount; ++i)
                     {
-                        TagValue tagValue = new TagValue();
-                        tagValue.Tag = ReadString();
-                        tagValue.Value = ReadString();
+                        TagValue tagValue = new TagValue
+                        {
+                            Tag = ReadString(),
+                            Value = ReadString()
+                        };
                         contract.SecIdList.Add(tagValue);
                     }
                 }
@@ -1688,15 +1698,15 @@ namespace IBApi
                 contract.SuggestedSizeIncrement = ReadDecimal();
             }
 
-            eWrapper.contractDetails(requestId, contract);
+            eWrapper.ContractDetails(requestId, contract);
         }
 
 
         private void ContractDataEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            eWrapper.contractDetailsEnd(requestId);
+            eWrapper.ContractDetailsEnd(requestId);
         }
 
         private void ExecutionDataEvent()
@@ -1734,15 +1744,17 @@ namespace IBApi
                 contract.TradingClass = ReadString();
             }
 
-            Execution exec = new Execution();
-            exec.OrderId = orderId;
-            exec.ExecId = ReadString();
-            exec.Time = ReadString();
-            exec.AcctNumber = ReadString();
-            exec.Exchange = ReadString();
-            exec.Side = ReadString();
-            exec.Shares = ReadDecimal();
-            exec.Price = ReadDouble();
+            Execution exec = new Execution
+            {
+                OrderId = orderId,
+                ExecId = ReadString(),
+                Time = ReadString(),
+                AcctNumber = ReadString(),
+                Exchange = ReadString(),
+                Side = ReadString(),
+                Shares = ReadDecimal(),
+                Price = ReadDouble()
+            };
             if (msgVersion >= 2)
             {
                 exec.PermId = ReadInt();
@@ -1779,35 +1791,37 @@ namespace IBApi
                 exec.LastLiquidity = new Liquidity(ReadInt());
             }
 
-            eWrapper.execDetails(requestId, contract, exec);
+            eWrapper.ExecDetails(requestId, contract, exec);
         }
 
         private void ExecutionDataEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            eWrapper.execDetailsEnd(requestId);
+            eWrapper.ExecDetailsEnd(requestId);
         }
 
         private void CommissionReportEvent()
         {
-            int msgVersion = ReadInt();
-            CommissionReport commissionReport = new CommissionReport();
-            commissionReport.ExecId = ReadString();
-            commissionReport.Commission = ReadDouble();
-            commissionReport.Currency = ReadString();
-            commissionReport.RealizedPNL = ReadDouble();
-            commissionReport.Yield = ReadDouble();
-            commissionReport.YieldRedemptionDate = ReadInt();
-            eWrapper.commissionReport(commissionReport);
+            _ = ReadInt();
+            CommissionReport commissionReport = new CommissionReport
+            {
+                ExecId = ReadString(),
+                Commission = ReadDouble(),
+                Currency = ReadString(),
+                RealizedPNL = ReadDouble(),
+                Yield = ReadDouble(),
+                YieldRedemptionDate = ReadInt()
+            };
+            eWrapper.CommissionReport(commissionReport);
         }
 
         private void FundamentalDataEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             string fundamentalData = ReadString();
-            eWrapper.fundamentalData(requestId, fundamentalData);
+            eWrapper.FundamentalData(requestId, fundamentalData);
         }
 
         private void HistoricalDataEvent()
@@ -1854,37 +1868,37 @@ namespace IBApi
                     barCount = ReadInt();
                 }
 
-                eWrapper.historicalData(requestId, new Bar(date, open, high, low,
+                eWrapper.HistoricalData(requestId, new Bar(date, open, high, low,
                                         close, volume, barCount, WAP));
             }
 
             // send end of dataset marker.
-            eWrapper.historicalDataEnd(requestId, startDateStr, endDateStr);
+            eWrapper.HistoricalDataEnd(requestId, startDateStr, endDateStr);
         }
 
         private void MarketDataTypeEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int marketDataType = ReadInt();
-            eWrapper.marketDataType(requestId, marketDataType);
+            eWrapper.MarketDataType(requestId, marketDataType);
         }
 
         private void MarketDepthEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int position = ReadInt();
             int operation = ReadInt();
             int side = ReadInt();
             double price = ReadDouble();
             decimal size = ReadDecimal();
-            eWrapper.updateMktDepth(requestId, position, operation, side, price, size);
+            eWrapper.UpdateMktDepth(requestId, position, operation, side, price, size);
         }
 
         private void MarketDepthL2Event()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             int position = ReadInt();
             string marketMaker = ReadString();
@@ -1899,34 +1913,36 @@ namespace IBApi
                 isSmartDepth = ReadBoolFromInt();
             }
 
-            eWrapper.updateMktDepthL2(requestId, position, marketMaker, operation, side, price, size, isSmartDepth);
+            eWrapper.UpdateMktDepthL2(requestId, position, marketMaker, operation, side, price, size, isSmartDepth);
         }
 
         private void NewsBulletinsEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int newsMsgId = ReadInt();
             int newsMsgType = ReadInt();
             string newsMessage = ReadString();
             string originatingExch = ReadString();
-            eWrapper.updateNewsBulletin(newsMsgId, newsMsgType, newsMessage, originatingExch);
+            eWrapper.UpdateNewsBulletin(newsMsgId, newsMsgType, newsMessage, originatingExch);
         }
 
         private void PositionEvent()
         {
             int msgVersion = ReadInt();
             string account = ReadString();
-            Contract contract = new Contract();
-            contract.ConId = ReadInt();
-            contract.Symbol = ReadString();
-            contract.SecType = ReadString();
-            contract.LastTradeDateOrContractMonth = ReadString();
-            contract.Strike = ReadDouble();
-            contract.Right = ReadString();
-            contract.Multiplier = ReadString();
-            contract.Exchange = ReadString();
-            contract.Currency = ReadString();
-            contract.LocalSymbol = ReadString();
+            Contract contract = new Contract
+            {
+                ConId = ReadInt(),
+                Symbol = ReadString(),
+                SecType = ReadString(),
+                LastTradeDateOrContractMonth = ReadString(),
+                Strike = ReadDouble(),
+                Right = ReadString(),
+                Multiplier = ReadString(),
+                Exchange = ReadString(),
+                Currency = ReadString(),
+                LocalSymbol = ReadString()
+            };
             if (msgVersion >= 2)
             {
                 contract.TradingClass = ReadString();
@@ -1936,18 +1952,18 @@ namespace IBApi
             double avgCost = 0;
             if (msgVersion >= 3)
                 avgCost = ReadDouble();
-            eWrapper.position(account, contract, pos, avgCost);
+            eWrapper.Position(account, contract, pos, avgCost);
         }
 
         private void PositionEndEvent()
         {
-            int msgVersion = ReadInt();
-            eWrapper.positionEnd();
+            _ = ReadInt();
+            eWrapper.PositionEnd();
         }
 
         private void RealTimeBarsEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             long time = ReadLong();
             double open = ReadDouble();
@@ -1957,14 +1973,14 @@ namespace IBApi
             decimal volume = ReadDecimal();
             decimal wap = ReadDecimal();
             int count = ReadInt();
-            eWrapper.realtimeBar(requestId, time, open, high, low, close, volume, wap, count);
+            eWrapper.RealtimeBar(requestId, time, open, high, low, close, volume, wap, count);
         }
 
         private void ScannerParametersEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             string xml = ReadString();
-            eWrapper.scannerParameters(xml);
+            eWrapper.ScannerParameters(xml);
         }
 
         private void ScannerDataEvent()
@@ -1996,74 +2012,76 @@ namespace IBApi
                 {
                     legsStr = ReadString();
                 }
-                eWrapper.scannerData(requestId, rank, conDet, distance,
+                eWrapper.ScannerData(requestId, rank, conDet, distance,
                     benchmark, projection, legsStr);
             }
-            eWrapper.scannerDataEnd(requestId);
+            eWrapper.ScannerDataEnd(requestId);
         }
 
         private void ReceiveFAEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int faDataType = ReadInt();
             string faData = ReadString();
-            eWrapper.receiveFA(faDataType, faData);
+            eWrapper.ReceiveFA(faDataType, faData);
         }
 
         private void PositionMultiEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             string account = ReadString();
-            Contract contract = new Contract();
-            contract.ConId = ReadInt();
-            contract.Symbol = ReadString();
-            contract.SecType = ReadString();
-            contract.LastTradeDateOrContractMonth = ReadString();
-            contract.Strike = ReadDouble();
-            contract.Right = ReadString();
-            contract.Multiplier = ReadString();
-            contract.Exchange = ReadString();
-            contract.Currency = ReadString();
-            contract.LocalSymbol = ReadString();
-            contract.TradingClass = ReadString();
+            Contract contract = new Contract
+            {
+                ConId = ReadInt(),
+                Symbol = ReadString(),
+                SecType = ReadString(),
+                LastTradeDateOrContractMonth = ReadString(),
+                Strike = ReadDouble(),
+                Right = ReadString(),
+                Multiplier = ReadString(),
+                Exchange = ReadString(),
+                Currency = ReadString(),
+                LocalSymbol = ReadString(),
+                TradingClass = ReadString()
+            };
             decimal pos = ReadDecimal();
             double avgCost = ReadDouble();
             string modelCode = ReadString();
-            eWrapper.positionMulti(requestId, account, modelCode, contract, pos, avgCost);
+            eWrapper.PositionMulti(requestId, account, modelCode, contract, pos, avgCost);
         }
 
         private void PositionMultiEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            eWrapper.positionMultiEnd(requestId);
+            eWrapper.PositionMultiEnd(requestId);
         }
 
         private void AccountUpdateMultiEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
             string account = ReadString();
             string modelCode = ReadString();
             string key = ReadString();
             string value = ReadString();
             string currency = ReadString();
-            eWrapper.accountUpdateMulti(requestId, account, modelCode, key, value, currency);
+            eWrapper.AccountUpdateMulti(requestId, account, modelCode, key, value, currency);
         }
 
         private void AccountUpdateMultiEndEvent()
         {
-            int msgVersion = ReadInt();
+            _ = ReadInt();
             int requestId = ReadInt();
-            eWrapper.accountUpdateMultiEnd(requestId);
+            eWrapper.AccountUpdateMultiEnd(requestId);
         }
 
         private void ReplaceFAEndEvent()
         {
             int reqId = ReadInt();
             string text = ReadString();
-            eWrapper.replaceFAEnd(reqId, text);
+            eWrapper.ReplaceFAEnd(reqId, text);
         }
 
         private void ProcessWshMetaData()
@@ -2071,14 +2089,14 @@ namespace IBApi
             int reqId = ReadInt();
             string dataJson = ReadString();
 
-            eWrapper.wshMetaData(reqId, dataJson);
+            eWrapper.WshMetaData(reqId, dataJson);
         }
 
         private void ProcessWshEventData()
         {
             int reqId = ReadInt();
             string dataJson = ReadString();
-            eWrapper.wshEventData(reqId, dataJson);
+            eWrapper.WshEventData(reqId, dataJson);
         }
 
         private void ProcessHistoricalScheduleEvent()
@@ -2100,7 +2118,7 @@ namespace IBApi
                 sessions[i] = new HistoricalSession(sessionStartDateTime, sessionEndDateTime, sessionRefDate);
             }
 
-            eWrapper.historicalSchedule(reqId, startDateTime, endDateTime, timeZone, sessions);
+            eWrapper.HistoricalSchedule(reqId, startDateTime, endDateTime, timeZone, sessions);
         }
 
         private void ProcessUserInfoEvent()
@@ -2108,7 +2126,7 @@ namespace IBApi
             int reqId = ReadInt();
             string whiteBrandingId = ReadString();
 
-            eWrapper.userInfo(reqId, whiteBrandingId);
+            eWrapper.UserInfo(reqId, whiteBrandingId);
         }
 
         public double ReadDouble()
@@ -2207,7 +2225,7 @@ namespace IBApi
             }
         }
 
-        private void readLastTradeDate(ContractDetails contract, bool isBond)
+        private void ReadLastTradeDate(ContractDetails contract, bool isBond)
         {
             string lastTradeDateOrContractMonth = ReadString();
             if (lastTradeDateOrContractMonth != null)

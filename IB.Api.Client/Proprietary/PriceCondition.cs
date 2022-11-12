@@ -54,9 +54,7 @@ namespace IBApi
 
         public override bool Equals(object obj)
         {
-            var other = obj as PriceCondition;
-
-            if (other == null)
+            if (!(obj is PriceCondition other))
                 return false;
 
             return base.Equals(obj)

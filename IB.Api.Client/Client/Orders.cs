@@ -1,6 +1,6 @@
 using System;
 using IB.Api.Client.Model;
-using IB.Api.Client.Proprietary;
+using IBApi;
 
 namespace IB.Api.Client
 {
@@ -38,7 +38,7 @@ namespace IB.Api.Client
         }
         public void CancelOrder(int orderId)
         {
-            ClientSocket.CancelOrder(orderId);
+            //ClientSocket.CancelOrder(orderId);
         }
         public void CancellAllOrders()
         {

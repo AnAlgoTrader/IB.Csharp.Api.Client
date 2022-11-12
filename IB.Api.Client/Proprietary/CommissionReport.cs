@@ -53,9 +53,8 @@ namespace IBApi
         public override bool Equals(object p_other)
         {
             bool l_bRetVal;
-            CommissionReport l_theOther = p_other as CommissionReport;
 
-            if (l_theOther == null)
+            if (!(p_other is CommissionReport l_theOther))
             {
                 l_bRetVal = false;
             }

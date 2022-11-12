@@ -21,15 +21,28 @@ namespace IB.Api.Client
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void Error(string error)
+        public void Error(string errorMsg)
         {
             var notification = new Notification
             {
                 At = DateTime.Now,
                 Id = 0,
                 Code = 0,
-                Message = error,
+                Message = errorMsg,
                 NotificationType = NotificationType.Error
+            };
+            NotificationReceived?.Invoke(this, notification);
+        }
+        public void Error(int id, int errorCode, string errorMsg, string advancedOrderRejectJson)
+        {
+            var notification = new Notification
+            {
+                At = DateTime.Now,
+                Id = 0,
+                Code = 0,
+                Message = errorMsg,
+                NotificationType = NotificationType.Error,
+                AdvancedOrderRejectJson = advancedOrderRejectJson
             };
             NotificationReceived?.Invoke(this, notification);
         }

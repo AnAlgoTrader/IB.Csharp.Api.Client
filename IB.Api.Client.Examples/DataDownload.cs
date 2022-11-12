@@ -31,7 +31,7 @@ namespace IB.Api.Client.Examples
             var ibClient = new IBClient();
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient.HistoricalDataUpdateReceived += new EventHandler<Tuple<int, List<Bar>>>(HistoricalDataUpdateEndReceived);
-            ibClient.BarUpdateReceived += new EventHandler<BarUpdate>(BarUpdateReceived);
+            ibClient.BarUpdateReceived += new EventHandler<RealTimeBarUpdate>(BarUpdateReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
 
             var duration = Duration.GetDuration(1, DurationType.D);
@@ -51,9 +51,9 @@ namespace IB.Api.Client.Examples
             ibClient.NotificationReceived += new EventHandler<Notification>(Common.NotificationReceived);
             ibClient = ConnectionHelper.StartIbClient(ibClient, connectionDetails);
         }
-        private static void BarUpdateReceived(object sender, BarUpdate barUpdate)
+        private static void BarUpdateReceived(object sender, RealTimeBarUpdate barUpdate)
         {
-            Console.WriteLine($"{DateTime.Now}: Open:{barUpdate.Bar.Open} High:{barUpdate.Bar.High} Close:{barUpdate.Bar.Close} Low:{barUpdate.Bar.Low}");
+            Console.WriteLine($"{DateTime.Now}: Open:{barUpdate.Open} High:{barUpdate.High} Close:{barUpdate.Close} Low:{barUpdate.Low}");
         }
         private static void HistoricalDataUpdateEndReceived(object sender, Tuple<int, List<Bar>> data)
         {

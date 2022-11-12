@@ -2183,7 +2183,7 @@ namespace IBApi
         public bool ReadBoolFromInt()
         {
             string str = ReadString();
-            return str == null ? false : (int.Parse(str) != 0);
+            return string.IsNullOrEmpty(str) ? false : (int.Parse(str) != 0);
         }
 
         public char ReadChar()

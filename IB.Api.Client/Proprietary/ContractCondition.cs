@@ -5,7 +5,7 @@ using System;
 
 namespace IB.Api.Client.Proprietary
 {
-    public abstract class ContractCondition : OperatorCondition
+	public abstract class ContractCondition : OperatorCondition
     {
         public int ConId { get; set; }
         public string Exchange { get; set; }
@@ -14,7 +14,7 @@ namespace IB.Api.Client.Proprietary
 
         public Func<int, string, string> ContractResolver { get; set; }
 
-        protected ContractCondition()
+        public ContractCondition()
         {
             ContractResolver = (conid, exch) => conid + "(" + exch + ")";
         }
@@ -30,8 +30,8 @@ namespace IB.Api.Client.Proprietary
                 return false;
 
             return base.Equals(obj)
-                && this.ConId == other.ConId
-                && this.Exchange.Equals(other.Exchange);
+                && ConId == other.ConId
+                && Exchange.Equals(other.Exchange);
         }
 
         public override int GetHashCode()

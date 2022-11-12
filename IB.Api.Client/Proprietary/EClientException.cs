@@ -2,27 +2,22 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     public class EClientException : Exception
     {
-        public CodeMsgPair Err { get; }
+        public CodeMsgPair Err { get; private set; }
+        public string Text { get; private set; }
 
         public EClientException(CodeMsgPair err)
         {
-            this.Err = err;
+            Err = err;
         }
 
-        public EClientException() : base()
+        public EClientException(CodeMsgPair err, string text) : this(err)
         {
+            Text = text;
         }
 
-        public EClientException(string message) : base(message)
-        {
-        }
-
-        public EClientException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
     }
 }

@@ -3,23 +3,24 @@
 
 using System.Globalization;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
     * @brief Used with conditional orders to place or submit an order based on a percentage change of an instrument to the last close price.
     */
     public class PercentChangeCondition : ContractCondition
     {
+        
         protected override string Value
         {
             get
             {
-                return ChangePercent.ToString();
+                return ChangePercent.ToString(NumberFormatInfo.InvariantInfo);
             }
             set
             {
                 ChangePercent = double.Parse(value, NumberFormatInfo.InvariantInfo);
-            }
+            }           
         }
 
         public double ChangePercent { get; set; }

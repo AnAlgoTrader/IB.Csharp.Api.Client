@@ -1,13 +1,9 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class ExecutionFilter
@@ -57,8 +53,8 @@ namespace IB.Api.Client.Proprietary
             ClientId = 0;
         }
 
-        public ExecutionFilter(int clientId, String acctCode, String time,
-                String symbol, String secType, String exchange, String side)
+        public ExecutionFilter(int clientId, string acctCode, string time,
+                string symbol, string secType, string exchange, string side)
         {
             ClientId = clientId;
             AcctCode = acctCode;
@@ -69,47 +65,43 @@ namespace IB.Api.Client.Proprietary
             Side = side;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals(object other)
         {
-            if (other == null)
+            bool l_bRetVal = false;
+            ExecutionFilter l_theOther = other as ExecutionFilter;
+
+            if (l_theOther == null)
             {
-                return false;
+                l_bRetVal = false;
             }
             else if (this == other)
             {
-                return true;
+                l_bRetVal = true;
             }
             else
             {
-                ExecutionFilter l_theOther = (ExecutionFilter)other;
-                return ClientId == l_theOther.ClientId &&
-                    String.Compare(AcctCode, l_theOther.AcctCode, true) == 0 &&
-                    String.Compare(Time, l_theOther.Time, true) == 0 &&
-                    String.Compare(Symbol, l_theOther.Symbol, true) == 0 &&
-                    String.Compare(SecType, l_theOther.SecType, true) == 0 &&
-                    String.Compare(Exchange, l_theOther.Exchange, true) == 0 &&
-                    String.Compare(Side, l_theOther.Side, true) == 0;
+                l_bRetVal = (ClientId == l_theOther.ClientId &&
+                    string.Compare(AcctCode, l_theOther.AcctCode, true) == 0 &&
+                    string.Compare(Time, l_theOther.Time, true) == 0 &&
+                    string.Compare(Symbol, l_theOther.Symbol, true) == 0 &&
+                    string.Compare(SecType, l_theOther.SecType, true) == 0 &&
+                    string.Compare(Exchange, l_theOther.Exchange, true) == 0 &&
+                    string.Compare(Side, l_theOther.Side, true) == 0);
             }
+            return l_bRetVal;
         }
 
         public override int GetHashCode()
         {
-            HashCode hash = new HashCode();
-            hash.Add(ClientId);
-            hash.Add(AcctCode);
-            hash.Add(Time);
-            hash.Add(Symbol);
-            hash.Add(SecType);
-            hash.Add(Exchange);
-            hash.Add(Side);
-            hash.Add(ClientId);
-            hash.Add(AcctCode);
-            hash.Add(Time);
-            hash.Add(Symbol);
-            hash.Add(SecType);
-            hash.Add(Exchange);
-            hash.Add(Side);
-            return hash.ToHashCode();
+            var hashCode = 82934527;
+            hashCode = hashCode * -1521134295 + ClientId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AcctCode);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Time);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Symbol);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SecType);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Exchange);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Side);
+            return hashCode;
         }
     }
 }

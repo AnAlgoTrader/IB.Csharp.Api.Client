@@ -1,11 +1,11 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
+
     /**
      * @class Liquidity
      * @brief Class describing the liquidity type of an execution.
@@ -14,15 +14,15 @@ namespace IB.Api.Client.Proprietary
     public class Liquidity
     {
         /**
-         * @brief The enum of available liquidity flag types.
+         * @brief The enum of available liquidity flag types. 
          * 0 = Unknown, 1 = Added liquidity, 2 = Removed liquidity, 3 = Liquidity routed out
          */
 
-        static readonly Dictionary<int, string> Values = new Dictionary<int, string>
-        {
-            {0, "None"},
-            {1, "Added Liquidity"},
-            {2, "Removed Liquidity"},
+        static readonly Dictionary<int, string> Values = new Dictionary<int, string> 
+        { 
+            {0, "None"}, 
+            {1, "Added Liquidity"}, 
+            {2, "Removed Liquidity"}, 
             {3, "Liquidity Routed Out" }
         };
 
@@ -60,7 +60,7 @@ namespace IB.Api.Client.Proprietary
         public int ClientId { get; set; }
 
         /**
-         * @brief The execution's identifier. Each partial fill has a separate ExecId.
+         * @brief The execution's identifier. Each partial fill has a separate ExecId. 
 		 * A correction is indicated by an ExecId which differs from a previous ExecId in only the digits after the final period,
 		 * e.g. an ExecId ending in ".02" would be a correction of a previous execution with an ExecId ending in ".01"
          */
@@ -90,7 +90,7 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief The number of shares filled.
          */
-        public double Shares { get; set; }
+        public decimal Shares { get; set; }
 
         /**
          * @brief The order's execution price excluding commissions.
@@ -98,23 +98,23 @@ namespace IB.Api.Client.Proprietary
         public double Price { get; set; }
 
         /**
-         * @brief The TWS order identifier. The PermId can be 0 for trades originating outside IB.
+         * @brief The TWS order identifier. The PermId can be 0 for trades originating outside IB. 
          */
         public int PermId { get; set; }
 
         /**
-         * @brief Identifies whether an execution occurred because of an IB-initiated liquidation.
+         * @brief Identifies whether an execution occurred because of an IB-initiated liquidation. 
          */
         public int Liquidation { get; set; }
 
         /**
-         * @brief Cumulative quantity.
+         * @brief Cumulative quantity. 
          * Used in regular trades, combo trades and legs of the combo.
          */
-        public double CumQty { get; set; }
+        public decimal CumQty { get; set; }
 
         /**
-         * @brief Average price.
+         * @brief Average price. 
          * Used in regular trades, combo trades and legs of the combo. Does not include commissions.
          */
         public double AvgPrice { get; set; }
@@ -160,11 +160,11 @@ namespace IB.Api.Client.Proprietary
             LastLiquidity = new Liquidity(0);
         }
 
-        public Execution(int orderId, int clientId, String execId, String time,
-                          String acctNumber, String exchange, String side, double shares,
-                          double price, int permId, int liquidation, double cumQty,
-                          double avgPrice, String orderRef, String evRule, double evMultiplier,
-                          String modelCode, Liquidity lastLiquidity)
+        public Execution(int orderId, int clientId, string execId, string time,
+                          string acctNumber, string exchange, string side, decimal shares,
+                          double price, int permId, int liquidation, decimal cumQty,
+                          double avgPrice, string orderRef, string evRule, double evMultiplier,
+                          string modelCode, Liquidity lastLiquidity)
         {
             OrderId = orderId;
             ClientId = clientId;
@@ -186,45 +186,48 @@ namespace IB.Api.Client.Proprietary
             LastLiquidity = lastLiquidity;
         }
 
-        public override bool Equals(Object p_other)
+        public override bool Equals(object p_other)
         {
-            if (p_other == null)
-            {
-                return false;
+            bool l_bRetVal = false;
+            Execution l_theOther = p_other as Execution;
+
+            if (l_theOther == null)
+            { 
+                l_bRetVal = false;
             }
             else if (this == p_other)
             {
-                return true;
+                l_bRetVal = true;
             }
             else
             {
-                Execution l_theOther = (Execution)p_other;
-                return String.Compare(ExecId, l_theOther.ExecId, true) == 0;
+                l_bRetVal = string.Compare(ExecId, l_theOther.ExecId, true) == 0;
             }
+            return l_bRetVal;
         }
 
         public override int GetHashCode()
         {
-            HashCode hash = new HashCode();
-            hash.Add(OrderId);
-            hash.Add(ClientId);
-            hash.Add(ExecId);
-            hash.Add(Time);
-            hash.Add(AcctNumber);
-            hash.Add(Exchange);
-            hash.Add(Side);
-            hash.Add(Shares);
-            hash.Add(Price);
-            hash.Add(PermId);
-            hash.Add(Liquidation);
-            hash.Add(CumQty);
-            hash.Add(AvgPrice);
-            hash.Add(OrderRef);
-            hash.Add(EvRule);
-            hash.Add(EvMultiplier);
-            hash.Add(ModelCode);
-            hash.Add(LastLiquidity);
-            return hash.ToHashCode();
+            var hashCode = 926796717;
+            hashCode = hashCode * -1521134295 + OrderId.GetHashCode();
+            hashCode = hashCode * -1521134295 + ClientId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ExecId);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Time);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(AcctNumber);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Exchange);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Side);
+            hashCode = hashCode * -1521134295 + Shares.GetHashCode();
+            hashCode = hashCode * -1521134295 + Price.GetHashCode();
+            hashCode = hashCode * -1521134295 + PermId.GetHashCode();
+            hashCode = hashCode * -1521134295 + Liquidation.GetHashCode();
+            hashCode = hashCode * -1521134295 + CumQty.GetHashCode();
+            hashCode = hashCode * -1521134295 + AvgPrice.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(OrderRef);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EvRule);
+            hashCode = hashCode * -1521134295 + EvMultiplier.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ModelCode);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Liquidity>.Default.GetHashCode(LastLiquidity);
+            return hashCode;
         }
     }
 }

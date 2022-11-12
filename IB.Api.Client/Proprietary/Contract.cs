@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class Contract
@@ -16,6 +16,7 @@ namespace IB.Api.Client.Proprietary
         * @brief The unique IB contract identifier
         */
         public int ConId { get; set; }
+
 
         /**
          * @brief The underlying's asset symbol

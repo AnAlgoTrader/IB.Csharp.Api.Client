@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class CommissionReport
@@ -53,7 +53,9 @@ namespace IB.Api.Client.Proprietary
         public override bool Equals(object p_other)
         {
             bool l_bRetVal;
-            if (!(p_other is CommissionReport l_theOther))
+            CommissionReport l_theOther = p_other as CommissionReport;
+
+            if (l_theOther == null)
             {
                 l_bRetVal = false;
             }

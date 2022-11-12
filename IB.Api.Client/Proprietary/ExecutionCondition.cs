@@ -1,13 +1,9 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
     * @class ExecutionCondition
@@ -85,13 +81,15 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(object obj)
         {
-            if (!(obj is ExecutionCondition other))
+            var other = obj as ExecutionCondition;
+
+            if (other == null)
                 return false;
 
-            return base.Equals(obj)
-                && this.Exchange.Equals(other.Exchange)
-                && this.SecType.Equals(other.SecType)
-                && this.Symbol.Equals(other.Symbol);
+            return base.Equals(obj) 
+                && Exchange.Equals(other.Exchange)
+                && SecType.Equals(other.SecType)
+                && Symbol.Equals(other.Symbol);
         }
 
         public override int GetHashCode()

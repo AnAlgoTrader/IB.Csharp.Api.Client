@@ -1,13 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class ScannerSubscription
@@ -26,7 +20,7 @@ namespace IB.Api.Client.Proprietary
         public string Instrument { get; set; }
 
         /**
-         * @brief The request's location (STK.US, STK.US.MAJOR, etc).
+         * @brief The request's location (STK.US, STK.US.MAJOR, etc). 
          */
         public string LocationCode { get; set; }
 
@@ -48,12 +42,12 @@ namespace IB.Api.Client.Proprietary
         /**
          * @brief Filters out Contracts which volume is above this value.
          */
-        public int AboveVolume { get; set; } = Int32.MaxValue;
+        public int AboveVolume { get; set; } = int.MaxValue;
 
         /**
          * @brief Filters out Contracts which option volume is above this value.
          */
-        public int AverageOptionVolumeAbove { get; set; } = Int32.MaxValue;
+        public int AverageOptionVolumeAbove { get; set; } = int.MaxValue;
 
         /**
          * @brief Filters out Contracts which market cap is above this value.

@@ -1,15 +1,16 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 using System.Threading;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
-    public class EReaderMonitorSignal : IEReaderSignal
+    public class EReaderMonitorSignal : EReaderSignal
     {
-        readonly object cs = new object();
-        bool open = false;
+        object cs = new object();
+        bool open;
 
-        public void IssueSignal()
+        public void issueSignal()
         {
             lock (cs)
             {
@@ -19,7 +20,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void WaitForSignal()
+        public void waitForSignal()
         {
             lock (cs)
             {

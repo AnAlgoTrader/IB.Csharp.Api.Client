@@ -1,7 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class ComboLeg
@@ -11,9 +11,10 @@ namespace IB.Api.Client.Proprietary
     public class ComboLeg
     {
         public static int SAME = 0;
-        public static int OPEN = 1;
-        public static int CLOSE = 2;
-        public static int UNKNOWN = 3;
+        public static int 	OPEN = 1;
+        public static int 	CLOSE = 2;
+        public static int 	UNKNOWN = 3;
+
 
         /**
          * @brief The Contract's IB's unique id
@@ -30,6 +31,7 @@ namespace IB.Api.Client.Proprietary
          *      - For individual accounts, only BUY and SELL are available. SSHORT is for institutions.
          */
         public string Action { get; set; }
+
         /**
          * @brief The destination exchange to which the order will be routed.
          */

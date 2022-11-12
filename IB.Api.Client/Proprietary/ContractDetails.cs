@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class ContractDetails
@@ -12,13 +12,17 @@ namespace IB.Api.Client.Proprietary
      */
     public class ContractDetails
     {
+        // BOND values
+
         /**
          * @brief A fully-defined Contract object.
          */
         public Contract Contract
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -26,8 +30,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string MarketName
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -36,8 +42,10 @@ namespace IB.Api.Client.Proprietary
         */
         public double MinTick
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -47,8 +55,10 @@ namespace IB.Api.Client.Proprietary
         */
         public int PriceMagnifier
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -56,8 +66,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string OrderTypes
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -66,8 +78,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string ValidExchanges
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -75,8 +89,10 @@ namespace IB.Api.Client.Proprietary
         */
         public int UnderConId
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -84,8 +100,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string LongName
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -93,8 +111,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string ContractMonth
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -102,8 +122,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Industry
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -111,8 +133,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Category
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -120,8 +144,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Subcategory
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -129,8 +155,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string TimeZoneId
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -142,8 +170,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string TradingHours
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -154,8 +184,10 @@ namespace IB.Api.Client.Proprietary
 		*/
         public string LiquidHours
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -164,8 +196,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string EvRule
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -174,8 +208,10 @@ namespace IB.Api.Client.Proprietary
         */
         public double EvMultiplier
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -185,8 +221,10 @@ namespace IB.Api.Client.Proprietary
         */
         public int AggGroup
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -196,8 +234,10 @@ namespace IB.Api.Client.Proprietary
         */
         public List<TagValue> SecIdList
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -205,8 +245,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string UnderSymbol
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -214,8 +256,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string UnderSecType
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -224,8 +268,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string MarketRuleIds
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -233,8 +279,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string RealExpirationDate
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -242,8 +290,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string LastTradeTime
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -251,8 +301,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string StockType
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -261,8 +313,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Cusip
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -272,8 +326,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Ratings
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -282,8 +338,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string DescAppend
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -291,8 +349,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string BondType
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -302,8 +362,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string CouponType
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -313,8 +375,10 @@ namespace IB.Api.Client.Proprietary
         */
         public bool Callable
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         } = false;
 
         /**
@@ -324,8 +388,10 @@ namespace IB.Api.Client.Proprietary
         */
         public bool Putable
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         } = false;
 
         /**
@@ -335,8 +401,10 @@ namespace IB.Api.Client.Proprietary
         */
         public double Coupon
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         } = 0;
 
         /**
@@ -346,8 +414,10 @@ namespace IB.Api.Client.Proprietary
         */
         public bool Convertible
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         } = false;
 
         /**
@@ -357,8 +427,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Maturity
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /** 
@@ -368,8 +440,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string IssueDate
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -379,8 +453,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string NextOptionDate
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -390,8 +466,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string NextOptionType
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -401,8 +479,10 @@ namespace IB.Api.Client.Proprietary
        */
         public bool NextOptionPartial
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         } = false;
 
         /**
@@ -411,8 +491,10 @@ namespace IB.Api.Client.Proprietary
         */
         public string Notes
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -420,8 +502,10 @@ namespace IB.Api.Client.Proprietary
         */
         public decimal MinSize
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -429,8 +513,10 @@ namespace IB.Api.Client.Proprietary
         */
         public decimal SizeIncrement
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         /**
@@ -438,8 +524,10 @@ namespace IB.Api.Client.Proprietary
         */
         public decimal SuggestedSizeIncrement
         {
+            //! @cond
             get;
             set;
+            //! @endcond
         }
 
         public ContractDetails()

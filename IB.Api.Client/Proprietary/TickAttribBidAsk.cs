@@ -1,12 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class TickAttribBidAsk
@@ -16,17 +11,17 @@ namespace IB.Api.Client.Proprietary
     public class TickAttribBidAsk
     {
         /**
-         * @brief Used with real time tick-by-tick. Indicates if bid is lower than day's lowest low.
+         * @brief Used with real time tick-by-tick. Indicates if bid is lower than day's lowest low. 
          */
         public bool BidPastLow { get; set; }
 
         /**
-         * @brief Used with real time tick-by-tick. Indicates if ask is higher than day's highest ask.
+         * @brief Used with real time tick-by-tick. Indicates if ask is higher than day's highest ask. 
          */
         public bool AskPastHigh { get; set; }
 
         /**
-         * @brief Returns string to display.
+         * @brief Returns string to display. 
          */
         public override string ToString()
         {

@@ -1,9 +1,9 @@
 /* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
+using System.Collections.Generic;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class OrderState
@@ -65,17 +65,17 @@ namespace IB.Api.Client.Proprietary
         /**
           * @brief The order's generated commission.
           */
-        public string Commission { get; set; }
+        public double Commission { get; set; }
 
         /**
         * @brief The execution's minimum commission.
         */
-        public string MinCommission { get; set; }
+        public double MinCommission { get; set; }
 
         /**
         * @brief The executions maximum commission.
         */
-        public string MaxCommission { get; set; }
+        public double MaxCommission { get; set; }
 
         /**
          * @brief The generated commission currency
@@ -104,9 +104,9 @@ namespace IB.Api.Client.Proprietary
             InitMarginAfter = null;
             MaintMarginAfter = null;
             EquityWithLoanAfter = null;
-            Commission = null;
-            MinCommission = null;
-            MaxCommission= null;
+            Commission = 0.0;
+            MinCommission = 0.0;
+            MaxCommission = 0.0;
             CommissionCurrency = null;
             WarningText = null;
             CompletedTime = null;
@@ -117,13 +117,10 @@ namespace IB.Api.Client.Proprietary
                 string initMarginBefore, string maintMarginBefore, string equityWithLoanBefore,
                 string initMarginChange, string maintMarginChange, string equityWithLoanChange,
                 string initMarginAfter, string maintMarginAfter, string equityWithLoanAfter,
-                string commission, string minCommission,
-                string maxCommission, string commissionCurrency, string warningText,
+                double commission, double minCommission,
+                double maxCommission, string commissionCurrency, string warningText,
                 string completedTime, string completedStatus)
         {
-            if (status == null)
-                throw new ArgumentNullException(nameof(status));
-
             InitMarginBefore = initMarginBefore;
             MaintMarginBefore = maintMarginBefore;
             EquityWithLoanBefore = equityWithLoanBefore;
@@ -142,15 +139,15 @@ namespace IB.Api.Client.Proprietary
             CompletedStatus = completedStatus;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals(object other)
         {
             if (this == other)
                 return true;
 
-            if (other == null)
-                return false;
+            OrderState state = other as OrderState;
 
-            OrderState state = (OrderState)other;
+            if (state == null)
+                return false; 
 
             if (Commission != state.Commission ||
                 MinCommission != state.MinCommission ||
@@ -181,42 +178,25 @@ namespace IB.Api.Client.Proprietary
 
         public override int GetHashCode()
         {
-            HashCode hash = new HashCode();
-            hash.Add(Status);
-            hash.Add(InitMarginBefore);
-            hash.Add(MaintMarginBefore);
-            hash.Add(EquityWithLoanBefore);
-            hash.Add(InitMarginChange);
-            hash.Add(MaintMarginChange);
-            hash.Add(EquityWithLoanChange);
-            hash.Add(InitMarginAfter);
-            hash.Add(MaintMarginAfter);
-            hash.Add(EquityWithLoanAfter);
-            hash.Add(Commission);
-            hash.Add(MinCommission);
-            hash.Add(MaxCommission);
-            hash.Add(CommissionCurrency);
-            hash.Add(WarningText);
-            hash.Add(CompletedTime);
-            hash.Add(CompletedStatus);
-            hash.Add(Status);
-            hash.Add(InitMarginBefore);
-            hash.Add(MaintMarginBefore);
-            hash.Add(EquityWithLoanBefore);
-            hash.Add(InitMarginChange);
-            hash.Add(MaintMarginChange);
-            hash.Add(EquityWithLoanChange);
-            hash.Add(InitMarginAfter);
-            hash.Add(MaintMarginAfter);
-            hash.Add(EquityWithLoanAfter);
-            hash.Add(Commission);
-            hash.Add(MinCommission);
-            hash.Add(MaxCommission);
-            hash.Add(CommissionCurrency);
-            hash.Add(WarningText);
-            hash.Add(CompletedTime);
-            hash.Add(CompletedStatus);
-            return hash.ToHashCode();
+            var hashCode = 1754944475;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Status);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(InitMarginBefore);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MaintMarginBefore);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EquityWithLoanBefore);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(InitMarginChange);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MaintMarginChange);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EquityWithLoanChange);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(InitMarginAfter);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MaintMarginAfter);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EquityWithLoanAfter);
+            hashCode = hashCode * -1521134295 + Commission.GetHashCode();
+            hashCode = hashCode * -1521134295 + MinCommission.GetHashCode();
+            hashCode = hashCode * -1521134295 + MaxCommission.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CommissionCurrency);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(WarningText);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CompletedTime);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CompletedStatus);
+            return hashCode;
         }
     }
 }

@@ -1,9 +1,9 @@
 /* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
-    public static class IncomingMessage
+    public class IncomingMessage
     {
         public const int NotValid = -1;
         public const int TickPrice = 1;
@@ -83,5 +83,10 @@ namespace IB.Api.Client.Proprietary
         public const int OrderBound = 100;
         public const int CompletedOrder = 101;
         public const int CompletedOrdersEnd = 102;
+        public const int ReplaceFAEnd = 103;
+        public const int WshMetaData = 104;
+        public const int WshEventData = 105;
+        public const int HistoricalSchedule = 106;
+        public const int UserInfo = 107;
     }
 }

@@ -2,13 +2,10 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     public enum OrderConditionType
     {
@@ -84,15 +81,17 @@ namespace IB.Api.Client.Proprietary
         {
             var conditions = Enum.GetValues(typeof(OrderConditionType)).OfType<OrderConditionType>().Select(t => Create(t)).ToList();
 
-            return conditions.Find(c => c.TryParse(cond));
+            return conditions.FirstOrDefault(c => c.TryParse(cond));
         }
 
         public override bool Equals(object obj)
         {
-            if (!(obj is OrderCondition other))
+            var other = obj as OrderCondition;
+
+            if (other == null)
                 return false;
 
-            return this.IsConjunctionConnection == other.IsConjunctionConnection && this.Type == other.Type;
+            return IsConjunctionConnection == other.IsConjunctionConnection && Type == other.Type;
         }
 
         public override int GetHashCode()
@@ -103,26 +102,24 @@ namespace IB.Api.Client.Proprietary
 
     class StringSuffixParser
     {
-        string str;
-
         public StringSuffixParser(string str)
         {
-            this.str = str;
+            Rest = str;
         }
 
         string SkipSuffix(string perfix)
         {
-            return str.Substring(str.IndexOf(perfix) + perfix.Length);
+            return Rest.Substring(Rest.IndexOf(perfix) + perfix.Length);
         }
 
         public string GetNextSuffixedValue(string perfix)
         {
-            var rval = str.Substring(0, str.IndexOf(perfix));
-            str = SkipSuffix(perfix);
+            var rval = Rest.Substring(0, Rest.IndexOf(perfix));
+            Rest = SkipSuffix(perfix);
 
             return rval;
         }
 
-        public string Rest { get { return str; } }
+        public string Rest { get; private set; }
     }
 }

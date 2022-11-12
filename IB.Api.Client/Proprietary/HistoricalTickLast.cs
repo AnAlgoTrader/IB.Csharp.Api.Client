@@ -1,15 +1,11 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
-    /**
+	/**
      * @class HistoricalTickLast
      * @brief The historical last tick's description. Used when requesting historical tick data with whatToShow = TRADES
      * @sa EClient, EWrapper
@@ -21,7 +17,7 @@ namespace IB.Api.Client.Proprietary
         {
         }
 
-        public HistoricalTickLast(long time, TickAttribLast tickAttribLast, double price, long size, string exchange, string specialConditions)
+        public HistoricalTickLast(long time, TickAttribLast tickAttribLast, double price, decimal size, string exchange, string specialConditions)
         {
             Time = time;
             TickAttribLast = tickAttribLast;
@@ -31,8 +27,8 @@ namespace IB.Api.Client.Proprietary
             SpecialConditions = specialConditions;
         }
 
-        /**
-         * @brief The UNIX timestamp of the historical tick
+		/**
+         * @brief The UNIX timestamp of the historical tick 
          */
         public long Time
         {
@@ -41,21 +37,21 @@ namespace IB.Api.Client.Proprietary
             [param: MarshalAs(UnmanagedType.I8)]
             private set;
         }
-
-        /**
+		
+		/**
          * @brief Tick attribs of historical last tick
          */
-        public TickAttribLast TickAttribLast { get; }
+        public TickAttribLast TickAttribLast { get; private set; }
 
-        /**
-         * @brief The last price of the historical tick
+		/**
+         * @brief The last price of the historical tick 
          */
-        public double Price { get; }
+        public double Price { get; private set; }
 
-        /**
-         * @brief The last size of the historical tick
+		/**
+         * @brief The last size of the historical tick 
          */
-        public long Size
+        public decimal Size
         {
             [return: MarshalAs(UnmanagedType.I8)]
             get;
@@ -63,14 +59,14 @@ namespace IB.Api.Client.Proprietary
             private set;
         }
 
-        /**
-         * @brief The source exchange of the historical tick
+		/**
+         * @brief The source exchange of the historical tick 
          */
-        public string Exchange { get; }
+        public string Exchange { get; private set; }
 
-        /**
+		/**
          * @brief The conditions of the historical tick. Refer to Trade Conditions page for more details: https://www.interactivebrokers.com/en/index.php?f=7235
          */
-        public string SpecialConditions { get; }
+        public string SpecialConditions { get; private set; }
     }
 }

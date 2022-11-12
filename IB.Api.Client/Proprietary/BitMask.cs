@@ -3,7 +3,7 @@
 
 using System;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     class BitMask
     {

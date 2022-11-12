@@ -3,12 +3,12 @@
 using System;
 using System.IO;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
-    class ESocket : IETransport, IDisposable
+    class ESocket : ETransport, IDisposable
     {
-        readonly BinaryWriter tcpWriter;
-        readonly object tcpWriterLock = new object();
+        BinaryWriter tcpWriter;
+        object tcpWriterLock = new object();
 
         public ESocket(Stream socketStream)
         {

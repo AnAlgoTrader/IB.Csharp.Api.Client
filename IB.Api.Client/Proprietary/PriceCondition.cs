@@ -2,13 +2,11 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     public enum TriggerMethod
     {
@@ -18,6 +16,7 @@ namespace IB.Api.Client.Proprietary
     public static class CTriggerMethod
     {
         public static readonly string[] friendlyNames = new string[] { "default", "double bid/ask", "last", "double last", "bid/ask", "", "", "last of bid/ask", "mid-point" };
+
 
         public static string ToFriendlyString(this TriggerMethod th)
         {
@@ -30,9 +29,9 @@ namespace IB.Api.Client.Proprietary
         }
     }
 
-    /**
-     *  @brief Used with conditional orders to cancel or submit order based on price of an instrument.
-     */
+/** 
+ *  @brief Used with conditional orders to cancel or submit order based on price of an instrument. 
+ */
 
     public class PriceCondition : ContractCondition
     {
@@ -40,7 +39,7 @@ namespace IB.Api.Client.Proprietary
         {
             get
             {
-                return Price.ToString();
+                return Price.ToString(NumberFormatInfo.InvariantInfo);
             }
             set
             {
@@ -55,11 +54,13 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(object obj)
         {
-            if (!(obj is PriceCondition other))
+            var other = obj as PriceCondition;
+
+            if (other == null)
                 return false;
 
             return base.Equals(obj)
-                && this.TriggerMethod == other.TriggerMethod;
+                && TriggerMethod == other.TriggerMethod;
         }
 
         public override int GetHashCode()

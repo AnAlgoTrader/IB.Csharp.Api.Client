@@ -1,18 +1,13 @@
 /* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
     * @brief Contains all possible errors occurring on the client side. This errors are not sent by the TWS but rather generated as the result of malfunction within the
     * TWS API client.
     */
-    public static class EClientErrors
+    public class EClientErrors
     {
         public static readonly CodeMsgPair AlreadyConnected = new CodeMsgPair(501, "Already Connected.");
         public static readonly CodeMsgPair CONNECT_FAIL = new CodeMsgPair(502, @"Couldn't connect to TWS. Confirm that ""Enable ActiveX and Socket Clients"" 
@@ -66,7 +61,7 @@ namespace IB.Api.Client.Proprietary
         public static readonly CodeMsgPair BAD_LENGTH = new CodeMsgPair(507, "Bad message length");
         public static readonly CodeMsgPair BAD_MESSAGE = new CodeMsgPair(508, "Bad message");
         public static readonly CodeMsgPair UNSUPPORTED_VERSION = new CodeMsgPair(506, "Unsupported version");
-
+    
         public static readonly CodeMsgPair FAIL_SEND_VERIFYANDAUTHREQUEST = new CodeMsgPair(551, "Verify And Auth Request Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_VERIFYANDAUTHMESSAGE = new CodeMsgPair(552, "Verify And Auth Message Sending Error - ");
 
@@ -96,22 +91,32 @@ namespace IB.Api.Client.Proprietary
         public static readonly CodeMsgPair FAIL_SEND_REQTICKBYTICKDATA = new CodeMsgPair(576, "Request Tick-By-Tick Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_CANCELTICKBYTICKDATA = new CodeMsgPair(577, "Cancel Tick-By-Tick Data Sending Error - ");
         public static readonly CodeMsgPair FAIL_SEND_REQCOMPLETEDORDERS = new CodeMsgPair(578, "Request Completed Orders Sending Error - ");
+        public static readonly CodeMsgPair INVALID_SYMBOL = new CodeMsgPair(579, "Invalid symbol in string - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQ_WSH_META_DATA = new CodeMsgPair(580, "Request WSH Meta Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CAN_WSH_META_DATA = new CodeMsgPair(581, "Cancel WSH Meta Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQ_WSH_EVENT_DATA = new CodeMsgPair(582, "Request WSH Event Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_CAN_WSH_EVENT_DATA = new CodeMsgPair(583, "Cancel WSH Event Data Sending Error - ");
+        public static readonly CodeMsgPair FAIL_SEND_REQ_USER_INFO = new CodeMsgPair(584, "Request User Info Sending Error - ");
+
+
         public static readonly CodeMsgPair FAIL_GENERIC = new CodeMsgPair(-1, "Specific error message needs to be given for these requests! ");
+    
     }
 
-    /**
-      * @brief associates error code and error message as a pair.
-      */
+/**
+  * @brief associates error code and error message as a pair. 
+  */
     public class CodeMsgPair
     {
         public CodeMsgPair(int code, string message)
         {
-            this.Code = code;
-            this.Message = message;
+            Code = code;
+            Message = message;
         }
 
         public int Code { get; }
 
         public string Message { get; }
     }
+
 }

@@ -1,19 +1,18 @@
 /* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     class EOrderDecoder
     {
-        private readonly EDecoder eDecoder;
-        private readonly Contract contract;
-        private readonly Order order;
-        private readonly OrderState orderState;
-        private readonly int msgVersion;
-        private readonly int serverVersion;
+        private EDecoder eDecoder;
+        private Contract contract;
+        private Order order;
+        private OrderState orderState;
+        private int msgVersion;
+        private int serverVersion;
 
         public EOrderDecoder(EDecoder eDecoder, Contract contract, Order order, OrderState orderState, int msgVersion, int serverVersion)
         {
@@ -25,17 +24,17 @@ namespace IB.Api.Client.Proprietary
             this.serverVersion = serverVersion;
         }
 
-        public void ReadOrderId()
+        public void readOrderId()
         {
             order.OrderId = eDecoder.ReadInt();
         }
 
-        public void ReadAction()
+        public void readAction() 
         {
             order.Action = eDecoder.ReadString();
         }
 
-        public void ReadContractFields()
+        public void readContractFields()
         {
             if (msgVersion >= 17)
             {
@@ -62,17 +61,17 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadTotalQuantity()
+        public void readTotalQuantity()
         {
-            order.TotalQuantity = serverVersion >= MinServerVer.FRACTIONAL_POSITIONS ? eDecoder.ReadDouble() : (double)eDecoder.ReadInt();
+            order.TotalQuantity = eDecoder.ReadDecimal();
         }
 
-        public void ReadOrderType()
+        public void readOrderType()
         {
             order.OrderType = eDecoder.ReadString();
         }
 
-        public void ReadLmtPrice()
+        public void readLmtPrice() 
         {
             if (msgVersion < 29)
             {
@@ -84,7 +83,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadAuxPrice()
+        public void readAuxPrice() 
         {
             if (msgVersion < 30)
             {
@@ -96,37 +95,37 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadTIF()
+        public void readTIF() 
         {
             order.Tif = eDecoder.ReadString();
         }
 
-        public void ReadOcaGroup()
+        public void readOcaGroup() 
         {
             order.OcaGroup = eDecoder.ReadString();
         }
 
-        public void ReadAccount()
+        public void readAccount() 
         {
             order.Account = eDecoder.ReadString();
         }
 
-        public void ReadOpenClose()
+        public void readOpenClose() 
         {
             order.OpenClose = eDecoder.ReadString();
         }
 
-        public void ReadOrigin()
+        public void readOrigin() 
         {
             order.Origin = eDecoder.ReadInt();
         }
 
-        public void ReadOrderRef()
+        public void readOrderRef() 
         {
             order.OrderRef = eDecoder.ReadString();
         }
 
-        public void ReadClientId()
+        public void readClientId() 
         {
             if (msgVersion >= 3)
             {
@@ -134,7 +133,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadPermId()
+        public void readPermId() 
         {
             if (msgVersion >= 4)
             {
@@ -142,7 +141,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadOutsideRth()
+        public void readOutsideRth() 
         {
             if (msgVersion >= 4)
             {
@@ -159,7 +158,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadHidden()
+        public void readHidden() 
         {
             if (msgVersion >= 4)
             {
@@ -167,7 +166,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadDiscretionaryAmount()
+        public void readDiscretionaryAmount() 
         {
             if (msgVersion >= 4)
             {
@@ -175,7 +174,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadGoodAfterTime()
+        public void readGoodAfterTime() 
         {
             if (msgVersion >= 5)
             {
@@ -183,7 +182,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void SkipSharesAllocation()
+        public void skipSharesAllocation()
         {
             if (msgVersion >= 6)
             {
@@ -191,7 +190,9 @@ namespace IB.Api.Client.Proprietary
                 eDecoder.ReadString();
             }
         }
-        public void ReadFAParams()
+
+
+        public void readFAParams() 
         {
             if (msgVersion >= 7)
             {
@@ -202,7 +203,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadModelCode()
+        public void readModelCode() 
         {
             if (serverVersion >= MinServerVer.MODELS_SUPPORT)
             {
@@ -210,7 +211,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadGoodTillDate()
+        public void readGoodTillDate() 
         {
             if (msgVersion >= 8)
             {
@@ -218,7 +219,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadRule80A()
+        public void readRule80A() 
         {
             if (msgVersion >= 9)
             {
@@ -226,7 +227,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadPercentOffset()
+        public void readPercentOffset() 
         {
             if (msgVersion >= 9)
             {
@@ -234,7 +235,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadSettlingFirm()
+        public void readSettlingFirm() 
         {
             if (msgVersion >= 9)
             {
@@ -242,7 +243,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadShortSaleParams()
+        public void readShortSaleParams() 
         {
             if (msgVersion >= 9)
             {
@@ -259,7 +260,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadAuctionStrategy()
+        public void readAuctionStrategy() 
         {
             if (msgVersion >= 9)
             {
@@ -267,7 +268,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadBoxOrderParams()
+        public void readBoxOrderParams() 
         {
             if (msgVersion >= 9)
             {
@@ -277,7 +278,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadPegToStkOrVolOrderParams()
+        public void readPegToStkOrVolOrderParams() 
         {
             if (msgVersion >= 9)
             {
@@ -286,15 +287,15 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadDisplaySize()
+        public void readDisplaySize() 
         {
             if (msgVersion >= 9)
             {
-                order.DisplaySize = eDecoder.ReadInt();
+                order.DisplaySize = eDecoder.ReadIntMax();
             }
         }
 
-        public void ReadOldStyleOutsideRth()
+        public void readOldStyleOutsideRth() 
         {
             if (msgVersion >= 9)
             {
@@ -307,7 +308,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadBlockOrder()
+        public void readBlockOrder() 
         {
             if (msgVersion >= 9)
             {
@@ -315,7 +316,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadSweepToFill()
+        public void readSweepToFill() 
         {
             if (msgVersion >= 9)
             {
@@ -323,7 +324,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadAllOrNone()
+        public void readAllOrNone() 
         {
             if (msgVersion >= 9)
             {
@@ -331,7 +332,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadMinQty()
+        public void readMinQty() 
         {
             if (msgVersion >= 9)
             {
@@ -339,7 +340,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadOcaType()
+        public void readOcaType() 
         {
             if (msgVersion >= 9)
             {
@@ -347,31 +348,31 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadETradeOnly()
+        public void skipETradeOnly() 
         {
             if (msgVersion >= 9)
             {
-                order.ETradeOnly = eDecoder.ReadBoolFromInt();
+                eDecoder.ReadBoolFromInt();
             }
         }
 
-        public void ReadFirmQuoteOnly()
+        public void skipFirmQuoteOnly() 
         {
             if (msgVersion >= 9)
             {
-                order.FirmQuoteOnly = eDecoder.ReadBoolFromInt();
+                eDecoder.ReadBoolFromInt();
             }
         }
 
-        public void ReadNbboPriceCap()
+        public void skipNbboPriceCap() 
         {
             if (msgVersion >= 9)
             {
-                order.NbboPriceCap = eDecoder.ReadDoubleMax();
+                eDecoder.ReadDoubleMax();
             }
         }
 
-        public void ReadParentId()
+        public void readParentId() 
         {
             if (msgVersion >= 10)
             {
@@ -379,7 +380,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadTriggerMethod()
+        public void readTriggerMethod() 
         {
             if (msgVersion >= 10)
             {
@@ -387,7 +388,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadVolOrderParams(bool readOpenOrderAttribs)
+        public void readVolOrderParams(bool readOpenOrderAttribs) 
         {
             if (msgVersion >= 11)
             {
@@ -435,7 +436,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadTrailParams()
+        public void readTrailParams() 
         {
             if (msgVersion >= 13)
             {
@@ -447,7 +448,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadBasisPoints()
+        public void readBasisPoints() 
         {
             if (msgVersion >= 14)
             {
@@ -455,8 +456,8 @@ namespace IB.Api.Client.Proprietary
                 order.BasisPointsType = eDecoder.ReadIntMax();
             }
         }
-
-        public void ReadComboLegs()
+   
+        public void readComboLegs() 
         {
             if (msgVersion >= 14)
             {
@@ -473,11 +474,11 @@ namespace IB.Api.Client.Proprietary
                     {
                         int conId = eDecoder.ReadInt();
                         int ratio = eDecoder.ReadInt();
-                        String action = eDecoder.ReadString();
-                        String exchange = eDecoder.ReadString();
+                        string action = eDecoder.ReadString();
+                        string exchange = eDecoder.ReadString();
                         int openClose = eDecoder.ReadInt();
                         int shortSaleSlot = eDecoder.ReadInt();
-                        String designatedLocation = eDecoder.ReadString();
+                        string designatedLocation = eDecoder.ReadString();
                         int exemptCode = eDecoder.ReadInt();
 
                         ComboLeg comboLeg = new ComboLeg(conId, ratio, action, exchange, openClose,
@@ -501,7 +502,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadSmartComboRoutingParams()
+        public void readSmartComboRoutingParams() 
         {
             if (msgVersion >= 26)
             {
@@ -511,18 +512,16 @@ namespace IB.Api.Client.Proprietary
                     order.SmartComboRoutingParams = new List<TagValue>(smartComboRoutingParamsCount);
                     for (int i = 0; i < smartComboRoutingParamsCount; ++i)
                     {
-                        TagValue tagValue = new TagValue
-                        {
-                            Tag = eDecoder.ReadString(),
-                            Value = eDecoder.ReadString()
-                        };
+                        TagValue tagValue = new TagValue();
+                        tagValue.Tag = eDecoder.ReadString();
+                        tagValue.Value = eDecoder.ReadString();
                         order.SmartComboRoutingParams.Add(tagValue);
                     }
                 }
             }
         }
 
-        public void ReadScaleOrderParams()
+        public void readScaleOrderParams() 
         {
             if (msgVersion >= 15)
             {
@@ -552,7 +551,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadHedgeParams()
+        public void readHedgeParams() 
         {
             if (msgVersion >= 24)
             {
@@ -564,7 +563,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadOptOutSmartRouting()
+        public void readOptOutSmartRouting() 
         {
             if (msgVersion >= 25)
             {
@@ -572,7 +571,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadClearingParams()
+        public void readClearingParams() 
         {
             if (msgVersion >= 19)
             {
@@ -581,7 +580,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadNotHeld()
+        public void readNotHeld() 
         {
             if (msgVersion >= 22)
             {
@@ -589,24 +588,22 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadDeltaNeutral()
+        public void readDeltaNeutral() 
         {
             if (msgVersion >= 20)
             {
                 if (eDecoder.ReadBoolFromInt())
                 {
-                    DeltaNeutralContract deltaNeutralContract = new DeltaNeutralContract
-                    {
-                        ConId = eDecoder.ReadInt(),
-                        Delta = eDecoder.ReadDouble(),
-                        Price = eDecoder.ReadDouble()
-                    };
+                    DeltaNeutralContract deltaNeutralContract = new DeltaNeutralContract();
+                    deltaNeutralContract.ConId = eDecoder.ReadInt();
+                    deltaNeutralContract.Delta = eDecoder.ReadDouble();
+                    deltaNeutralContract.Price = eDecoder.ReadDouble();
                     contract.DeltaNeutralContract = deltaNeutralContract;
                 }
             }
         }
 
-        public void ReadAlgoParams()
+        public void readAlgoParams() 
         {
             if (msgVersion >= 21)
             {
@@ -619,11 +616,9 @@ namespace IB.Api.Client.Proprietary
                         order.AlgoParams = new List<TagValue>(algoParamsCount);
                         for (int i = 0; i < algoParamsCount; ++i)
                         {
-                            TagValue tagValue = new TagValue
-                            {
-                                Tag = eDecoder.ReadString(),
-                                Value = eDecoder.ReadString()
-                            };
+                            TagValue tagValue = new TagValue();
+                            tagValue.Tag = eDecoder.ReadString();
+                            tagValue.Value = eDecoder.ReadString();
                             order.AlgoParams.Add(tagValue);
                         }
                     }
@@ -631,7 +626,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadSolicited()
+        public void readSolicited() 
         {
             if (msgVersion >= 33)
             {
@@ -639,12 +634,12 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadWhatIfInfoAndCommission()
+        public void readWhatIfInfoAndCommission() 
         {
             if (msgVersion >= 16)
             {
                 order.WhatIf = eDecoder.ReadBoolFromInt();
-                ReadOrderStatus();
+                readOrderStatus();
                 if (serverVersion >= MinServerVer.WHAT_IF_EXT_FIELDS)
                 {
                     orderState.InitMarginBefore = eDecoder.ReadString();
@@ -657,20 +652,21 @@ namespace IB.Api.Client.Proprietary
                 orderState.InitMarginAfter = eDecoder.ReadString();
                 orderState.MaintMarginAfter = eDecoder.ReadString();
                 orderState.EquityWithLoanAfter = eDecoder.ReadString();
-                orderState.Commission = eDecoder.ReadString();
-                orderState.MinCommission = eDecoder.ReadString();
-                orderState.MaxCommission = eDecoder.ReadString();
+                orderState.Commission = eDecoder.ReadDoubleMax();
+                orderState.MinCommission = eDecoder.ReadDoubleMax();
+                orderState.MaxCommission = eDecoder.ReadDoubleMax();
                 orderState.CommissionCurrency = eDecoder.ReadString();
                 orderState.WarningText = eDecoder.ReadString();
             }
+
         }
 
-        public void ReadOrderStatus()
+        public void readOrderStatus() 
         {
             orderState.Status = eDecoder.ReadString();
         }
 
-        public void ReadVolRandomizeFlags()
+        public void readVolRandomizeFlags() 
         {
             if (msgVersion >= 34)
             {
@@ -679,7 +675,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadPegToBenchParams()
+        public void readPegToBenchParams() 
         {
             if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
             {
@@ -694,7 +690,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadConditions()
+        public void readConditions() 
         {
             if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
             {
@@ -715,15 +711,16 @@ namespace IB.Api.Client.Proprietary
                     order.ConditionsCancelOrder = eDecoder.ReadBoolFromInt();
                 }
             }
+
         }
 
-        public void ReadAdjustedOrderParams()
+        public void readAdjustedOrderParams() 
         {
             if (serverVersion >= MinServerVer.PEGGED_TO_BENCHMARK)
             {
                 order.AdjustedOrderType = eDecoder.ReadString();
                 order.TriggerPrice = eDecoder.ReadDoubleMax();
-                ReadStopPriceAndLmtPriceOffset();
+                readStopPriceAndLmtPriceOffset();
                 order.AdjustedStopPrice = eDecoder.ReadDoubleMax();
                 order.AdjustedStopLimitPrice = eDecoder.ReadDoubleMax();
                 order.AdjustedTrailingAmount = eDecoder.ReadDoubleMax();
@@ -731,13 +728,13 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadStopPriceAndLmtPriceOffset()
+        public void readStopPriceAndLmtPriceOffset() 
         {
             order.TrailStopPrice = eDecoder.ReadDoubleMax();
             order.LmtPriceOffset = eDecoder.ReadDoubleMax();
         }
 
-        public void ReadSoftDollarTier()
+        public void readSoftDollarTier() 
         {
             if (serverVersion >= MinServerVer.SOFT_DOLLAR_TIER)
             {
@@ -745,7 +742,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadCashQty()
+        public void readCashQty() 
         {
             if (serverVersion >= MinServerVer.CASH_QTY)
             {
@@ -753,7 +750,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadDontUseAutoPriceForHedge()
+        public void readDontUseAutoPriceForHedge() 
         {
             if (serverVersion >= MinServerVer.AUTO_PRICE_FOR_HEDGE)
             {
@@ -761,7 +758,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadIsOmsContainer()
+        public void readIsOmsContainer() 
         {
             if (serverVersion >= MinServerVer.ORDER_CONTAINER)
             {
@@ -769,7 +766,7 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadDiscretionaryUpToLimitPrice()
+        public void readDiscretionaryUpToLimitPrice() 
         {
             if (serverVersion >= MinServerVer.D_PEG_ORDERS)
             {
@@ -777,61 +774,97 @@ namespace IB.Api.Client.Proprietary
             }
         }
 
-        public void ReadAutoCancelDate()
+        public void readAutoCancelDate() 
         {
             order.AutoCancelDate = eDecoder.ReadString();
         }
 
-        public void ReadFilledQuantity()
+        public void readFilledQuantity() 
         {
-            order.FilledQuantity = eDecoder.ReadDoubleMax();
+            order.FilledQuantity = eDecoder.ReadDecimal();
         }
 
-        public void ReadRefFuturesConId()
+        public void readRefFuturesConId() 
         {
             order.RefFuturesConId = eDecoder.ReadInt();
         }
 
-        public void ReadAutoCancelParent()
+        public void readAutoCancelParent() 
         {
-            order.AutoCancelParent = eDecoder.ReadBoolFromInt();
+            readAutoCancelParent(Constants.MinVersion);
         }
 
-        public void ReadShareholder()
+        public void readAutoCancelParent(int minVersionAutoCancelParent)
+        {
+            if (serverVersion >= minVersionAutoCancelParent)
+            {
+                order.AutoCancelParent = eDecoder.ReadBoolFromInt();
+            }
+        }
+
+        public void readShareholder() 
         {
             order.Shareholder = eDecoder.ReadString();
         }
 
-        public void ReadImbalanceOnly()
+        public void readImbalanceOnly() 
         {
             order.ImbalanceOnly = eDecoder.ReadBoolFromInt();
         }
 
-        public void ReadRouteMarketableToBbo()
+        public void readRouteMarketableToBbo() 
         {
             order.RouteMarketableToBbo = eDecoder.ReadBoolFromInt();
         }
 
-        public void ReadParentPermId()
+        public void readParentPermId() 
         {
             order.ParentPermId = eDecoder.ReadLong();
         }
 
-        public void ReadCompletedTime()
+        public void readCompletedTime() 
         {
             orderState.CompletedTime = eDecoder.ReadString();
         }
 
-        public void ReadCompletedStatus()
+        public void readCompletedStatus() 
         {
             orderState.CompletedStatus = eDecoder.ReadString();
         }
-
-        public void ReadUsePriceMgmtAlgo()
+        
+        public void readUsePriceMgmtAlgo()
         {
             if (serverVersion >= MinServerVer.PRICE_MGMT_ALGO)
             {
                 order.UsePriceMgmtAlgo = eDecoder.ReadBoolFromInt();
+            }
+        }
+
+        public void readDuration()
+        {
+            if (serverVersion >= MinServerVer.DURATION)
+            {
+                order.Duration = eDecoder.ReadIntMax();
+            }
+        }
+
+        public void readPostToAts()
+        {
+            if (serverVersion >= MinServerVer.POST_TO_ATS)
+            {
+                order.PostToAts = eDecoder.ReadIntMax();
+            }
+        }
+
+        public void readPegBestPegMidOrderAttributes()
+        {
+            if (serverVersion >= MinServerVer.PEGBEST_PEGMID_OFFSETS)
+            {
+                order.MinTradeQty = eDecoder.ReadIntMax();
+                order.MinCompeteSize = eDecoder.ReadIntMax();
+                order.CompeteAgainstBestOffset = eDecoder.ReadDoubleMax();
+                order.MidOffsetAtWhole = eDecoder.ReadDoubleMax();
+                order.MidOffsetAtHalf = eDecoder.ReadDoubleMax();
             }
         }
     }

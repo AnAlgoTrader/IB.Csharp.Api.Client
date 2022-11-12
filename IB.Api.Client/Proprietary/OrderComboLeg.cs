@@ -1,9 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class OrderComboLeg
@@ -27,25 +25,25 @@ namespace IB.Api.Client.Proprietary
             Price = p_price;
         }
 
-        public override bool Equals(Object other)
+        public override bool Equals(object other)
         {
+            OrderComboLeg theOther = other as OrderComboLeg;
+            if (theOther == null)
+            {
+                return false;
+            }
+            
             if (this == other)
             {
                 return true;
             }
-            else if (other == null)
-            {
-                return false;
-            }
-
-            OrderComboLeg theOther = (OrderComboLeg)other;
 
             return Price == theOther.Price;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Price, Price);
+            return -814345894 + Price.GetHashCode();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     /**
      * @class DepthMktDataDescription
@@ -40,11 +40,11 @@ namespace IB.Api.Client.Proprietary
 
         public DepthMktDataDescription(string exchange, string secType, string listingExch, string serviceDataType, int aggGroup)
         {
-            this.Exchange = exchange;
-            this.SecType = secType;
-            this.ListingExch = listingExch;
-            this.ServiceDataType = serviceDataType;
-            this.AggGroup = aggGroup;
+            Exchange = exchange;
+            SecType = secType;
+            ListingExch = listingExch;
+            ServiceDataType = serviceDataType;
+            AggGroup = aggGroup;
         }
     }
 }

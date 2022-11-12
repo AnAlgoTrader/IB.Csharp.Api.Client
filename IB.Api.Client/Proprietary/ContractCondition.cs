@@ -3,7 +3,7 @@
 
 using System;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
 	public abstract class ContractCondition : OperatorCondition
     {
@@ -26,7 +26,9 @@ namespace IB.Api.Client.Proprietary
 
         public override bool Equals(object obj)
         {
-            if (!(obj is ContractCondition other))
+            var other = obj as ContractCondition;
+
+            if (other == null)
                 return false;
 
             return base.Equals(obj)
@@ -47,8 +49,9 @@ namespace IB.Api.Client.Proprietary
                     return false;
 
                 cond = cond.Substring(cond.IndexOf(delimiter) + delimiter.Length);
+                int conid;
 
-                if (!int.TryParse(cond.Substring(0, cond.IndexOf("(")), out int conid))
+                if (!int.TryParse(cond.Substring(0, cond.IndexOf("(")), out conid))
                     return false;
 
                 ConId = conid;

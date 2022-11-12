@@ -2,11 +2,12 @@
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IB.Api.Client.Proprietary
+namespace IBApi
 {
     public static class Util
     {
@@ -15,9 +16,10 @@ namespace IB.Api.Client.Proprietary
             return string.IsNullOrEmpty(str);
         }
 
+
         public static string NormalizeString(string str)
         {
-            return str ?? "";
+            return str != null ? str : "";
         }
 
         public static int StringCompare(string lhs, string rhs)
@@ -29,16 +31,17 @@ namespace IB.Api.Client.Proprietary
         {
             string normalisedLhs = NormalizeString(lhs);
             string normalisedRhs = NormalizeString(rhs);
-            return String.Compare(normalisedLhs, normalisedRhs, true);
+            return string.Compare(normalisedLhs, normalisedRhs, true); 
         }
 
         public static bool VectorEqualsUnordered<T>(List<T> lhs, List<T> rhs)
         {
+
             if (lhs == rhs)
                 return true;
 
-            int lhsCount = (lhs?.Count) ?? 0;
-            int rhsCount = (rhs?.Count) ?? 0;
+            int lhsCount = lhs == null ? 0 : lhs.Count;
+            int rhsCount = rhs == null ? 0 : rhs.Count;
 
             if (lhsCount != rhsCount)
                 return false;
@@ -50,7 +53,7 @@ namespace IB.Api.Client.Proprietary
 
             for (int lhsIdx = 0; lhsIdx < lhsCount; ++lhsIdx)
             {
-                Object lhsElem = lhs[lhsIdx];
+                object lhsElem = lhs[lhsIdx];
                 int rhsIdx = 0;
                 for (; rhsIdx < rhsCount; ++rhsIdx)
                 {
@@ -76,17 +79,32 @@ namespace IB.Api.Client.Proprietary
 
         public static string IntMaxString(int value)
         {
-            return (value == Int32.MaxValue) ? "" : "" + value;
+            return (value == int.MaxValue) ? "" : "" + value;
         }
 
         public static string LongMaxString(long value)
         {
-            return (value == Int64.MaxValue) ? "" : "" + value;
+            return (value == long.MaxValue) ? "" : "" + value;
         }
 
         public static string DoubleMaxString(double value)
         {
-            return (value == double.MaxValue) ? "" : "" + value;
+            return DoubleMaxString(value, "");
+        }
+
+        public static string DoubleMaxString(double d, String def)
+        {
+            return d != double.MaxValue ? d.ToString("0.########") : def;
+        }
+
+        public static string DecimalMaxString(decimal value)
+        {
+            return (value == decimal.MaxValue) ? "" : "" + value;
+        }
+
+        public static string DecimalMaxStringNoZero(decimal value)
+        {
+            return (value == decimal.MaxValue || value == 0) ? "" : "" + value;
         }
 
         public static string UnixSecondsToString(long seconds, string format)
@@ -94,15 +112,15 @@ namespace IB.Api.Client.Proprietary
             return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(seconds)).ToString(format);
         }
 
-        public static string FormatDoubleString(String str)
+        public static string formatDoubleString(string str)
         {
-            return String.IsNullOrEmpty(str) ? "" : String.Format("{0,0:N2}", Double.Parse(str));
+            return string.IsNullOrEmpty(str) ? "" : Util.DoubleMaxString(double.Parse(str));
         }
 
         public static string TagValueListToString(List<TagValue> options)
         {
             StringBuilder tagValuesStr = new StringBuilder();
-            int tagValuesCount = (options?.Count) ?? 0;
+            int tagValuesCount = options == null ? 0 : options.Count;
 
             for (int i = 0; i < tagValuesCount; i++)
             {
@@ -112,5 +130,15 @@ namespace IB.Api.Client.Proprietary
 
             return tagValuesStr.ToString();
         }
+        public static decimal StringToDecimal(string str)
+        {
+            return !string.IsNullOrEmpty(str) && !str.Equals("9223372036854775807") && !str.Equals("2147483647") && !str.Equals("1.7976931348623157E308") ? Decimal.Parse(str) : decimal.MaxValue;
+        }
+
+        public static decimal GetDecimal(object value)
+        {
+            return Convert.ToDecimal(((IEnumerable)value).Cast<object>().ToArray()[0]);
+        }
+
     }
 }

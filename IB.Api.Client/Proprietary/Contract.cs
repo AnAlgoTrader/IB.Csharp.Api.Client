@@ -1,11 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -54,7 +50,7 @@ namespace IB.Api.Client.Proprietary
         public double Strike { get; set; }
 
         /**
-         * @brief Either Put or Call (i.e. Options). Valid values are P, PUT, C, CALL.
+         * @brief Either Put or Call (i.e. Options). Valid values are P, PUT, C, CALL. 
          */
         public string Right { get; set; }
 
@@ -81,8 +77,8 @@ namespace IB.Api.Client.Proprietary
 
         /**
          * @brief The contract's primary exchange.
-		 * For smart routed contracts, used to define contract in case of ambiguity.
-		 * Should be defined as native exchange of contract, e.g. ISLAND for MSFT
+		 * For smart routed contracts, used to define contract in case of ambiguity. 
+		 * Should be defined as native exchange of contract
 		 * For exchanges which contain a period in name, will only be part of exchange name prior to period, i.e. ENEXT for ENEXT.BE
          */
         public string PrimaryExch { get; set; }
@@ -113,8 +109,18 @@ namespace IB.Api.Client.Proprietary
         public string SecId { get; set; }
 
         /**
-        * @brief Description of the combo legs.
+        * @brief Description of the contract
         */
+        public string Description { get; set; }
+
+        /**
+        * @brief IssuerId of the contract
+        */
+        public string IssuerId { get; set; }
+
+        /**
+         * @brief Description of the combo legs.
+         */
         public string ComboLegsDescription { get; set; }
 
         /**

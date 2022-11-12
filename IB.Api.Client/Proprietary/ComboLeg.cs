@@ -1,12 +1,6 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-
 namespace IB.Api.Client.Proprietary
 {
     /**
@@ -63,7 +57,10 @@ namespace IB.Api.Client.Proprietary
         public string DesignatedLocation { get; set; }
 
         /**
-         * @brief DOC_TODO
+         * @brief Mark order as exempt from short sale uptick rule.\n
+	 * Possible values:\n
+	 * 0 - Does not apply the rule.\n
+	 * -1 - Applies the short sale uptick rule.
          */
         public int ExemptCode { get; set; }
 

@@ -1,11 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -36,7 +32,7 @@ namespace IB.Api.Client.Proprietary
 
         /**
         * @brief The minimum allowed price variation.
-         * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment price structure can be obtained with the reqMarketRule function or the IB Contract and Security Search site.
+         * Note that many securities vary their minimum tick size according to their price. This value will only show the smallest of the different minimum tick sizes regardless of the product's price. Full information about the minimum increment price structure can be obtained with the reqMarketRule function or the IB Contract and Security Search site. 
         */
         public double MinTick
         {
@@ -47,7 +43,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief Allows execution and strike prices to be reported consistently with market data, historical data and the order price, i.e. Z on LIFFE is reported in Index points and not GBP.
 		* In TWS versions prior to 972, the price magnifier is used in defining future option strike prices (e.g. in the API the strike is specified in dollars, but in TWS it is specified in cents).
-		* In TWS versions 972 and higher, the price magnifier is not used in defining futures option strike prices so they are consistent in TWS and the API.
+		* In TWS versions 972 and higher, the price magnifier is not used in defining futures option strike prices so they are consistent in TWS and the API. 
         */
         public int PriceMagnifier
         {
@@ -173,19 +169,10 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-        * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1.
+        * @brief Tells you approximately how much the market value of a contract would change if the price were to change by 1. 
          * It cannot be used to get market value by multiplying the price by the approximate multiplier.
         */
         public double EvMultiplier
-        {
-            get;
-            set;
-        }
-
-        /**
-        * @brief MD Size Multiplier. Returns the size multiplier for values returned to tickSize from a market data request. Generally 100 for US stocks and 1 for other instruments.
-        */
-        public int MdSizeMultiplier
         {
             get;
             set;
@@ -205,7 +192,7 @@ namespace IB.Api.Client.Proprietary
         /**
         * @brief A list of contract identifiers that the customer is allowed to view.
         * CUSIP/ISIN/etc. For US stocks, receiving the ISIN requires the CUSIP market data subscription.
-		* For Bonds, the CUSIP or ISIN is input directly into the symbol field of the Contract class.
+		* For Bonds, the CUSIP or ISIN is input directly into the symbol field of the Contract class.  
         */
         public List<TagValue> SecIdList
         {
@@ -214,7 +201,7 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-        * @brief For derivatives, the symbol of the underlying contract.
+        * @brief For derivatives, the symbol of the underlying contract. 
         */
         public string UnderSymbol
         {
@@ -223,7 +210,7 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-        * @brief For derivatives, returns the underlying security type.
+        * @brief For derivatives, returns the underlying security type. 
         */
         public string UnderSecType
         {
@@ -233,7 +220,7 @@ namespace IB.Api.Client.Proprietary
 
         /**
         * @brief The list of market rule IDs separated by comma
-		* Market rule IDs can be used to determine the minimum price increment at a given price.
+		* Market rule IDs can be used to determine the minimum price increment at a given price. 
         */
         public string MarketRuleIds
         {
@@ -260,6 +247,15 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
+        * @brief Stock type
+        */
+        public string StockType
+        {
+            get;
+            set;
+        }
+
+        /**
         * @brief The nine-character bond CUSIP.
          * For Bonds only. Receiving CUSIPs requires a CUSIP market data subscription.
         */
@@ -271,7 +267,7 @@ namespace IB.Api.Client.Proprietary
 
         /**
         * @brief Identifies the credit rating of the issuer.
-		* This field is not currently available from the TWS API.
+		* This field is not currently available from the TWS API. 
         * For Bonds only. A higher credit rating generally indicates a less risky investment. Bond ratings are from Moody's and S&P respectively. Not currently implemented due to bond market data restrictions.
         */
         public string Ratings
@@ -301,7 +297,7 @@ namespace IB.Api.Client.Proprietary
 
         /**
         * @brief The type of bond coupon.
-		* This field is currently not available from the TWS API.
+		* This field is currently not available from the TWS API. 
         * For Bonds only.
         */
         public string CouponType
@@ -319,22 +315,22 @@ namespace IB.Api.Client.Proprietary
         {
             get;
             set;
-        }
+        } = false;
 
         /**
         * @brief Values are True or False. If true, the bond can be sold back to the issuer under certain conditions.
-		* This field is currently not available from the TWS API.
+		* This field is currently not available from the TWS API. 
         * For Bonds only.
         */
         public bool Putable
         {
             get;
             set;
-        }
+        } = false;
 
         /**
         * @brief The interest rate used to calculate the amount you will receive in interest payments over the course of the year.
-        * This field is currently not available from the TWS API.
+        * This field is currently not available from the TWS API. 
 		* For Bonds only.
         */
         public double Coupon
@@ -345,18 +341,18 @@ namespace IB.Api.Client.Proprietary
 
         /**
         * @brief Values are True or False. If true, the bond can be converted to stock under certain conditions.
-        * This field is currently not available from the TWS API.
+        * This field is currently not available from the TWS API. 
 		* For Bonds only.
         */
         public bool Convertible
         {
             get;
             set;
-        }
+        } = false;
 
         /**
         * @brief he date on which the issuer must repay the face value of the bond.
-        * This field is currently not available from the TWS API.
+        * This field is currently not available from the TWS API. 
 		* For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string Maturity
@@ -365,9 +361,9 @@ namespace IB.Api.Client.Proprietary
             set;
         }
 
-        /**
-        * @brief The date the bond was issued.
-        * This field is currently not available from the TWS API.
+        /** 
+        * @brief The date the bond was issued. 
+        * This field is currently not available from the TWS API. 
 		* For Bonds only. Not currently implemented due to bond market data restrictions.
         */
         public string IssueDate
@@ -377,8 +373,8 @@ namespace IB.Api.Client.Proprietary
         }
 
         /**
-        * @brief Only if bond has embedded options.
-		* This field is currently not available from the TWS API.
+        * @brief Only if bond has embedded options. 
+		* This field is currently not available from the TWS API. 
         * Refers to callable bonds and puttable bonds. Available in TWS description window for bonds.
         */
         public string NextOptionDate
@@ -389,7 +385,7 @@ namespace IB.Api.Client.Proprietary
 
         /**
         * @brief Type of embedded option.
-		* This field is currently not available from the TWS API.
+		* This field is currently not available from the TWS API. 
         * Only if bond has embedded options.
         */
         public string NextOptionType
@@ -400,16 +396,51 @@ namespace IB.Api.Client.Proprietary
 
         /**
        * @brief Only if bond has embedded options.
-	   * This field is currently not available from the TWS API.
+	   * This field is currently not available from the TWS API. 
        * For Bonds only.
        */
-        public bool NextOptionPartial { get; set; } = false;
+        public bool NextOptionPartial
+        {
+            get;
+            set;
+        } = false;
 
         /**
         * @brief If populated for the bond in IB's database.
          * For Bonds only.
         */
-        public string Notes { get; set; }
+        public string Notes
+        {
+            get;
+            set;
+        }
+
+        /**
+        * @brief Order's minimal size
+        */
+        public decimal MinSize
+        {
+            get;
+            set;
+        }
+
+        /**
+        * @brief Order's size increment
+        */
+        public decimal SizeIncrement
+        {
+            get;
+            set;
+        }
+
+        /**
+        * @brief Order's suggested size increment
+        */
+        public decimal SuggestedSizeIncrement
+        {
+            get;
+            set;
+        }
 
         public ContractDetails()
         {
@@ -417,13 +448,16 @@ namespace IB.Api.Client.Proprietary
             MinTick = 0;
             UnderConId = 0;
             EvMultiplier = 0;
+            MinSize = decimal.MaxValue;
+            SizeIncrement = decimal.MaxValue;
+            SuggestedSizeIncrement = decimal.MaxValue;
         }
 
-        public ContractDetails(Contract summary, String marketName,
-                double minTick, String orderTypes, String validExchanges, int underConId, String longName,
-                String contractMonth, String industry, String category, String subcategory,
-                String timeZoneId, String tradingHours, String liquidHours,
-                String evRule, double evMultiplier, int aggGroup)
+        public ContractDetails(Contract summary, string marketName,
+                double minTick, string orderTypes, string validExchanges, int underConId, string longName,
+                string contractMonth, string industry, string category, string subcategory,
+                string timeZoneId, string tradingHours, string liquidHours,
+                string evRule, double evMultiplier, int aggGroup)
         {
             Contract = summary;
             MarketName = marketName;

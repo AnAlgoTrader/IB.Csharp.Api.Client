@@ -1,11 +1,7 @@
 ﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace IB.Api.Client.Proprietary
 {
@@ -54,39 +50,34 @@ namespace IB.Api.Client.Proprietary
             YieldRedemptionDate = 0;
         }
 
-        public override bool Equals(Object p_other)
+        public override bool Equals(object p_other)
         {
-            if (p_other == null)
+            bool l_bRetVal;
+            if (!(p_other is CommissionReport l_theOther))
             {
-                return false;
+                l_bRetVal = false;
             }
             else if (this == p_other)
             {
-                return true;
+                l_bRetVal = true;
             }
             else
             {
-                CommissionReport l_theOther = (CommissionReport)p_other;
-                return ExecId.Equals(l_theOther.ExecId);
+                l_bRetVal = ExecId.Equals(l_theOther.ExecId);
             }
+            return l_bRetVal;
         }
 
         public override int GetHashCode()
         {
-            HashCode hash = new HashCode();
-            hash.Add(ExecId);
-            hash.Add(Commission);
-            hash.Add(Currency);
-            hash.Add(RealizedPNL);
-            hash.Add(Yield);
-            hash.Add(YieldRedemptionDate);
-            hash.Add(ExecId);
-            hash.Add(Commission);
-            hash.Add(Currency);
-            hash.Add(RealizedPNL);
-            hash.Add(Yield);
-            hash.Add(YieldRedemptionDate);
-            return hash.ToHashCode();
+            var hashCode = 662669467;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ExecId);
+            hashCode = hashCode * -1521134295 + Commission.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Currency);
+            hashCode = hashCode * -1521134295 + RealizedPNL.GetHashCode();
+            hashCode = hashCode * -1521134295 + Yield.GetHashCode();
+            hashCode = hashCode * -1521134295 + YieldRedemptionDate.GetHashCode();
+            return hashCode;
         }
     }
 }

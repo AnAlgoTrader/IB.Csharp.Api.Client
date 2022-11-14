@@ -23,13 +23,13 @@ namespace IB.Api.Client.Model
         public double Bid { get; set; }
 
         [JsonProperty("bidSize")]
-        public int BidSize { get; set; }
+        public decimal BidSize { get; set; }
 
         [JsonProperty("ask")]
         public double Ask { get; set; }
 
         [JsonProperty("askSize")]
-        public int AskSize { get; set; }
+        public decimal AskSize { get; set; }
 
         [JsonProperty("marketDataType")]
         public int MarketDataType { get; set; }

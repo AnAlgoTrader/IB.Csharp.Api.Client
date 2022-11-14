@@ -2,7 +2,7 @@ namespace IB.Api.Client.Model
 {
     public class RealTimeBarUpdate
     {
-        public RealTimeBarUpdate(long date, double open, double high, double low, double close, long volume, int count, double wap)
+        public RealTimeBarUpdate(long date, double open, double high, double low, double close, decimal volume, int count, decimal wap)
         {
             Date = date;
             Open = open;
@@ -19,8 +19,8 @@ namespace IB.Api.Client.Model
         public double High { get; }
         public double Low { get; }
         public double Close { get; }
-        public long Volume { get; }
+        public decimal Volume { get; }
         public int Count { get; }
-        public double Wap { get; }
+        public decimal Wap { get; }
     }
 }

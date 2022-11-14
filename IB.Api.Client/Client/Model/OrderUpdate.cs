@@ -11,10 +11,10 @@ namespace IB.Api.Client.Model
         public string Status { get; internal set; }
 
         [JsonProperty("filledAmount")]
-        public double FilledAmount { get; internal set; }
+        public decimal FilledAmount { get; internal set; }
 
         [JsonProperty("remainingAmount")]
-        public double RemainingAmount { get; internal set; }
+        public decimal RemainingAmount { get; internal set; }
 
         [JsonProperty("avgFillPrice")]
         public double AvgFillPrice { get; internal set; }

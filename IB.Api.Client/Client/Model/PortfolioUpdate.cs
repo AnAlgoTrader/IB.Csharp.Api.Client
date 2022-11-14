@@ -24,7 +24,7 @@ namespace IB.Api.Client.Model
         public string Symbol { get; set; }
 
         [JsonProperty("position")]
-        public double Position { get; set; }
+        public decimal Position { get; set; }
 
         [JsonProperty("unrealizedPnl")]
         public double? UnrealizedPnl { get; set; }

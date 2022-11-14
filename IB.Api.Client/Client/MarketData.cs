@@ -42,7 +42,7 @@ namespace IB.Api.Client
             ClientSocket.ReqMarketDepth(reqId, contract, 10, false, null);
             Notify($"Subscribed to {contract.Symbol} marketDepth");
         }
-        public virtual void UpdateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
+        public void UpdateMktDepth(int tickerId, int position, int operation, int side, double price, decimal size)
         {
             if (side == 0)
                 position += 10;
@@ -85,7 +85,7 @@ namespace IB.Api.Client
                     }
             }
         }
-        public void TickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, int bidSize, int askSize, TickAttribBidAsk tickAttribBidAsk)
+        public void TickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, decimal bidSize, decimal askSize, TickAttribBidAsk tickAttribBidAsk)
         {
             _ = reqId;
             var tick = new HistoricalTickBidAsk
@@ -109,7 +109,7 @@ namespace IB.Api.Client
             _priceUpdate.BboExchange = bboExchange;
             _priceUpdate.SnapshotPermissions = snapshotPermissions;
         }
-        public virtual void TickSize(int tickerId, int field, int size)
+        public virtual void TickSize(int tickerId, int field, decimal size)
         {
             switch (field)
             {
@@ -151,10 +151,10 @@ namespace IB.Api.Client
 
         public virtual void TickString(int tickerId, int tickType, string value) { }
         public virtual void TickGeneric(int tickerId, int field, double value) { }
-        public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, long volume, double wap, int count)
+        public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, decimal volume, decimal WAP, int count)
         {
             _ = reqId;
-            BarUpdateReceived?.Invoke(this, new RealTimeBarUpdate(date, open, high, low, close, volume, count, wap));
+            BarUpdateReceived?.Invoke(this, new RealTimeBarUpdate(date, open, high, low, close, volume, count, WAP));
         }
     }
 }

@@ -27,7 +27,10 @@ namespace IB.Api.Client.Model
         public decimal Position { get; set; }
 
         [JsonProperty("unrealizedPnl")]
-        public double? UnrealizedPnl { get; set; }
+        public double UnrealizedPnl { get; set; }
+
+        [JsonProperty("unrealizedPnl")]
+        public decimal UnrealizedPnlCalculated { get; set; }
 
         [JsonProperty("contractId")]
         public int ContractId { get; set; }

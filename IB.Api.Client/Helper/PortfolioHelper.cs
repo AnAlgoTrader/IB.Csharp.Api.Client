@@ -9,21 +9,22 @@ namespace IB.Api.Client.Helper
         public static void CalculatePortfolioPnl(PortfolioUpdate portfolioUpdate, List<Trade> trades)
         {
             var pnl = trades.Where(x => x.TradeAction == portfolioUpdate.Action).Sum(x => x.Pnl);
-            portfolioUpdate.UnrealizedPnl = Math.Round(pnl.Value, 2);
+            portfolioUpdate.UnrealizedPnlCalculated = Math.Round(pnl, 2);
         }
         public static void CalculatePortfolioPnl(PortfolioUpdate portfolioUpdate, List<TrailingTrade> trades)
         {
             var pnl = trades.Where(x => x.ParentTrade.TradeAction == portfolioUpdate.Action).Sum(x => x.ParentTrade.Pnl);
-            portfolioUpdate.UnrealizedPnl = Math.Round(pnl.Value, 2);
+            portfolioUpdate.UnrealizedPnlCalculated = Math.Round(pnl, 2);
         }
-        public static double? CalculateTradePnl(TrailingTrade trade, double currentPrice)
+        public static decimal CalculateTradePnl(TrailingTrade trade, double currentPrice)
         {
-            var pnl = (currentPrice - trade.ParentTrade.FillPrice) * double.Parse(trade.ParentTrade.Multiplier) * trade.ParentTrade.Quantity;
-            var commission = trade.ParentTrade.Commission * 3;
+            var priceDifference = currentPrice - trade.ParentTrade.FillPrice;
+            var pnl = Convert.ToDecimal(priceDifference) * Decimal.Parse(trade.ParentTrade.Multiplier) * trade.ParentTrade.Quantity;
+            var commission = Convert.ToDecimal(trade.ParentTrade.Commission * 3);
             if (trade.ParentTrade.TradeAction == nameof(TradeAction.BUY))
-                return Math.Round(pnl.Value - commission, 2);
+                return Math.Round(pnl - commission, 2);
             else
-                return Math.Round((pnl.Value * -1.0) - commission, 2);
+                return Math.Round((pnl * -1.0M) - commission, 2);
         }
         public static void CalculateTradesPnl(List<TrailingTrade> trades, double price)
         {

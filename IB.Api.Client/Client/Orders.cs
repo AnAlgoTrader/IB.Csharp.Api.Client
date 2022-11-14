@@ -38,7 +38,7 @@ namespace IB.Api.Client
         }
         public void CancelOrder(int orderId)
         {
-            //ClientSocket.CancelOrder(orderId);
+            ClientSocket.CancelOrder(orderId, string.Empty);
         }
         public void CancellAllOrders()
         {

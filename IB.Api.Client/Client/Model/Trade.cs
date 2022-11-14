@@ -33,7 +33,7 @@ namespace IB.Api.Client.Model
         public string OrderType { get; set; }
 
         [JsonProperty("quantity")]
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [JsonProperty("multiplier")]
         public string Multiplier { get; set; }
@@ -42,7 +42,7 @@ namespace IB.Api.Client.Model
         public double Commission { get; set; }
 
         [JsonProperty("pnl")]
-        public double? Pnl { get; set; }        
+        public decimal Pnl { get; set; }        
 
         [JsonProperty("limitPrice")]
         public double LimitPrice { get; set; }
@@ -51,16 +51,16 @@ namespace IB.Api.Client.Model
         public double StopPrice { get; set; }
 
         [JsonProperty("fillPrice")]
-        public double? FillPrice { get; set; }
+        public double FillPrice { get; set; }
 
         [JsonProperty("avgPrice")]
-        public double AvgPrice { get; set; }
+        public decimal AvgPrice { get; set; }
 
         [JsonProperty("drawdown")]
-        public double? Drawdown { get; set; }
+        public decimal Drawdown { get; set; }
 
         [JsonProperty("lastPrice")]
-        public double? LastPrice { get; set; }
+        public decimal LastPrice { get; set; }
 
         [JsonProperty("initialStop")]
         public double InitialStop { get; set; }

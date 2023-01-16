@@ -11,8 +11,8 @@ namespace IBApi
 {
     class EDecoder : IDecoder
     {
-        readonly private IEClientMsgSink eClientMsgSink;
-        readonly private IEWrapper eWrapper;
+        private readonly IEClientMsgSink eClientMsgSink;
+        private readonly IEWrapper eWrapper;
         private int serverVersion;
         private BinaryReader dataReader;
         private int nDecodedLen;
@@ -57,11 +57,14 @@ namespace IBApi
             }
 
             var serverTime = "";
+
             if (serverVersion >= 20)
             {
                 serverTime = ReadString();
             }
+
             eClientMsgSink?.ServerVersion(serverVersion, serverTime);
+
             eWrapper.ConnectAck();
         }
 
@@ -591,7 +594,15 @@ namespace IBApi
                 var sizeBid = ReadDecimal();
                 var sizeAsk = ReadDecimal();
 
-                ticks[i] = new HistoricalTickBidAsk(time, tickAttribBidAsk, priceBid, priceAsk, sizeBid, sizeAsk);
+                ticks[i] = new HistoricalTickBidAsk
+                {
+                    Time = time,
+                    PriceAsk = priceAsk,
+                    PriceBid = priceBid,
+                    SizeAsk = sizeAsk,
+                    SizeBid = sizeBid,
+                    TickAttribBidAsk = tickAttribBidAsk
+                };
             }
 
             bool done = ReadBoolFromInt();
@@ -1292,7 +1303,7 @@ namespace IBApi
         private void BondContractDetailsEvent()
         {
             int msgVersion = 6;
-            if (serverVersion < MinServerVer.SIZE_RULES) 
+            if (serverVersion < MinServerVer.SIZE_RULES)
             {
                 msgVersion = ReadInt();
             }

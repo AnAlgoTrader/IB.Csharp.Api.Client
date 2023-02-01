@@ -22,5 +22,6 @@ namespace IB.Api.Client.Model
         public decimal Volume { get; }
         public int Count { get; }
         public decimal Wap { get; }
+        public BarAnnotation BarAnnotation { get; set; }
     }
 }

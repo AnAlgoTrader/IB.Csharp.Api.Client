@@ -11,7 +11,7 @@ namespace IB.Api.Client.Model
             Close = close;
             Volume = volume;
             Count = count;
-            Wap = wap;
+            Vwap = wap;
         }
 
         public long Date { get; }
@@ -21,7 +21,7 @@ namespace IB.Api.Client.Model
         public double Close { get; }
         public decimal Volume { get; }
         public int Count { get; }
-        public decimal Wap { get; }
+        public decimal Vwap { get; }
         public BarAnnotation BarAnnotation { get; set; }
     }
 }

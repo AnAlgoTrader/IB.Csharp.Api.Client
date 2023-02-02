@@ -42,5 +42,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("bboExchange")]
         public string BboExchange { get; set; }
+
+        [JsonProperty("volume")]
+        public decimal Volume { get; set; }
     }
 }

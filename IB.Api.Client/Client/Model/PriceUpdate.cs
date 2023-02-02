@@ -45,5 +45,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("volume")]
         public decimal Volume { get; set; }
+
+        [JsonProperty("vwap")]
+        public double Vwap { get; set; }
     }
 }

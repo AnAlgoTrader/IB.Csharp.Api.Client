@@ -141,16 +141,12 @@ namespace IB.Api.Client
                 _priceUpdate.High = _priceUpdate.Ask;
                 _priceUpdate.Low = _priceUpdate.Bid;
                 _priceUpdate.Volume = 0;
-                _priceUpdate.Volume += _priceUpdate.BidSize;
-                _priceUpdate.Volume -= _priceUpdate.AskSize;
             }
             else
             {
                 _priceUpdate.Close = _priceUpdate.Ask;
                 _priceUpdate.High = _priceUpdate.Ask > _priceUpdate.High ? _priceUpdate.Ask : _priceUpdate.High;
                 _priceUpdate.Low = _priceUpdate.Bid < _priceUpdate.Low ? _priceUpdate.Bid : _priceUpdate.Low;
-                _priceUpdate.Volume += _priceUpdate.BidSize;
-                _priceUpdate.Volume -= _priceUpdate.AskSize;
             }
         }
 

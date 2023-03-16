@@ -31,7 +31,6 @@ namespace IB.Api.Client.Helper
             if (trades.Count > 0)
             {
                 trades.ForEach(trade =>
-                //trades.Where(x => x.TrailingStop != null && x.TrailingStop.Status != OrderStatus.FILLED).ToList().ForEach(trade =>
                 {
                     if (trade.ParentTrade.Status == OrderStatus.FILLED)
                         trade.ParentTrade.Pnl = CalculateTradePnl(trade, price);

@@ -10,7 +10,10 @@ namespace IB.Api.Client
     //MarketData
     public partial class IBClient
     {
-        private readonly PriceUpdate _priceUpdate = new PriceUpdate();
+        private readonly PriceUpdate _priceUpdate = new PriceUpdate
+        {
+            ParentTimeFrame = new PriceUpdate()
+        };
         private readonly Dictionary<int, OrderBookUpdate> _orderBookUpdates = new Dictionary<int, OrderBookUpdate>();
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
@@ -130,12 +133,14 @@ namespace IB.Api.Client
 
         private void SetPriceBar()
         {
-            var now = DateTime.Now;
-            var epochTime = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
+            var tzi = TimeZoneInfo.FindSystemTimeZoneById("US/Central");
+            var now = TimeZoneInfo.ConvertTime(DateTime.Now, tzi); ;
+            var epochTimeMinute = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
+            var epochTimeHour = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0));
 
-            if (epochTime != _priceUpdate.Time)
+            if (epochTimeMinute != _priceUpdate.Time)
             {
-                _priceUpdate.Time = epochTime;
+                _priceUpdate.Time = epochTimeMinute;
                 _priceUpdate.Open = _priceUpdate.Bid;
                 _priceUpdate.Close = _priceUpdate.Ask;
                 _priceUpdate.High = _priceUpdate.Ask;
@@ -151,6 +156,26 @@ namespace IB.Api.Client
                 _priceUpdate.Low = _priceUpdate.Bid < _priceUpdate.Low ? _priceUpdate.Bid : _priceUpdate.Low;
                 _priceUpdate.Volume += _priceUpdate.BidSize;
                 _priceUpdate.Volume -= _priceUpdate.AskSize;
+            }
+
+            if (epochTimeHour != _priceUpdate.Time)
+            {
+                _priceUpdate.ParentTimeFrame.Time = epochTimeHour;
+                _priceUpdate.ParentTimeFrame.Open = _priceUpdate.Bid;
+                _priceUpdate.ParentTimeFrame.Close = _priceUpdate.Ask;
+                _priceUpdate.ParentTimeFrame.High = _priceUpdate.Ask;
+                _priceUpdate.ParentTimeFrame.Low = _priceUpdate.Bid;
+                _priceUpdate.ParentTimeFrame.Volume = 0;
+                _priceUpdate.ParentTimeFrame.Volume += _priceUpdate.BidSize;
+                _priceUpdate.ParentTimeFrame.Volume -= _priceUpdate.AskSize;
+            }
+            else
+            {
+                _priceUpdate.ParentTimeFrame.Close = _priceUpdate.Ask;
+                _priceUpdate.ParentTimeFrame.High = _priceUpdate.Ask > _priceUpdate.ParentTimeFrame.High ? _priceUpdate.Ask : _priceUpdate.ParentTimeFrame.High;
+                _priceUpdate.ParentTimeFrame.Low = _priceUpdate.Bid < _priceUpdate.ParentTimeFrame.Low ? _priceUpdate.Bid : _priceUpdate.ParentTimeFrame.Low;
+                _priceUpdate.ParentTimeFrame.Volume += _priceUpdate.BidSize;
+                _priceUpdate.ParentTimeFrame.Volume -= _priceUpdate.AskSize;
             }
         }
 

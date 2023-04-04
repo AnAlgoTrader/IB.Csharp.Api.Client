@@ -48,5 +48,8 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("vwap")]
         public double Vwap { get; set; }
+
+        [JsonProperty("parentTimeFrame")]
+        public PriceUpdate ParentTimeFrame { get; set; }
     }
 }

@@ -4,6 +4,9 @@ namespace IB.Api.Client.Model
 {
     public class PriceUpdate
     {
+        [JsonProperty("tickerId")]
+        public int TickerId { get; internal set; }
+        
         [JsonProperty("time")]
         public double Time { get; set; }
 
@@ -48,8 +51,5 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("vwap")]
         public double Vwap { get; set; }
-
-        [JsonProperty("parentTimeFrame")]
-        public PriceUpdate ParentTimeFrame { get; set; }
     }
 }

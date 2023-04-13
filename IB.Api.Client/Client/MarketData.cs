@@ -10,10 +10,7 @@ namespace IB.Api.Client
     //MarketData
     public partial class IBClient
     {
-        private readonly PriceUpdate _priceUpdate = new PriceUpdate
-        {
-            ParentTimeFrame = new PriceUpdate()
-        };
+        private Dictionary<int, PriceUpdate> _priceUpdates = new Dictionary<int, PriceUpdate>();
         private readonly Dictionary<int, OrderBookUpdate> _orderBookUpdates = new Dictionary<int, OrderBookUpdate>();
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;
         public event EventHandler<PriceUpdate> PriceUpdateReceived;
@@ -23,9 +20,13 @@ namespace IB.Api.Client
         {
             ClientSocket.ReqTickByTickData(reqId, contract, "BidAsk", 0, true);
         }
-        public void SubscribeToRealTimePrice(Contract contract)
+        public void SubscribeToRealTimePrice(int tickerId, Contract contract)
         {
-            ClientSocket.ReqMktData(1064, contract, "221", false, false, null);
+            _priceUpdates.Add(tickerId, new PriceUpdate
+            {
+                TickerId = tickerId
+            });
+            ClientSocket.ReqMktData(tickerId, contract, "221", false, false, null);
         }
         public void SubscribeToDefaultBar(Contract contract)
         {
@@ -78,12 +79,12 @@ namespace IB.Api.Client
             {
                 case 1:
                     {
-                        _priceUpdate.Bid = price;
+                        _priceUpdates[tickerId].Bid = price;
                         break;
                     }
                 case 2:
                     {
-                        _priceUpdate.Ask = price;
+                        _priceUpdates[tickerId].Ask = price;
                         break;
                     }
             }
@@ -102,15 +103,15 @@ namespace IB.Api.Client
             };
             TimeAndSalesUpdateReceived?.Invoke(this, tick);
         }
-        public void MarketDataType(int reqId, int marketDataType)
+        public void MarketDataType(int tickerId, int marketDataType)
         {
-            _priceUpdate.MarketDataType = marketDataType;
+             _priceUpdates[tickerId].MarketDataType = marketDataType;
         }
         public void TickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
-            _priceUpdate.MinTick = minTick;
-            _priceUpdate.BboExchange = bboExchange;
-            _priceUpdate.SnapshotPermissions = snapshotPermissions;
+             _priceUpdates[tickerId].MinTick = minTick;
+             _priceUpdates[tickerId].BboExchange = bboExchange;
+             _priceUpdates[tickerId].SnapshotPermissions = snapshotPermissions;
         }
         public virtual void TickSize(int tickerId, int field, decimal size)
         {
@@ -118,64 +119,44 @@ namespace IB.Api.Client
             {
                 case 0:
                     {
-                        _priceUpdate.BidSize = size;
+                         _priceUpdates[tickerId].BidSize = size;
                         break;
                     }
                 case 3:
                     {
-                        _priceUpdate.AskSize = size;
-                        SetPriceBar();
-                        PriceUpdateReceived?.Invoke(this, _priceUpdate);
+                         _priceUpdates[tickerId].AskSize = size;
+                        SetPriceBar(tickerId);
+                        PriceUpdateReceived?.Invoke(this,  _priceUpdates[tickerId]);
                         break;
                     }
             }
         }
 
-        private void SetPriceBar()
+        private void SetPriceBar(int tickerId)
         {
             var tzi = TimeZoneInfo.FindSystemTimeZoneById("US/Central");
             var now = TimeZoneInfo.ConvertTime(DateTime.Now, tzi); ;
             var epochTimeMinute = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
             var epochTimeHour = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0));
 
-            if (epochTimeMinute != _priceUpdate.Time)
+            if (epochTimeMinute !=  _priceUpdates[tickerId].Time)
             {
-                _priceUpdate.Time = epochTimeMinute;
-                _priceUpdate.Open = _priceUpdate.Bid;
-                _priceUpdate.Close = _priceUpdate.Ask;
-                _priceUpdate.High = _priceUpdate.Ask;
-                _priceUpdate.Low = _priceUpdate.Bid;
-                _priceUpdate.Volume = 0;
-                _priceUpdate.Volume += _priceUpdate.BidSize;
-                _priceUpdate.Volume -= _priceUpdate.AskSize;
+                 _priceUpdates[tickerId].Time = epochTimeMinute;
+                 _priceUpdates[tickerId].Open =  _priceUpdates[tickerId].Bid;
+                 _priceUpdates[tickerId].Close =  _priceUpdates[tickerId].Ask;
+                 _priceUpdates[tickerId].High =  _priceUpdates[tickerId].Ask;
+                 _priceUpdates[tickerId].Low =  _priceUpdates[tickerId].Bid;
+                 _priceUpdates[tickerId].Volume = 0;
+                 _priceUpdates[tickerId].Volume +=  _priceUpdates[tickerId].BidSize;
+                 _priceUpdates[tickerId].Volume -=  _priceUpdates[tickerId].AskSize;
             }
             else
             {
-                _priceUpdate.Close = _priceUpdate.Ask;
-                _priceUpdate.High = _priceUpdate.Ask > _priceUpdate.High ? _priceUpdate.Ask : _priceUpdate.High;
-                _priceUpdate.Low = _priceUpdate.Bid < _priceUpdate.Low ? _priceUpdate.Bid : _priceUpdate.Low;
-                _priceUpdate.Volume += _priceUpdate.BidSize;
-                _priceUpdate.Volume -= _priceUpdate.AskSize;
-            }
-
-            if (epochTimeHour != _priceUpdate.Time)
-            {
-                _priceUpdate.ParentTimeFrame.Time = epochTimeHour;
-                _priceUpdate.ParentTimeFrame.Open = _priceUpdate.Bid;
-                _priceUpdate.ParentTimeFrame.Close = _priceUpdate.Ask;
-                _priceUpdate.ParentTimeFrame.High = _priceUpdate.Ask;
-                _priceUpdate.ParentTimeFrame.Low = _priceUpdate.Bid;
-                _priceUpdate.ParentTimeFrame.Volume = 0;
-                _priceUpdate.ParentTimeFrame.Volume += _priceUpdate.BidSize;
-                _priceUpdate.ParentTimeFrame.Volume -= _priceUpdate.AskSize;
-            }
-            else
-            {
-                _priceUpdate.ParentTimeFrame.Close = _priceUpdate.Ask;
-                _priceUpdate.ParentTimeFrame.High = _priceUpdate.Ask > _priceUpdate.ParentTimeFrame.High ? _priceUpdate.Ask : _priceUpdate.ParentTimeFrame.High;
-                _priceUpdate.ParentTimeFrame.Low = _priceUpdate.Bid < _priceUpdate.ParentTimeFrame.Low ? _priceUpdate.Bid : _priceUpdate.ParentTimeFrame.Low;
-                _priceUpdate.ParentTimeFrame.Volume += _priceUpdate.BidSize;
-                _priceUpdate.ParentTimeFrame.Volume -= _priceUpdate.AskSize;
+                 _priceUpdates[tickerId].Close =  _priceUpdates[tickerId].Ask;
+                 _priceUpdates[tickerId].High =  _priceUpdates[tickerId].Ask >  _priceUpdates[tickerId].High ?  _priceUpdates[tickerId].Ask :  _priceUpdates[tickerId].High;
+                 _priceUpdates[tickerId].Low =  _priceUpdates[tickerId].Bid <  _priceUpdates[tickerId].Low ?  _priceUpdates[tickerId].Bid :  _priceUpdates[tickerId].Low;
+                 _priceUpdates[tickerId].Volume +=  _priceUpdates[tickerId].BidSize;
+                 _priceUpdates[tickerId].Volume -=  _priceUpdates[tickerId].AskSize;
             }
         }
 

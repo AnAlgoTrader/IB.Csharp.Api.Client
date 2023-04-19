@@ -21,40 +21,40 @@ namespace IB.Api.Client
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void Error(string errorMsg)
+        public void Error(string message)
         {
             var notification = new Notification
             {
                 At = DateTime.Now,
                 Id = 0,
                 Code = 0,
-                Message = errorMsg,
-                NotificationType = NotificationType.Error
+                Message = message,
+                NotificationType = GetNotificationType(message)
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void Error(int id, int errorCode, string errorMsg, string advancedOrderRejectJson)
+        public void Error(int id, int errorCode, string message, string advancedOrderRejectJson)
         {
             var notification = new Notification
             {
                 At = DateTime.Now,
                 Id = 0,
                 Code = 0,
-                Message = errorMsg,
-                NotificationType = NotificationType.Error,
+                Message = message,
+                NotificationType = GetNotificationType(message),
                 AdvancedOrderRejectJson = advancedOrderRejectJson
             };
             NotificationReceived?.Invoke(this, notification);
         }
-        public void Error(int id, int code, string errorMsg)
+        public void Error(int id, int code, string message)
         {
             var notification = new Notification
             {
                 At = DateTime.Now,
                 Id = id,
                 Code = code,
-                Message = errorMsg,
-                NotificationType = errorMsg.IndexOf("ERROR", StringComparison.OrdinalIgnoreCase) >= 0 ? NotificationType.Error : NotificationType.Information
+                Message = message,
+                NotificationType = GetNotificationType(message)
             };
             NotificationReceived?.Invoke(this, notification);
         }
@@ -66,7 +66,7 @@ namespace IB.Api.Client
                 Id = 0,
                 Code = 0,
                 Message = message,
-                NotificationType = NotificationType.Information
+                NotificationType = GetNotificationType(message)
             };
             NotificationReceived?.Invoke(this, notification);
         }
@@ -78,7 +78,7 @@ namespace IB.Api.Client
                 Id = 0,
                 Code = 0,
                 Message = message,
-                NotificationType = NotificationType.Error
+                NotificationType = GetNotificationType(message)
             };
             NotificationReceived?.Invoke(this, notification);
         }
@@ -89,6 +89,17 @@ namespace IB.Api.Client
         public void ConnectionClosed()
         {
             Notify("Connection Closed");
+        }
+
+        public NotificationType GetNotificationType(string message)
+        {
+            if (message.Contains("data farm connection is OK"))
+                return NotificationType.OK;
+
+            if (message.Contains("data farm connection is inactive"))
+                return NotificationType.Error;
+
+            return NotificationType.Information;
         }
     }
 }

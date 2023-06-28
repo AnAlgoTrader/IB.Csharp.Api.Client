@@ -131,7 +131,6 @@ namespace IB.Api.Client
                     }
             }
         }
-
         private void SetPriceBar(int tickerId)
         {
             var tzi = TimeZoneInfo.FindSystemTimeZoneById("US/Central");
@@ -159,7 +158,6 @@ namespace IB.Api.Client
                  _priceUpdates[tickerId].Volume -=  _priceUpdates[tickerId].AskSize;
             }
         }
-
         public virtual void TickString(int tickerId, int tickType, string value) { }
         public virtual void TickGeneric(int tickerId, int field, double value) { }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, decimal volume, decimal WAP, int count)

@@ -80,9 +80,14 @@ namespace IB.Api.Client.Helper
             });
         }
 
-        public static void RequestFutureContract(IBClient ibClient, string symbol)
+        public static void RequestFuturesContract(IBClient ibClient, string symbol)
         {
             ibClient.GetContractDetails(symbol, SecurityType.FUT);
+        }
+
+        public static void RequestOptionsContract(IBClient ibClient, string symbol, SecurityType securityType)
+        {
+            ibClient.GetContractDetails(symbol, securityType);
         }
 
         public static void RequestComodityContract(IBClient ibClient, string symbol, string currency)

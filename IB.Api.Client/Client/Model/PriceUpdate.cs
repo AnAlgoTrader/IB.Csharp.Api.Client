@@ -51,5 +51,11 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("vwap")]
         public double Vwap { get; set; }
+
+        [JsonProperty("ema1")]
+        public double Ema1 { get; set; }
+
+        [JsonProperty("ema2")]
+        public double Ema2 { get; set; }
     }
 }

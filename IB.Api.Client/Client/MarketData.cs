@@ -19,6 +19,7 @@ namespace IB.Api.Client
         public void SubscribeToTimeAndSales(int reqId, Contract contract)
         {
             ClientSocket.ReqTickByTickData(reqId, contract, "BidAsk", 0, true);
+            Notify($"Time and sales for symbol {contract.Symbol} requested");
         }
         public void SubscribeToRealTimePrice(int tickerId, Contract contract)
         {
@@ -27,6 +28,7 @@ namespace IB.Api.Client
                 TickerId = tickerId
             });
             ClientSocket.ReqMktData(tickerId, contract, "221", false, false, null);
+            Notify($"Real time data for symbol {contract.Symbol} requested");
         }
         public void SubscribeToDefaultBar(Contract contract)
         {
@@ -105,28 +107,29 @@ namespace IB.Api.Client
         }
         public void MarketDataType(int tickerId, int marketDataType)
         {
-             _priceUpdates[tickerId].MarketDataType = marketDataType;
+            _priceUpdates[tickerId].MarketDataType = marketDataType;
         }
         public void TickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
-             _priceUpdates[tickerId].MinTick = minTick;
-             _priceUpdates[tickerId].BboExchange = bboExchange;
-             _priceUpdates[tickerId].SnapshotPermissions = snapshotPermissions;
+            _priceUpdates[tickerId].MinTick = minTick;
+            _priceUpdates[tickerId].BboExchange = bboExchange;
+            _priceUpdates[tickerId].SnapshotPermissions = snapshotPermissions;
         }
         public virtual void TickSize(int tickerId, int field, decimal size)
         {
+            //Console.WriteLine($"TickSize - field:{field} size:{size}");
             switch (field)
             {
                 case 0:
                     {
-                         _priceUpdates[tickerId].BidSize = size;
+                        _priceUpdates[tickerId].BidSize = size;
                         break;
                     }
                 case 3:
                     {
-                         _priceUpdates[tickerId].AskSize = size;
+                        _priceUpdates[tickerId].AskSize = size;
                         SetPriceBar(tickerId);
-                        PriceUpdateReceived?.Invoke(this,  _priceUpdates[tickerId]);
+                        PriceUpdateReceived?.Invoke(this, _priceUpdates[tickerId]);
                         break;
                     }
             }
@@ -138,32 +141,40 @@ namespace IB.Api.Client
             var epochTimeMinute = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
             var epochTimeHour = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0));
 
-            if (epochTimeMinute !=  _priceUpdates[tickerId].Time)
+            if (epochTimeMinute != _priceUpdates[tickerId].Time)
             {
-                 _priceUpdates[tickerId].Time = epochTimeMinute;
-                 _priceUpdates[tickerId].Open =  _priceUpdates[tickerId].Bid;
-                 _priceUpdates[tickerId].Close =  _priceUpdates[tickerId].Ask;
-                 _priceUpdates[tickerId].High =  _priceUpdates[tickerId].Ask;
-                 _priceUpdates[tickerId].Low =  _priceUpdates[tickerId].Bid;
-                 _priceUpdates[tickerId].Volume = 0;
-                 _priceUpdates[tickerId].Volume +=  _priceUpdates[tickerId].BidSize;
-                 _priceUpdates[tickerId].Volume -=  _priceUpdates[tickerId].AskSize;
+                _priceUpdates[tickerId].Time = epochTimeMinute;
+                _priceUpdates[tickerId].Open = _priceUpdates[tickerId].Bid;
+                _priceUpdates[tickerId].Close = _priceUpdates[tickerId].Ask;
+                _priceUpdates[tickerId].High = _priceUpdates[tickerId].Ask;
+                _priceUpdates[tickerId].Low = _priceUpdates[tickerId].Bid;
+                _priceUpdates[tickerId].Volume = 0;
+                _priceUpdates[tickerId].Volume += _priceUpdates[tickerId].BidSize;
+                _priceUpdates[tickerId].Volume -= _priceUpdates[tickerId].AskSize;
             }
             else
             {
-                 _priceUpdates[tickerId].Close =  _priceUpdates[tickerId].Ask;
-                 _priceUpdates[tickerId].High =  _priceUpdates[tickerId].Ask >  _priceUpdates[tickerId].High ?  _priceUpdates[tickerId].Ask :  _priceUpdates[tickerId].High;
-                 _priceUpdates[tickerId].Low =  _priceUpdates[tickerId].Bid <  _priceUpdates[tickerId].Low ?  _priceUpdates[tickerId].Bid :  _priceUpdates[tickerId].Low;
-                 _priceUpdates[tickerId].Volume +=  _priceUpdates[tickerId].BidSize;
-                 _priceUpdates[tickerId].Volume -=  _priceUpdates[tickerId].AskSize;
+                _priceUpdates[tickerId].Close = _priceUpdates[tickerId].Ask;
+                _priceUpdates[tickerId].High = _priceUpdates[tickerId].Ask > _priceUpdates[tickerId].High ? _priceUpdates[tickerId].Ask : _priceUpdates[tickerId].High;
+                _priceUpdates[tickerId].Low = _priceUpdates[tickerId].Bid < _priceUpdates[tickerId].Low ? _priceUpdates[tickerId].Bid : _priceUpdates[tickerId].Low;
+                _priceUpdates[tickerId].Volume += _priceUpdates[tickerId].BidSize;
+                _priceUpdates[tickerId].Volume -= _priceUpdates[tickerId].AskSize;
             }
         }
         public virtual void TickString(int tickerId, int tickType, string value) { }
-        public virtual void TickGeneric(int tickerId, int field, double value) { }
+        public virtual void TickGeneric(int tickerId, int field, double value)
+        {
+            Console.WriteLine($"TickGeneric - field:{field} size:{value}");
+        }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, decimal volume, decimal WAP, int count)
         {
             _ = reqId;
             BarUpdateReceived?.Invoke(this, new RealTimeBarUpdate(date, open, high, low, close, volume, count, WAP));
+        }
+        public void TickOptionComputation(int tickerId, int field,
+        int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
+        {
+            Console.WriteLine($"TickOptionComputation - field {field}");
         }
     }
 }

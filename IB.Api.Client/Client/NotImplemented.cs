@@ -83,14 +83,6 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-        public void SecurityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
-        {
-            throw new NotImplementedException();
-        }
-        public void SecurityDefinitionOptionParameterEnd(int reqId)
-        {
-            throw new NotImplementedException();
-        }
         public void SmartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
         {
             throw new NotImplementedException();
@@ -135,7 +127,6 @@ namespace IB.Api.Client
         {
             throw new NotImplementedException();
         }
-
         public void TickByTickAllLast(int reqId, int tickType, long time, double price, decimal size, TickAttribLast tickAttribLast, string exchange, string specialConditions)
         {
             throw new NotImplementedException();
@@ -149,11 +140,7 @@ namespace IB.Api.Client
             throw new NotImplementedException();
         }
 
-        public void TickOptionComputation(int tickerId, int field,
-        int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
-        {
-            throw new NotImplementedException();
-        }
+
         public void TickSnapshotEnd(int tickerId)
         {
             throw new NotImplementedException();
@@ -211,6 +198,14 @@ namespace IB.Api.Client
             throw new NotImplementedException();
         }
         public void UserInfo(int reqId, string whiteBrandingId)
+        {
+            throw new NotImplementedException();
+        }
+        public void SecurityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
+        {
+            throw new NotImplementedException();
+        }
+        public void SecurityDefinitionOptionParameterEnd(int reqId)
         {
             throw new NotImplementedException();
         }

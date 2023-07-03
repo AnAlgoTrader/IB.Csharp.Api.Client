@@ -117,7 +117,6 @@ namespace IB.Api.Client
         }
         public virtual void TickSize(int tickerId, int field, decimal size)
         {
-            //Console.WriteLine($"TickSize - field:{field} size:{size}");
             switch (field)
             {
                 case 0:
@@ -162,10 +161,7 @@ namespace IB.Api.Client
             }
         }
         public virtual void TickString(int tickerId, int tickType, string value) { }
-        public virtual void TickGeneric(int tickerId, int field, double value)
-        {
-            Console.WriteLine($"TickGeneric - field:{field} size:{value}");
-        }
+        public virtual void TickGeneric(int tickerId, int field, double value) {}
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, decimal volume, decimal WAP, int count)
         {
             _ = reqId;

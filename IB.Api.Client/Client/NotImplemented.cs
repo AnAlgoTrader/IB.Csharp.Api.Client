@@ -200,14 +200,6 @@ namespace IB.Api.Client
         public void UserInfo(int reqId, string whiteBrandingId)
         {
             throw new NotImplementedException();
-        }
-        public void SecurityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
-        {
-            throw new NotImplementedException();
-        }
-        public void SecurityDefinitionOptionParameterEnd(int reqId)
-        {
-            throw new NotImplementedException();
-        }
+        }        
     }
 }

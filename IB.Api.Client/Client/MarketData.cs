@@ -47,7 +47,6 @@ namespace IB.Api.Client
                 SecType = SecurityType.OPT.ToString()
             };
             ClientSocket.ReqMktData(tickerId, contract, string.Empty, false, false, null);
-            ClientSocket.CalculateImpliedVolatility()
             Notify($"Real time options data for trading class {contract.TradingClass} requested");
         }
         public void SubscribeToDefaultBar(Contract contract)

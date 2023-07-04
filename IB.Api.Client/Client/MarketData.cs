@@ -32,6 +32,24 @@ namespace IB.Api.Client
             ClientSocket.ReqMktData(tickerId, contract, "221", false, false, null);
             Notify($"Real time data for symbol {contract.Symbol} requested");
         }
+        public void SubscribeToOptionsRealTimePrice(int tickerId, string exchange, int underlyingConId, string tradingClass, string multiplier)
+        {
+            _priceUpdates.Add(tickerId, new PriceUpdate
+            {
+                TickerId = tickerId
+            });
+            var contract = new Contract
+            {
+                Exchange = exchange,
+                ConId = underlyingConId, 
+                TradingClass = tradingClass,
+                Multiplier = multiplier,
+                SecType = SecurityType.OPT.ToString()
+            };
+            ClientSocket.ReqMktData(tickerId, contract, string.Empty, false, false, null);
+            ClientSocket.CalculateImpliedVolatility()
+            Notify($"Real time options data for trading class {contract.TradingClass} requested");
+        }
         public void SubscribeToDefaultBar(Contract contract)
         {
             ClientSocket.ReqRealTimeBars(1074, contract, 0, nameof(WhatToShow.TRADES), false, null);
@@ -191,11 +209,10 @@ namespace IB.Api.Client
                 Expirations = expirations,
                 Strikes = strikes
             });
-            OptionParametersReceived?.Invoke(this, _optionParameterDefinitions);
         }
         public void SecurityDefinitionOptionParameterEnd(int reqId)
         {
-            Console.WriteLine("SecurityDefinitionOptionParameterEnd");
+            OptionParametersReceived?.Invoke(this, _optionParameterDefinitions);
         }
     }
 }

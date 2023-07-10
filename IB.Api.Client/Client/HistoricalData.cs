@@ -14,7 +14,7 @@ namespace IB.Api.Client
         private Dictionary<int, List<HistoricalTickBidAsk>> _historicalTickBidAsk;
         private Dictionary<int, List<HistoricalTickLast>> _historicalTickLast;
         public event EventHandler<Tuple<int, List<Bar>>> HistoricalDataReceived;
-        public event EventHandler<BarUpdate> HistoricalBarUpdateReceived;
+        public event EventHandler<BarUpdate> HistoricalDataUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTick>>> HistoricalTimeAndSalesTickUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTickBidAsk>>> HistoricalTimeAndSalesTickBidAskUpdateReceived;
         public event EventHandler<Tuple<int, List<HistoricalTickLast>>> HistoricalTimeAndSalesTickLastUpdateReceived;
@@ -93,7 +93,7 @@ namespace IB.Api.Client
                 RequestId = reqId,
                 Bar = bar
             };
-            HistoricalBarUpdateReceived?.Invoke(this, barUpdate);
+            HistoricalDataUpdateReceived?.Invoke(this, barUpdate);
         }
         public void HistoricalTicks(int reqId, HistoricalTick[] ticks, bool done)
         {

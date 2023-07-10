@@ -41,7 +41,7 @@ namespace IB.Api.Client
             var contract = new Contract
             {
                 Exchange = exchange,
-                ConId = underlyingConId, 
+                ConId = underlyingConId,
                 TradingClass = tradingClass,
                 Multiplier = multiplier,
                 SecType = SecurityType.OPT.ToString()
@@ -163,7 +163,6 @@ namespace IB.Api.Client
             var tzi = TimeZoneInfo.FindSystemTimeZoneById("US/Central");
             var now = TimeZoneInfo.ConvertTime(DateTime.Now, tzi); ;
             var epochTimeMinute = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
-            var epochTimeHour = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0));
 
             if (epochTimeMinute != _priceUpdates[tickerId].Time)
             {

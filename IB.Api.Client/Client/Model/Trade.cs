@@ -64,11 +64,5 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("initialStop")]
         public double InitialStop { get; set; }
-
-        [JsonProperty("exitAt")]
-        public DateTime? ExitAt { get; set; }
-
-        [JsonProperty("exitFillPrice")]
-        public double ExitFillPrice { get; set; }
     }
 }

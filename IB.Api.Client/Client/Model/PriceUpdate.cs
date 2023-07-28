@@ -55,7 +55,7 @@ namespace IB.Api.Client.Model
         [JsonProperty("ema2")]
         public double Ema2 { get; set; }
 
-        [JsonProperty("ema2")]
+        [JsonProperty("ema3")]
         public double Ema3 { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace IB.Api.Client
     //MarketData
     public partial class IBClient
     {
-        private Dictionary<int, PriceUpdate> _priceUpdates = new Dictionary<int, PriceUpdate>();
+        private readonly Dictionary<int, PriceUpdate> _priceUpdates = new Dictionary<int, PriceUpdate>();
         private readonly Dictionary<int, OrderBookUpdate> _orderBookUpdates = new Dictionary<int, OrderBookUpdate>();
         private List<OptionParameterDefinition> _optionParameterDefinitions;
         public event EventHandler<OrderBookUpdate> OrderBookUpdateReceived;

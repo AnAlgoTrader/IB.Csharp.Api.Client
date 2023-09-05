@@ -12,5 +12,9 @@ namespace IB.Api.Client
             Signal = new EReaderMonitorSignal();
             ClientSocket = new EClientSocket(this, Signal);
         }
+
+        public bool IsConnected(){
+            return ClientSocket.IsConnected();
+        }
     }
 }

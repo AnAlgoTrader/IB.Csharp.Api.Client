@@ -194,8 +194,7 @@ namespace IBApi
             {
                 redirectCount = 0;
             }
-
-            base.EDisconnect(resetState);
+            base.EDisconnect(resetState);            
         }
     }
 }

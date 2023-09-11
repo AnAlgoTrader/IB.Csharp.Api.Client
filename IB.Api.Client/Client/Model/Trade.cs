@@ -17,6 +17,9 @@ namespace IB.Api.Client.Model
         [JsonProperty("at")]
         public DateTime? At { get; set; }
 
+        [JsonProperty("atControl")]
+        public DateTime? AtControl { get; set; }
+
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
 

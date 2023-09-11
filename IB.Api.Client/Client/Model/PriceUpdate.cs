@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 
 namespace IB.Api.Client.Model
 {
@@ -9,6 +10,12 @@ namespace IB.Api.Client.Model
         
         [JsonProperty("time")]
         public double Time { get; set; }
+
+        [JsonProperty("timeString")]
+        public string TimeString { get; set; }
+
+        [JsonProperty("dateTime")]
+        public DateTime DateTime { get; set; }
 
         [JsonProperty("open")]
         public double Open { get; set; }

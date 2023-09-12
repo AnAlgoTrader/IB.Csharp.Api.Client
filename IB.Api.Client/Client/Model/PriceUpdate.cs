@@ -9,7 +9,7 @@ namespace IB.Api.Client.Model
         public int TickerId { get; internal set; }
         
         [JsonProperty("time")]
-        public double Time { get; set; }
+        public long Time { get; set; }
 
         [JsonProperty("timeString")]
         public string TimeString { get; set; }

@@ -12,10 +12,10 @@ namespace IB.Api.Client.Helper
         {
             return dateTime.ToString("yyyyMMdd HH:mm:ss");
         }
-        public static DateTime UnixTimeStampToDateTime(double time)
+        public static DateTime UnixTimeStampToDateTime(long time)
         {
-            var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return dateTime.AddSeconds(time).ToLocalTime();
+            var converted = DateTimeOffset.FromUnixTimeSeconds(time);
+            return converted.DateTime;
         }
         public static long DateToEpoch(DateTime date, long multiplier = 1)
         {

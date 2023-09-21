@@ -32,7 +32,7 @@ namespace IB.Api.Client
             ClientSocket.ReqMktData(tickerId, contract, "221", false, false, null);
             Notify($"Real time data for symbol {contract.Symbol} requested");
         }
-        public void SubscribeToOptionsRealTimePrice(int tickerId, string exchange, int underlyingConId, string tradingClass, double strike, string multiplier, Right right)
+        public void SubscribeToOptionsRealTimePrice(int tickerId, OptionParameterDefinition optionParameter, double strike, Right right)
         {
             _priceUpdates.Add(tickerId, new PriceUpdate
             {
@@ -41,10 +41,10 @@ namespace IB.Api.Client
             var contract = new Contract
             {
                 Strike = strike,
-                Exchange = exchange,
-                ConId = underlyingConId,
-                TradingClass = tradingClass,
-                Multiplier = multiplier,
+                Exchange = optionParameter.Exchange,
+                ConId = optionParameter.UnderlyingConId,
+                TradingClass = optionParameter.TradingClass,
+                Multiplier = optionParameter.Multiplier,
                 Right = right.ToString()
             };
             ClientSocket.ReqMktData(tickerId, contract, string.Empty, false, false, null);
@@ -159,7 +159,6 @@ namespace IB.Api.Client
                         break;
                     }
             }
-            //Console.WriteLine($"{tickerId}-{field}-Size:{size}");
         }
         private void SetPriceBar(int tickerId)
         {

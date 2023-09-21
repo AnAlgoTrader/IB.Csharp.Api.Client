@@ -32,7 +32,7 @@ namespace IB.Api.Client
             ClientSocket.ReqMktData(tickerId, contract, "221", false, false, null);
             Notify($"Real time data for symbol {contract.Symbol} requested");
         }
-        public void SubscribeToOptionsRealTimePrice(int tickerId, OptionParameterDefinition optionParameter, double strike, Right right)
+        public void SubscribeToOptionsChainStrike(int tickerId, OptionParameterDefinition optionParameter, double strike, Right right)
         {
             _priceUpdates.Add(tickerId, new PriceUpdate
             {
@@ -45,7 +45,8 @@ namespace IB.Api.Client
                 ConId = optionParameter.UnderlyingConId,
                 TradingClass = optionParameter.TradingClass,
                 Multiplier = optionParameter.Multiplier,
-                Right = right.ToString()
+                Right = right.ToString(),
+                SecType = SecurityType.FOP.ToString()
             };
             ClientSocket.ReqMktData(tickerId, contract, string.Empty, false, false, null);
             Notify($"Real time options data for trading class {contract.TradingClass} requested");
@@ -116,7 +117,7 @@ namespace IB.Api.Client
                         break;
                     }
             }
-            //Console.WriteLine($"{tickerId}-{field}-Price:{price}");
+            //Console.WriteLine($"TickPrice\t Field:{field} Price:{price}");
         }
         public void TickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, decimal bidSize, decimal askSize, TickAttribBidAsk tickAttribBidAsk)
         {
@@ -159,6 +160,7 @@ namespace IB.Api.Client
                         break;
                     }
             }
+            //Console.WriteLine($"TickSize\t Field:{field} Size:{size}");
         }
         private void SetPriceBar(int tickerId)
         {
@@ -188,11 +190,11 @@ namespace IB.Api.Client
         }
         public virtual void TickString(int tickerId, int tickType, string value)
         {
-            //Console.WriteLine($"{tickerId}-{tickType}-Value:{value}");
+            //Console.WriteLine($"TickString\t Field:{tickType} Value:{value}");
         }
         public virtual void TickGeneric(int tickerId, int field, double value)
         {
-            //Console.WriteLine($"{tickerId}-{field}-Value:{value}");
+            //Console.WriteLine($"TickGeneric\t Field:{field} Value:{value}");
         }
         public void RealtimeBar(int reqId, long date, double open, double high, double low, double close, decimal volume, decimal WAP, int count)
         {
@@ -202,7 +204,7 @@ namespace IB.Api.Client
         public void TickOptionComputation(int tickerId, int field,
         int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
-            //Console.WriteLine($"TickOptionComputation - field {field}");
+            Console.WriteLine($"TickOptionComputation - field {field}");
         }
         public void SecurityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {

@@ -166,11 +166,11 @@ namespace IB.Api.Client
         {
             var tzi = TimeZoneInfo.FindSystemTimeZoneById("US/Central");
             var now = TimeZoneInfo.ConvertTime(DateTime.Now, tzi); ;
-            var epochTimeMinute = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0));
+            var epochTimeHour = DateHelper.DateToEpoch(new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0));
 
-            if (epochTimeMinute != _priceUpdates[tickerId].Time)
+            if (epochTimeHour != _priceUpdates[tickerId].Time)
             {
-                _priceUpdates[tickerId].Time = epochTimeMinute;
+                _priceUpdates[tickerId].Time = epochTimeHour;
                 _priceUpdates[tickerId].Open = _priceUpdates[tickerId].Bid;
                 _priceUpdates[tickerId].Close = _priceUpdates[tickerId].Ask;
                 _priceUpdates[tickerId].High = _priceUpdates[tickerId].Ask;

@@ -55,14 +55,5 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("volume")]
         public decimal Volume { get; set; }
-
-        [JsonProperty("ema1")]
-        public double Ema1 { get; set; }
-
-        [JsonProperty("ema2")]
-        public double Ema2 { get; set; }
-
-        [JsonProperty("ema3")]
-        public double Ema3 { get; set; }
     }
 }

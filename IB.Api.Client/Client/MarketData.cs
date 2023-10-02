@@ -209,11 +209,13 @@ namespace IB.Api.Client
                 case 10:
                     {
                         _priceUpdates[tickerId].OptionBid = optPrice;
+                        _priceUpdates[tickerId].Bid = undPrice;
                         break;
                     }
                 case 11:
                     {
                         _priceUpdates[tickerId].OptionAsk = optPrice;
+                        _priceUpdates[tickerId].Ask = undPrice;
                         break;
                     }
             }

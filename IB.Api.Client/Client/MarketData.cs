@@ -29,7 +29,7 @@ namespace IB.Api.Client
             {
                 TickerId = tickerId
             });
-            ClientSocket.ReqMktData(tickerId, contract, "221", false, false, null);
+            ClientSocket.ReqMktData(tickerId, contract, string.Empty, false, false, null);
             Notify($"Real time data for symbol {contract.Symbol} requested");
         }
         public void SubscribeToOptionsChainStrike(int tickerId, OptionParameterDefinition optionParameter, double strike, Right right)
@@ -204,7 +204,7 @@ namespace IB.Api.Client
         public void TickOptionComputation(int tickerId, int field,
         int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
-            Console.WriteLine($"TickOptionComputation - field {field}");
+            //Console.WriteLine($"TickOptionComputation - field:{field} optionPrice:{optPrice}");
         }
         public void SecurityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {

@@ -64,5 +64,11 @@ namespace IB.Api.Client.Model
 
         [JsonProperty("ema3")]
         public double Ema3 { get; set; }
+
+        [JsonProperty("optionBid")]
+        public double OptionBid { get; set; }
+
+        [JsonProperty("optionAsk")]
+        public double OptionAsk { get; set; }
     }
 }

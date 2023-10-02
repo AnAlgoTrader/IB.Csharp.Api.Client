@@ -204,6 +204,19 @@ namespace IB.Api.Client
         public void TickOptionComputation(int tickerId, int field,
         int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
+            switch (field)
+            {
+                case 10:
+                    {
+                        _priceUpdates[tickerId].OptionBid = optPrice;
+                        break;
+                    }
+                case 11:
+                    {
+                        _priceUpdates[tickerId].OptionAsk = optPrice;
+                        break;
+                    }
+            }
             //Console.WriteLine($"TickOptionComputation - field:{field} optionPrice:{optPrice}");
         }
         public void SecurityDefinitionOptionParameter(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)

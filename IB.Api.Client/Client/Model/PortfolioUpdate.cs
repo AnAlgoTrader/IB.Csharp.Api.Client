@@ -1,4 +1,5 @@
 using System;
+using IBApi;
 using Newtonsoft.Json;
 
 namespace IB.Api.Client.Model
@@ -20,8 +21,8 @@ namespace IB.Api.Client.Model
         [JsonProperty("action")]
         public string Action { get; set; }
 
-        [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        [JsonProperty("contract")]
+        public Contract Contract { get; set; }
 
         [JsonProperty("position")]
         public decimal Position { get; set; }

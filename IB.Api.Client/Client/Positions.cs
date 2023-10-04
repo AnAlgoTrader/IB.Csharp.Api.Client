@@ -19,7 +19,7 @@ namespace IB.Api.Client
                 AccountName = accountName,
                 UpdatedOn = DateTime.Now,
                 AverageCost = averageCost,
-                Symbol = contract.Symbol,
+                Contract = contract,
                 Position = position,
                 UnrealizedPnl = unrealizedPNL,
                 RealizedPnl = realizedPNL,

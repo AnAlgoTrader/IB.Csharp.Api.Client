@@ -1,4 +1,5 @@
 using System;
+using IB.Api.Client.Client.Model;
 using IB.Api.Client.Model;
 
 namespace IB.Api.Client
@@ -9,7 +10,7 @@ namespace IB.Api.Client
     public partial class IBClient
     {
         public event EventHandler<Notification> NotificationReceived;
-        public event EventHandler<string> UiNotificationReceived;
+        public event EventHandler<UiNotification> UiNotificationReceived;
         public void Error(Exception e)
         {
             var notification = new Notification
@@ -73,7 +74,12 @@ namespace IB.Api.Client
         }
         public void NotifyUI(string message)
         {
-            UiNotificationReceived?.Invoke(this, message);
+            var uiNotification = new UiNotification
+            {
+                At = DateTime.Now,
+                Message = message
+            };
+            UiNotificationReceived?.Invoke(this, uiNotification);
         }
         public void NotifyError(string message)
         {

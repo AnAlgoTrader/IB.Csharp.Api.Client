@@ -22,8 +22,7 @@ namespace IB.Api.Client
                 Contract = contract,
                 Position = position,
                 UnrealizedPnl = unrealizedPNL,
-                RealizedPnl = realizedPNL,
-                ContractId = contract.ConId
+                RealizedPnl = realizedPNL
             };
             PortfolioUpdateReceived?.Invoke(this, portfolioUpdate);
         }

@@ -29,9 +29,6 @@ namespace IB.Api.Client.Model
         [JsonProperty("buyingPower")]
         public double BuyingPower { get; set; }
 
-        [JsonProperty("cashGbp")]
-        public double CashGbp { get; set; }
-
         [JsonProperty("cashUsd")]
         public double CashUsd { get; set; }
 
@@ -44,8 +41,8 @@ namespace IB.Api.Client.Model
         [JsonProperty("pnl")]
         public string Pnl { get; set; }
 
-        [JsonProperty("cashUsdControl")]
-        public double CashUsdControl { get; set; }
+        [JsonProperty("cashUsdStart")]
+        public double CashUsdStart { get; set; }
 
         [JsonProperty("cashUsdNet")]
         public double CashUsdNet { get; set; }
@@ -56,7 +53,6 @@ namespace IB.Api.Client.Model
             AccountType = key == "AccountType" ? value : AccountType;
             AvailableFunds = key == "AvailableFunds" ? double.Parse(value) : AvailableFunds;
             BuyingPower = key == "BuyingPower" ? double.Parse(value) : BuyingPower;
-            CashGbp = key == "CashBalance" && currency == "GBP" ? double.Parse(value) : CashGbp;
             CashUsd = key == "CashBalance" && currency == "USD" ? double.Parse(value) : CashUsd;
             ExcessLiquidity = key == "ExcessLiquidity" ? double.Parse(value) : ExcessLiquidity;
         }

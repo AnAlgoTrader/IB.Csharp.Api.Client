@@ -16,6 +16,17 @@ namespace IB.Api.Client.Helper
             var pnl = trades.Where(x => x.ParentTrade.TradeAction == portfolioUpdate.Action).Sum(x => x.ParentTrade.Pnl);
             portfolioUpdate.UnrealizedPnlCalculated = Math.Round(pnl, 2);
         }
+        public static void CalculatePositionPnl(PortfolioUpdate portfolioUpdate, double currentPrice, string multiplier, double comissionPerSide)
+        {
+            var priceDifference = currentPrice - portfolioUpdate.MarketPrice;
+            var pnl = Convert.ToDecimal(priceDifference) * Convert.ToDecimal(multiplier) * portfolioUpdate.Position;
+            var commission = Convert.ToDecimal(comissionPerSide * 3);
+            if (portfolioUpdate.Action == nameof(TradeAction.BUY))
+                portfolioUpdate.UnrealizedPnlCalculated = Math.Round(pnl - commission, 2);
+            else
+                portfolioUpdate.UnrealizedPnlCalculated = Math.Round((pnl * -1.0M) - commission, 2);
+
+        }
         public static decimal CalculateTradePnl(TrailingTrade trade, double currentPrice)
         {
             var priceDifference = currentPrice - trade.ParentTrade.FillPrice;

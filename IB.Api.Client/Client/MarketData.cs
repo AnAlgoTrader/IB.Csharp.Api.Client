@@ -73,7 +73,11 @@ namespace IB.Api.Client
         {
             _optionParameterDefinitions = new List<OptionParameterDefinition>();
             Notify($"Derivatives parameters for symbol {contractDetails.Contract.Symbol} requested");
-            ClientSocket.ReqSecDefOptParams(reqId, contractDetails.UnderSymbol, contractDetails.Contract.Exchange, contractDetails.UnderSecType, contractDetails.UnderConId);
+            
+            if (contractDetails.Contract.SecType == SecurityType.FUT.ToString())
+                ClientSocket.ReqSecDefOptParams(reqId, contractDetails.Contract.Symbol, contractDetails.Contract.Exchange, contractDetails.Contract.SecType, contractDetails.Contract.ConId);
+            else
+                ClientSocket.ReqSecDefOptParams(reqId, contractDetails.Contract.Symbol, string.Empty, contractDetails.Contract.SecType, contractDetails.Contract.ConId);
         }
         public void UpdateMktDepth(int tickerId, int position, int operation, int side, double price, decimal size)
         {

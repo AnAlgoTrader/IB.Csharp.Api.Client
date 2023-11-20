@@ -13,7 +13,6 @@ namespace IB.Api.Client.Helper
         {
             const string dateFormat = "yyyyMMdd:HHmm";
             var output = new List<TradingHours>();
-            var lastTradeDateOrContractMonth = contractDetails.Contract.LastTradeDateOrContractMonth;
             var tradingHours = contractDetails.TradingHours.Split(';');
             foreach (var item in tradingHours)
             {
@@ -28,7 +27,7 @@ namespace IB.Api.Client.Helper
                             Symbol = contractDetails.Contract.Symbol,
                             Start = DateTime.ParseExact(hours[0].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
                             End = DateTime.ParseExact(hours[1].Trim(), dateFormat, CultureInfo.InvariantCulture).ToLocalTime(),
-                            LastTradeDate = DateTime.ParseExact(lastTradeDateOrContractMonth.Trim(), "yyyyMMdd", CultureInfo.InvariantCulture).ToShortDateString()
+                            LastTradeDate = contractDetails.Contract.LastTradeDateOrContractMonth != null ? DateTime.ParseExact(contractDetails.Contract.LastTradeDateOrContractMonth.Trim(), "yyyyMMdd", CultureInfo.InvariantCulture).ToShortDateString() : ""
                         };
                         output.Add(tradingHour);
                     }
@@ -83,6 +82,11 @@ namespace IB.Api.Client.Helper
         public static void RequestFuturesContract(IBClient ibClient, string symbol)
         {
             ibClient.GetContractDetails(symbol, SecurityType.FUT);
+        }
+
+        public static void RequestIndexContract(IBClient ibClient, string symbol)
+        {
+            ibClient.GetContractDetails(symbol, SecurityType.IND);
         }
 
         public static void RequestOptionsContract(IBClient ibClient, string symbol, SecurityType securityType)

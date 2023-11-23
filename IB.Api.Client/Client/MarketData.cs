@@ -51,9 +51,9 @@ namespace IB.Api.Client
             ClientSocket.ReqMktData(tickerId, contract, string.Empty, false, false, null);
             Notify($"Real time options data for trading class {contract.TradingClass} requested");
         }
-        public void SubscribeToDefaultBar(Contract contract)
+        public void SubscribeToDefaultBar(int tickerId, Contract contract)
         {
-            ClientSocket.ReqRealTimeBars(1074, contract, 0, nameof(WhatToShow.TRADES), false, null);
+            ClientSocket.ReqRealTimeBars(tickerId, contract, 0, nameof(WhatToShow.TRADES), false, null);
         }
         public void ReqMarketDepth(int reqId, Contract contract, double ratio)
         {
